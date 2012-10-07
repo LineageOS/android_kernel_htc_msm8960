@@ -383,7 +383,7 @@ enum {
  * 3A, 4K x 15 + 8K x 3
  * ALIGH INTERGER + 1MB
  */
-#define MSM_ION_MM_SIZE		0x3F00000
+#define MSM_ION_MM_SIZE		0x5400000
 #else
 #define MSM_ION_MM_SIZE		MSM_PMEM_ADSP_SIZE - MSM_PMEM_ADSP2_SIZE
 #endif
