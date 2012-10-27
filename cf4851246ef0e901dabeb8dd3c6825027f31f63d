@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAAaH//9bg\u003d",
+        "filename": "arch/arm/mach-msm/board-ville.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 4166,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2012-10-27T13:35:14Z",
+      "side": 1,
+      "message": "kernel code uses 4 space wide tabs for indentation",
+      "revId": "cf4851246ef0e901dabeb8dd3c6825027f31f63d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAaH//9bc\u003d",
+        "filename": "arch/arm/mach-msm/board-ville.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 4172,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2012-10-27T13:35:14Z",
+      "side": 1,
+      "message": "tabs again",
+      "revId": "cf4851246ef0e901dabeb8dd3c6825027f31f63d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
