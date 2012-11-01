@@ -879,6 +879,8 @@ static int mipi_dsi_panel_power(int on)
 	char *lcmio_str = "8921_lvs5";
 	char *dsivdd_str = "8921_l2";
 
+	PR_DISP_INFO("%s: panel_type: 0x%x\n", __func__, panel_type);
+
 	/* To avoid system crash in shutdown for non-panel case */
 	if (panel_type == PANEL_ID_NONE)
 		return -ENODEV;
