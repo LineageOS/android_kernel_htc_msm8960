@@ -314,7 +314,7 @@ void jet_lcd_id_power(int pull)
 
 #define MSM_PMEM_ADSP_SIZE         0x6D00000
 #define MSM_PMEM_ADSP2_SIZE        0x730000
-#define MSM_PMEM_AUDIO_SIZE        0x2B4000
+#define MSM_PMEM_AUDIO_SIZE        0x4CF000
 #ifdef CONFIG_MSM_IOMMU
 #define MSM_PMEM_SIZE 0x00000000 /* 0 Mbytes */
 #else
@@ -323,7 +323,7 @@ void jet_lcd_id_power(int pull)
 #define MSM_LIQUID_PMEM_SIZE 0x4000000 /* 64 Mbytes */
 
 #ifdef CONFIG_MSM_MULTIMEDIA_USE_ION
-#define MSM_PMEM_KERNEL_EBI1_SIZE  0x280000
+#define MSM_PMEM_KERNEL_EBI1_SIZE  0x65000
 #define MSM_ION_SF_SIZE		MSM_PMEM_SIZE
 #define MSM_ION_MM_FW_SIZE	0x200000 /* (2MB) */
 #ifdef CONFIG_MSM_IOMMU
@@ -341,10 +341,11 @@ void jet_lcd_id_power(int pull)
 #define MSM_ION_ROTATOR_SIZE	MSM_PMEM_ADSP2_SIZE
 #define MSM_ION_QSECOM_SIZE	0x100000 /* (1MB) */
 #define MSM_ION_MFC_SIZE	0x100000  //SZ_8K
+#define MSM_ION_AUDIO_SIZE	MSM_PMEM_AUDIO_SIZE
 #ifdef CONFIG_MSM_IOMMU
-#define MSM_ION_HEAP_NUM	7
-#else
 #define MSM_ION_HEAP_NUM	8
+#else
+#define MSM_ION_HEAP_NUM	9
 #endif
 #define MSM_LIQUID_ION_MM_SIZE (MSM_ION_MM_SIZE + 0x600000)
 static unsigned int msm_ion_cp_mm_size = MSM_ION_MM_SIZE;
@@ -419,7 +420,6 @@ static struct platform_device android_pmem_adsp_device = {
 	.id = 2,
 	.dev = { .platform_data = &android_pmem_adsp_pdata },
 };
-#endif
 
 static struct android_pmem_platform_data android_pmem_audio_pdata = {
 	.name = "pmem_audio",
@@ -433,6 +433,7 @@ static struct platform_device android_pmem_audio_device = {
 	.id = 4,
 	.dev = { .platform_data = &android_pmem_audio_pdata },
 };
+#endif
 #endif
 
 struct fmem_platform_data fmem_pdata = {
@@ -490,15 +491,19 @@ static void __init size_pmem_devices(void)
 	if (!pmem_param_set && machine_is_msm8960_liquid())
 		pmem_size = MSM_LIQUID_PMEM_SIZE;
 	android_pmem_pdata.size = pmem_size;
-#endif
 	android_pmem_audio_pdata.size = MSM_PMEM_AUDIO_SIZE;
+#endif
 #endif
 }
 
+#ifdef CONFIG_ANDROID_PMEM
+#ifndef CONFIG_MSM_MULTIMEDIA_USE_ION
 static void __init reserve_memory_for(struct android_pmem_platform_data *p)
 {
 	msm8960_reserve_table[p->memory_type].size += p->size;
 }
+#endif
+#endif
 
 static void __init reserve_pmem_memory(void)
 {
@@ -506,8 +511,8 @@ static void __init reserve_pmem_memory(void)
 #ifndef CONFIG_MSM_MULTIMEDIA_USE_ION
 	reserve_memory_for(&android_pmem_adsp_pdata);
 	reserve_memory_for(&android_pmem_pdata);
-#endif
 	reserve_memory_for(&android_pmem_audio_pdata);
+#endif
 	msm8960_reserve_table[MEMTYPE_EBI1].size += pmem_kernel_ebi1_size;
 #endif
 }
@@ -619,6 +624,14 @@ static struct ion_platform_data ion_pdata = {
 			.memory_type = ION_EBI_TYPE,
 			.extra_data = (void *) &co_ion_pdata,
 		},
+		{
+			.id	= ION_AUDIO_HEAP_ID,
+			.type	= ION_HEAP_TYPE_CARVEOUT,
+			.name	= ION_AUDIO_HEAP_NAME,
+			.size	= MSM_ION_AUDIO_SIZE,
+			.memory_type = ION_EBI_TYPE,
+			.extra_data = (void *) &co_ion_pdata,
+		},
 #endif
 	}
 };
@@ -658,6 +671,7 @@ static void reserve_ion_memory(void)
 	msm8960_reserve_table[MEMTYPE_EBI1].size += MSM_ION_SF_SIZE;
 	msm8960_reserve_table[MEMTYPE_EBI1].size += MSM_ION_MFC_SIZE;
 	msm8960_reserve_table[MEMTYPE_EBI1].size += MSM_ION_QSECOM_SIZE;
+	msm8960_reserve_table[MEMTYPE_EBI1].size += MSM_ION_AUDIO_SIZE;
 #endif
 }
 
@@ -5103,8 +5117,8 @@ static struct platform_device *common_devices[] __initdata = {
 #ifndef CONFIG_MSM_MULTIMEDIA_USE_ION
 	&android_pmem_device,
 	&android_pmem_adsp_device,
-#endif
 	&android_pmem_audio_device,
+#endif
 #endif
 	&msm_fb_device,
 	&msm_device_vidc,
