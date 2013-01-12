@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAAcn//+VY\u003d",
+        "filename": "arch/arm/mach-msm/include/mach/restart.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-01-12T06:37:56Z",
+      "side": 1,
+      "message": "the function signature of the implementation didn\u0027t need to be changed?",
+      "revId": "bd7533369f33010c028aa517a5619c9b69caf8e4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAcn//+Vc\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4058,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-01-12T06:37:56Z",
+      "side": 1,
+      "message": "what is the WPT_INLINE attribute being used here for?",
+      "revId": "bd7533369f33010c028aa517a5619c9b69caf8e4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAcn//+Vs\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4519,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-01-12T06:37:56Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "bd7533369f33010c028aa517a5619c9b69caf8e4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAcn//+Vo\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4535,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-01-12T06:37:56Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "bd7533369f33010c028aa517a5619c9b69caf8e4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAcn//+Vk\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4551,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-01-12T06:37:56Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "bd7533369f33010c028aa517a5619c9b69caf8e4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAcn//+Vg\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4567,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-01-12T06:37:56Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "bd7533369f33010c028aa517a5619c9b69caf8e4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
