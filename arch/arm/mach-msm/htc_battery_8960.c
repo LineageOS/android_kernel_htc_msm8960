@@ -40,6 +40,9 @@
 #include <mach/htc_charger.h>
 #include <mach/htc_battery_cell.h>
 
+#ifdef CONFIG_FORCE_FAST_CHARGE
+#include <linux/fastchg.h>
+#endif
 
 /* disable charging reason */
 #define HTC_BATT_CHG_DIS_BIT_EOC	(1)
@@ -534,163 +537,105 @@ static void cable_status_notifier_func(enum usb_connect_type online)
 	first_update = 0;
 
 	switch (online) {
-	case CONNECT_TYPE_USB:
-		BATT_LOG("USB charger");
-		htc_charger_event_notify(HTC_CHARGER_EVENT_SRC_USB);
+        case CONNECT_TYPE_USB:
+	#ifdef CONFIG_FORCE_FAST_CHARGE
+		/* If forced fast charge is enabled "always" or if no USB device detected, go AC */
+		if ((force_fast_charge == FAST_CHARGE_FORCE_AC) ||
+		    (force_fast_charge == FAST_CHARGE_FORCE_AC_IF_NO_USB &&
+                     USB_peripheral_detected == USB_ACC_NOT_DETECTED        )) {
+			BATT_LOG("cable USB forced to AC");
+			is_fast_charge_forced = FAST_CHARGE_FORCED;
+			current_charge_mode = CURRENT_CHARGE_MODE_AC;
+			htc_batt_info.rep.charging_source = CHARGER_AC;
+			radio_set_cable_status(CHARGER_AC);
+		} else {
+			BATT_LOG("cable USB not forced to AC");
+			is_fast_charge_forced = FAST_CHARGE_NOT_FORCED;
+			current_charge_mode = CURRENT_CHARGE_MODE_USB;
+			htc_batt_info.rep.charging_source = CHARGER_USB;
+			radio_set_cable_status(CHARGER_USB);
+		}
+#else
+		BATT_LOG("cable USB");
+		htc_batt_info.rep.charging_source = CHARGER_USB;
 		radio_set_cable_status(CHARGER_USB);
+#endif
 		break;
 	case CONNECT_TYPE_AC:
-		BATT_LOG("5V AC charger");
-		htc_charger_event_notify(HTC_CHARGER_EVENT_SRC_AC);
+		BATT_LOG("cable AC");
+#ifdef CONFIG_FORCE_FAST_CHARGE
+			current_charge_mode = CURRENT_CHARGE_MODE_AC;
+#endif
+		htc_batt_info.rep.charging_source = CHARGER_AC;
 		radio_set_cable_status(CHARGER_AC);
 		break;
 	case CONNECT_TYPE_WIRELESS:
-		BATT_LOG("wireless charger (not supported)");
-		htc_charger_event_notify(HTC_CHARGER_EVENT_SRC_WIRELESS);
+		BATT_LOG("cable wireless");
+		htc_batt_info.rep.charging_source = CHARGER_WIRELESS;
 		radio_set_cable_status(CHARGER_WIRELESS);
 		break;
 	case CONNECT_TYPE_UNKNOWN:
 		BATT_ERR("unknown cable");
-		htc_charger_event_notify(HTC_CHARGER_EVENT_SRC_USB);
+#ifdef CONFIG_FORCE_FAST_CHARGE
+			current_charge_mode = CURRENT_CHARGE_MODE_USB;
+#endif
+		htc_batt_info.rep.charging_source = CHARGER_USB;
 		break;
 	case CONNECT_TYPE_INTERNAL:
-		BATT_LOG("delivers power to VBUS from battery (not supported)");
-		/* htc_battery_set_charging(POWER_SUPPLY_ENABLE_INTERNAL);
+		BATT_LOG("delivers power to VBUS from battery");
+		htc_battery_set_charging(POWER_SUPPLY_ENABLE_INTERNAL);
 		mutex_unlock(&htc_batt_info.info_lock);
-		return; */
-		break;
+		return;
 	case CONNECT_TYPE_NONE:
-		BATT_LOG("No cable exists");
-		htc_charger_event_notify(HTC_CHARGER_EVENT_SRC_NONE);
-		radio_set_cable_status(CHARGER_BATTERY);
-		break;
 	default:
-		BATT_LOG("unsupported connect_type=%d", online);
-		htc_charger_event_notify(HTC_CHARGER_EVENT_SRC_NONE);
+		BATT_LOG("No cable exists");
+		htc_batt_info.rep.charging_source = CHARGER_BATTERY;
 		radio_set_cable_status(CHARGER_BATTERY);
 		break;
 	}
-#if 0 /* MATT check porting */
 	htc_batt_timer.alarm_timer_flag =
 			(unsigned int)htc_batt_info.rep.charging_source;
+	mutex_unlock(&htc_batt_info.info_lock);
+
+	scnprintf(message, 16, "CHG_SOURCE=%d",
+					htc_batt_info.rep.charging_source);
 
 	update_wake_lock(htc_batt_info.rep.charging_source);
-#endif
-	mutex_unlock(&cable_notifier_lock);
+
+	kobject_uevent_env(&htc_batt_info.batt_cable_kobj, KOBJ_CHANGE, envp);
 }
 
 static int htc_battery_set_charging(int ctl)
 {
 	int rc = 0;
-/* MATT porting
+
 	if (htc_batt_info.charger == SWITCH_CHARGER_TPS65200)
 		rc = tps_set_charger_ctrl(ctl);
-*/
+
 	return rc;
-}
-
-static void __context_event_handler(enum batt_context_event event)
-{
-	pr_info("[BATT] handle context event(%d)\n", event);
-
-	switch (event) {
-	case EVENT_TALK_START:
-		if (chg_limit_active_mask & HTC_BATT_CHG_LIMIT_BIT_TALK) {
-			chg_limit_reason |= HTC_BATT_CHG_LIMIT_BIT_TALK;
-			if (htc_batt_info.icharger &&
-					htc_batt_info.icharger->set_limit_charge_enable)
-				htc_batt_info.icharger->set_limit_charge_enable(true);
-		}
-		suspend_highfreq_check_reason |= SUSPEND_HIGHFREQ_CHECK_BIT_TALK;
-		break;
-	case EVENT_TALK_STOP:
-		if (chg_limit_active_mask & HTC_BATT_CHG_LIMIT_BIT_TALK) {
-			chg_limit_reason &= ~HTC_BATT_CHG_LIMIT_BIT_TALK;
-			if (!chg_limit_reason &&
-					htc_batt_info.icharger &&
-					htc_batt_info.icharger->set_limit_charge_enable)
-				htc_batt_info.icharger->set_limit_charge_enable(false);
-		}
-		suspend_highfreq_check_reason &= ~SUSPEND_HIGHFREQ_CHECK_BIT_TALK;
-		break;
-	case EVENT_NAVIGATION_START:
-		if (chg_limit_active_mask & HTC_BATT_CHG_LIMIT_BIT_NAVI) {
-			chg_limit_reason |= HTC_BATT_CHG_LIMIT_BIT_NAVI;
-			if (htc_batt_info.icharger &&
-					htc_batt_info.icharger->set_limit_charge_enable)
-				htc_batt_info.icharger->set_limit_charge_enable(true);
-		}
-		break;
-	case EVENT_NAVIGATION_STOP:
-		if (chg_limit_active_mask & HTC_BATT_CHG_LIMIT_BIT_NAVI) {
-			chg_limit_reason &= ~HTC_BATT_CHG_LIMIT_BIT_NAVI;
-			if (!chg_limit_reason &&
-					htc_batt_info.icharger &&
-					htc_batt_info.icharger->set_limit_charge_enable)
-				htc_batt_info.icharger->set_limit_charge_enable(false);
-		}
-		break;
-	case EVENT_NETWORK_SEARCH_START:
-		suspend_highfreq_check_reason |= SUSPEND_HIGHFREQ_CHECK_BIT_SEARCH;
-		break;
-	case EVENT_NETWORK_SEARCH_STOP:
-		suspend_highfreq_check_reason &= ~SUSPEND_HIGHFREQ_CHECK_BIT_SEARCH;
-		break;
-	default:
-		pr_warn("unsupported context event (%d)\n", event);
-		return;
-	}
-
-	htc_batt_schedule_batt_info_update();
 }
 
 struct mutex context_event_handler_lock; /* synchroniz context_event_handler */
 static int htc_batt_context_event_handler(enum batt_context_event event)
 {
-	int prev_context_state;
 
 	mutex_lock(&context_event_handler_lock);
-	prev_context_state = context_state;
-	/* STEP.1: check if state not changed then return */
 	switch (event) {
 	case EVENT_TALK_START:
-		if (context_state & CONTEXT_STATE_BIT_TALK)
-			goto exit;
-		context_state |= CONTEXT_STATE_BIT_TALK;
+		htc_batt_phone_call = 1;
 		break;
 	case EVENT_TALK_STOP:
-		if (!(context_state & CONTEXT_STATE_BIT_TALK))
-			goto exit;
-		context_state &= ~CONTEXT_STATE_BIT_TALK;
+		htc_batt_phone_call = 0;
 		break;
 	case EVENT_NETWORK_SEARCH_START:
-		if (context_state & CONTEXT_STATE_BIT_SEARCH)
-			goto exit;
-		context_state |= CONTEXT_STATE_BIT_SEARCH;
 		break;
 	case EVENT_NETWORK_SEARCH_STOP:
-		if (!(context_state & CONTEXT_STATE_BIT_SEARCH))
-			goto exit;
-		context_state &= ~CONTEXT_STATE_BIT_SEARCH;
-		break;
-	case EVENT_NAVIGATION_START:
-		if (context_state & CONTEXT_STATE_BIT_NAVIGATION)
-			goto exit;
-		context_state |= CONTEXT_STATE_BIT_NAVIGATION;
-		break;
-	case EVENT_NAVIGATION_STOP:
-		if (!(context_state & CONTEXT_STATE_BIT_NAVIGATION))
-			goto exit;
-		context_state &= ~CONTEXT_STATE_BIT_NAVIGATION;
 		break;
 	default:
 		pr_warn("unsupported context event (%d)\n", event);
 		goto exit;
 	}
-	BATT_LOG("context_state: 0x%x -> 0x%x", prev_context_state, context_state);
-
-	/* STEP.2: handle incoming event */
-	__context_event_handler(event);
+	BATT_LOG("event: 0x%x", event);
 
 exit:
 	mutex_unlock(&context_event_handler_lock);
@@ -699,43 +644,38 @@ exit:
 
 static int htc_batt_charger_control(enum charger_control_flag control)
 {
+	char message[16] = "CHARGERSWITCH=";
+	char *envp[] = { message, NULL };
 	int ret = 0;
 
-	BATT_LOG("%s: user switch charger to mode: %u", __func__, control);
-	if (control == STOP_CHARGER)
-		chg_dis_user_timer = 1;
-	else if (control == ENABLE_CHARGER)
-		chg_dis_user_timer = 0;
-	else if (control == DISABLE_PWRSRC)
-			pwrsrc_dis_reason |= HTC_BATT_PWRSRC_DIS_BIT_API;
-	else if (control == ENABLE_PWRSRC)
-			pwrsrc_dis_reason &= ~HTC_BATT_PWRSRC_DIS_BIT_API;
-	else if (control == DISABLE_LIMIT_CHARGER) {
-		/* FIXME: remove this control handle */
-		htc_batt_context_event_handler(EVENT_TALK_STOP);
-		return 0;
-	} else if (control == ENABLE_LIMIT_CHARGER) {
-		/* FIXME: remove this control handle */
-		htc_batt_context_event_handler(EVENT_TALK_START);
-		return 0;
-	} else {
-		BATT_LOG("%s: unsupported charger_contorl(%d)", __func__, control);
+	BATT_LOG("%s: switch charger to mode: %u", __func__, control);
+
+	if (control == STOP_CHARGER) {
+		strncat(message, "0", 1);
+		kobject_uevent_env(&htc_batt_info.batt_cable_kobj, KOBJ_CHANGE, envp);
+	} else if (control == ENABLE_CHARGER) {
+		strncat(message, "1", 1);
+		kobject_uevent_env(&htc_batt_info.batt_cable_kobj, KOBJ_CHANGE, envp);
+	} else if (control == ENABLE_LIMIT_CHARGER)
+		ret = tps_set_charger_ctrl(ENABLE_LIMITED_CHG);
+	else if (control == DISABLE_LIMIT_CHARGER)
+		ret = tps_set_charger_ctrl(CLEAR_LIMITED_CHG);
+	else
 		return -1;
-	}
-	htc_batt_schedule_batt_info_update();
+
 	return ret;
 }
 
 static void htc_batt_set_full_level(int percent)
 {
-	if (percent < 0)
-		htc_batt_info.rep.full_level = 0;
-	else if (100 < percent)
-		htc_batt_info.rep.full_level = 100;
-	else
-		htc_batt_info.rep.full_level = percent;
+	char message[16];
+	char *envp[] = { message, NULL };
 
-	BATT_LOG(" set full_level constraint as %d.", percent);
+	BATT_LOG("%s: set full level as %d", __func__, percent);
+
+	scnprintf(message, sizeof(message), "FULL_LEVEL=%d", percent);
+
+	kobject_uevent_env(&htc_batt_info.batt_cable_kobj, KOBJ_CHANGE, envp);
 
 	return;
 }
@@ -745,60 +685,8 @@ static ssize_t htc_battery_show_batt_attr(struct device_attribute *attr,
 {
 	int len = 0;
 
-	/* collect htc_battery vars */
 	len += scnprintf(buf + len, PAGE_SIZE - len,
-			"charging_source: %d;\n"
-			"charging_enabled: %d;\n"
-			"overload: %d;\n"
-			"Percentage(%%): %d;\n"
-			"Percentage_raw(%%): %d;\n",
-			htc_batt_info.rep.charging_source,
-			htc_batt_info.rep.charging_enabled,
-			htc_batt_info.rep.overload,
-			htc_batt_info.rep.level,
-			htc_batt_info.rep.level_raw
-			);
-
-	/* collect gague vars */
-	if (htc_batt_info.igauge) {
-#if 0
-		if (htc_batt_info.igauge->name)
-			len += scnprintf(buf + len, PAGE_SIZE - len,
-				"gauge: %s;\n", htc_batt_info.igauge->name);
-#endif
-		if (htc_batt_info.igauge->get_attr_text)
-			len += htc_batt_info.igauge->get_attr_text(buf + len,
-						PAGE_SIZE - len);
-	}
-
-	/* collect charger vars */
-	if (htc_batt_info.icharger) {
-#if 0
-		if (htc_batt_info.icharger->name)
-			len += scnprintf(buf + len, PAGE_SIZE - len,
-				"charger: %s;\n", htc_batt_info.icharger->name);
-#endif
-		if (htc_batt_info.icharger->get_attr_text)
-			len += htc_batt_info.icharger->get_attr_text(buf + len,
-						PAGE_SIZE - len);
-	}
-	return len;
-}
-
-static ssize_t htc_battery_show_cc_attr(struct device_attribute *attr,
-					char *buf)
-{
-	int len = 0, cc_uah = 0;
-
-	/* collect gague vars */
-	if (htc_batt_info.igauge) {
-		if (htc_batt_info.igauge->get_battery_cc) {
-			htc_batt_info.igauge->get_battery_cc(&cc_uah);
-			len += scnprintf(buf + len, PAGE_SIZE - len,
-				"cc:%d\n", cc_uah);
-		}
-	}
-
+			"%s", htc_batt_info.debug_log);
 	return len;
 }
 
