@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAAen//9vs\u003d",
+        "filename": "fs/ext4/ialloc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1579
+      },
+      "writtenOn": "2013-04-07T05:23:56Z",
+      "side": 1,
+      "message": "That breaks build, requires  https://android.googlesource.com/kernel/common.git/+/7f2aad725951de989ffe30eb4617e39763db8ace",
+      "revId": "64f04a1a06246edb9869ad000b8b41515505cc3d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAen//9vo\u003d",
+        "filename": "fs/ext4/ialloc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1579
+      },
+      "writtenOn": "2013-04-07T05:23:56Z",
+      "side": 1,
+      "message": "same here,see above comment",
+      "revId": "64f04a1a06246edb9869ad000b8b41515505cc3d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
