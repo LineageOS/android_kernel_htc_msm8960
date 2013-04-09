@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAAen//9GQ\u003d",
+        "filename": "arch/arm/configs/fighter_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-04-09T12:23:34Z",
+      "side": 1,
+      "message": "I don\u0027t think this does anything, we are not using the HTC ondemand governor.",
+      "revId": "893e6733d928e59882d1b1632b7d95fd60cb2fe4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
