@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAAfn///to\u003d",
+        "filename": "arch/arm/mach-msm/include/mach/restart.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "The correct way to fix this inlining would be to bring the whole of soc_restart, notify_modem_cache_flush_done into the header I believe.",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAfn///tk\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4519,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "trailing whitespace, also what does WPT_INLINE expand to?",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAfn///tg\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4535,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAfn///tc\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4551,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAfn///tY\u003d",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4567,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAfn///tM\u003d",
+        "filename": "fs/cifs/cifssmb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3480,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "pSMBr changed from a (void **) to void * here.",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAfn///sw\u003d",
+        "filename": "fs/cifs/cifssmb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3509,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-05-07T22:35:18Z",
+      "side": 1,
+      "message": "What was the exact warning triggered here?",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
