@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "hssRoV8",
+        "filename": "arch/arm/mach-msm/include/mach/restart.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2013-05-17T21:49:42Z",
+      "side": 1,
+      "message": "Removing a few inlines isn\u0027t going to appreciably affect performance.  Do you really think it\u0027s worth cluttering the header?",
+      "parentUuid": "AAAAfn///to\u003d",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAAfn///tk\u003d",
         "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-05-07T22:35:18Z",
       "side": 1,
       "message": "trailing whitespace, also what does WPT_INLINE expand to?",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "hvYDIAw",
+        "filename": "drivers/staging/prima/CORE/WDI/CP/inc/wlan_qct_wdi_i.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4519,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2013-05-17T21:49:42Z",
+      "side": 1,
+      "message": "The trailing white-space after data type definition conforms to the rest of the source.  For the sake of uniformity, I think it should stay this way.  A separate commit could be put forward to clean-up all extra line-breaks and white-space.\n\nwlan_qct_os_type.h:  #define WPT_INLINE __inline__",
+      "parentUuid": "AAAAfn///tk\u003d",
       "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
@@ -98,6 +134,24 @@
       "writtenOn": "2013-05-07T22:35:18Z",
       "side": 1,
       "message": "pSMBr changed from a (void **) to void * here.",
+      "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "hpYTvFw",
+        "filename": "fs/cifs/cifssmb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3480,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2013-05-17T21:49:42Z",
+      "side": 1,
+      "message": "These changes were considered acceptable by Linus Torvalds (see comments section for link)",
+      "parentUuid": "AAAAfn///tM\u003d",
       "revId": "d1b518a365aafd44cdbf0623215566a354eb3495",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
