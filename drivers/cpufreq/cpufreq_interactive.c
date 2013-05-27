@@ -29,6 +29,7 @@
 #include <linux/workqueue.h>
 #include <linux/kthread.h>
 #include <linux/slab.h>
+#include <linux/kernel_stat.h>
 #include <asm/cputime.h>
 
 #define CREATE_TRACE_POINTS
@@ -117,6 +118,8 @@ static int boost_val;
 #define DEFAULT_TIMER_SLACK (4 * DEFAULT_TIMER_RATE)
 static int timer_slack_val = DEFAULT_TIMER_SLACK;
 
+static bool io_is_busy;
+
 static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		unsigned int event);
 
@@ -129,6 +132,42 @@ struct cpufreq_governor cpufreq_gov_interactive = {
 	.max_transition_latency = 10000000,
 	.owner = THIS_MODULE,
 };
+
+static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
+						  cputime64_t *wall)
+{
+	u64 idle_time;
+	u64 cur_wall_time;
+	u64 busy_time;
+
+	cur_wall_time = jiffies64_to_cputime64(get_jiffies_64());
+
+	busy_time  = kcpustat_cpu(cpu).cpustat[CPUTIME_USER];
+	busy_time += kcpustat_cpu(cpu).cpustat[CPUTIME_SYSTEM];
+	busy_time += kcpustat_cpu(cpu).cpustat[CPUTIME_IRQ];
+	busy_time += kcpustat_cpu(cpu).cpustat[CPUTIME_SOFTIRQ];
+	busy_time += kcpustat_cpu(cpu).cpustat[CPUTIME_STEAL];
+	busy_time += kcpustat_cpu(cpu).cpustat[CPUTIME_NICE];
+
+	idle_time = cur_wall_time - busy_time;
+	if (wall)
+		*wall = jiffies_to_usecs(cur_wall_time);
+
+	return jiffies_to_usecs(idle_time);
+}
+
+static inline cputime64_t get_cpu_idle_time(unsigned int cpu,
+					    cputime64_t *wall)
+{
+	u64 idle_time = get_cpu_idle_time_us(cpu, wall);
+
+	if (idle_time == -1ULL)
+		idle_time = get_cpu_idle_time_jiffy(cpu, wall);
+	else if (!io_is_busy)
+		idle_time += get_cpu_iowait_time_us(cpu, wall);
+
+	return idle_time;
+}
 
 static void cpufreq_interactive_timer_resched(
 	struct cpufreq_interactive_cpuinfo *pcpu)
@@ -852,6 +891,28 @@ static ssize_t store_boostpulse(struct kobject *kobj, struct attribute *attr,
 static struct global_attr boostpulse =
 	__ATTR(boostpulse, 0200, NULL, store_boostpulse);
 
+static ssize_t show_io_is_busy(struct kobject *kobj,
+			struct attribute *attr, char *buf)
+{
+	return sprintf(buf, "%u\n", io_is_busy);
+}
+
+static ssize_t store_io_is_busy(struct kobject *kobj,
+			struct attribute *attr, const char *buf, size_t count)
+{
+	int ret;
+	unsigned long val;
+
+	ret = kstrtoul(buf, 0, &val);
+	if (ret < 0)
+		return ret;
+	io_is_busy = val;
+	return count;
+}
+
+static struct global_attr io_is_busy_attr = __ATTR(io_is_busy, 0644,
+		show_io_is_busy, store_io_is_busy);
+
 static struct attribute *interactive_attributes[] = {
 	&target_loads_attr.attr,
 	&hispeed_freq_attr.attr,
@@ -862,6 +923,7 @@ static struct attribute *interactive_attributes[] = {
 	&timer_slack.attr,
 	&boost.attr,
 	&boostpulse.attr,
+	&io_is_busy_attr.attr,
 	NULL,
 };
 
