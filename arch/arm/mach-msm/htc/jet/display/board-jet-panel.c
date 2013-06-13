@@ -412,7 +412,6 @@ static struct resource hdmi_msm_resources[] = {
 
 static int hdmi_core_power(int on, int show);
 
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
 static mhl_driving_params jet_driving_params[] = {
 	{
 		.format = HDMI_VFRMT_640x480p60_4_3,
@@ -445,16 +444,14 @@ static mhl_driving_params jet_driving_params[] = {
 		.reg_a6 = 0x0C,
 	},
 };
-#endif
 
 static struct msm_hdmi_platform_data hdmi_msm_data = {
 	.irq = HDMI_IRQ,
 	.enable_5v = hdmi_enable_5v,
 	.core_power = hdmi_core_power,
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
+
 	.driving_params =  jet_driving_params,
-	.dirving_params_count = ARRAY_SIZE(jet_driving_params),
-#endif
+	.driving_params_count = ARRAY_SIZE(jet_driving_params),
 };
 
 static struct platform_device hdmi_msm_device = {
@@ -464,7 +461,9 @@ static struct platform_device hdmi_msm_device = {
 	.resource = hdmi_msm_resources,
 	.dev.platform_data = &hdmi_msm_data,
 };
+#endif 
 
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
 int hdmi_enable_5v(int on)
 {
 	static struct regulator *reg_8921_hdmi_mvs;
