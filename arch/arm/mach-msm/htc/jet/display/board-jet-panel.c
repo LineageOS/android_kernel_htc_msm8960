@@ -19,10 +19,12 @@
 #include <mach/panel_id.h>
 #include <mach/msm_memtypes.h>
 #include <linux/bootmem.h>
-#include <video/msm_hdmi_modes.h>
 
 #include "../devices.h"
 #include "../board-jet.h"
+
+#define HDMI_PANEL_NAME        "hdmi_msm"
+#define TVOUT_PANEL_NAME       "tvout_msm"
 
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MSM_FB_PRIM_BUF_SIZE (1280 * 720 * 4 * 3) /* 4bpp x 3 pages */
@@ -55,13 +57,24 @@
 #define MSM_FB_OVERLAY1_WRITEBACK_SIZE (0)
 #endif  /* CONFIG_FB_MSM_OVERLAY1_WRITEBACK */
 
+static int jet_detect_panel(const char *name)
+{
+	if (!strncmp(name, HDMI_PANEL_NAME,
+		strnlen(HDMI_PANEL_NAME,
+			PANEL_NAME_MAX_LEN)))
+		return 0;
+
+	return -ENODEV;
+}
+
+static struct msm_fb_platform_data msm_fb_pdata = {
+	.detect_client = jet_detect_panel,
+};
+
 static struct resource msm_fb_resources[] = {
 	{
 		.flags = IORESOURCE_DMA,
 	}
-};
-
-static struct msm_fb_platform_data msm_fb_pdata = {
 };
 
 static struct platform_device msm_fb_device = {
@@ -388,235 +401,6 @@ void __init msm8960_mdp_writeback(struct memtype_reserve* reserve_table)
 #endif
 }
 
-#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
-static struct resource hdmi_msm_resources[] = {
-	{
-		.name  = "hdmi_msm_qfprom_addr",
-		.start = 0x00700000,
-		.end   = 0x007060FF,
-		.flags = IORESOURCE_MEM,
-	},
-	{
-		.name  = "hdmi_msm_hdmi_addr",
-		.start = 0x04A00000,
-		.end   = 0x04A00FFF,
-		.flags = IORESOURCE_MEM,
-	},
-	{
-		.name  = "hdmi_msm_irq",
-		.start = HDMI_IRQ,
-		.end   = HDMI_IRQ,
-		.flags = IORESOURCE_IRQ,
-	},
-};
-
-static int hdmi_core_power(int on, int show);
-
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
-static mhl_driving_params jet_driving_params[] = {
-	{
-		.format = HDMI_VFRMT_640x480p60_4_3,
-		.reg_a3 = 0xF4,
-		.reg_a6 = 0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_720x480p60_16_9,
-		.reg_a3 = 0xF4,
-		.reg_a6 = 0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1280x720p60_16_9,
-		.reg_a3 = 0xF4,
-		.reg_a6 = 0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_720x576p50_16_9,
-		.reg_a3 = 0xF4,
-		.reg_a6 = 0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1920x1080p24_16_9,
-		.reg_a3 = 0xF4,
-		.reg_a6 = 0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1920x1080p30_16_9,
-		.reg_a3 = 0xF4,
-		.reg_a6 = 0x0C,
-	},
-};
-#endif
-
-static struct msm_hdmi_platform_data hdmi_msm_data = {
-	.irq = HDMI_IRQ,
-	.enable_5v = hdmi_enable_5v,
-	.core_power = hdmi_core_power,
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
-	.driving_params =  jet_driving_params,
-	.dirving_params_count = ARRAY_SIZE(jet_driving_params),
-#endif
-};
-
-static struct platform_device hdmi_msm_device = {
-	.name = "hdmi_msm",
-	.id = 0,
-	.num_resources = ARRAY_SIZE(hdmi_msm_resources),
-	.resource = hdmi_msm_resources,
-	.dev.platform_data = &hdmi_msm_data,
-};
-
-int hdmi_enable_5v(int on)
-{
-	static struct regulator *reg_8921_hdmi_mvs;
-	static int prev_on;
-	int rc;
-
-	if (on == prev_on)
-		return 0;
-
-	if (!reg_8921_hdmi_mvs) {
-		reg_8921_hdmi_mvs = regulator_get(&hdmi_msm_device.dev,
-					"hdmi_mvs");
-		if (IS_ERR(reg_8921_hdmi_mvs)) {
-			pr_err("'%s' regulator not found, rc=%ld\n",
-				"hdmi_mvs", IS_ERR(reg_8921_hdmi_mvs));
-			reg_8921_hdmi_mvs = NULL;
-			return -ENODEV;
-		}
-	}
-
-	if (on) {
-		rc = regulator_enable(reg_8921_hdmi_mvs);
-		if (rc) {
-			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"8921_hdmi_mvs", rc);
-			return rc;
-		}
-		pr_debug("%s(on): success\n", __func__);
-	} else {
-		rc = regulator_disable(reg_8921_hdmi_mvs);
-		if (rc)
-			pr_warning("'%s' regulator disable failed, rc=%d\n",
-				"8921_hdmi_mvs", rc);
-		pr_debug("%s(off): success\n", __func__);
-	}
-
-	prev_on = on;
-
-	return 0;
-}
-
-static int hdmi_core_power(int on, int show)
-{
-	static struct regulator *reg_8921_l23, *reg_8921_s4;
-	static int prev_on;
-	int rc;
-
-	if (on == prev_on)
-		return 0;
-
-	if (!reg_8921_l23) {
-		reg_8921_l23 = regulator_get(&hdmi_msm_device.dev, "hdmi_avdd");
-		if (IS_ERR(reg_8921_l23)) {
-			pr_err("could not get reg_8921_l23, rc = %ld\n",
-				PTR_ERR(reg_8921_l23));
-			return -ENODEV;
-		}
-		rc = regulator_set_voltage(reg_8921_l23, 1800000, 1800000);
-		if (rc) {
-			pr_err("set_voltage failed for 8921_l23, rc=%d\n", rc);
-			return -EINVAL;
-		}
-	}
-	if (!reg_8921_s4) {
-		reg_8921_s4 = regulator_get(&hdmi_msm_device.dev, "hdmi_vcc");
-		if (IS_ERR(reg_8921_s4)) {
-			pr_err("could not get reg_8921_s4, rc = %ld\n",
-				PTR_ERR(reg_8921_s4));
-			return -ENODEV;
-		}
-		rc = regulator_set_voltage(reg_8921_s4, 1800000, 1800000);
-		if (rc) {
-			pr_err("set_voltage failed for 8921_s4, rc=%d\n", rc);
-			return -EINVAL;
-		}
-	}
-
-	if (on) {
-		rc = regulator_set_optimum_mode(reg_8921_l23, 100000);
-		if (rc < 0) {
-			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
-			return -EINVAL;
-		}
-		rc = regulator_enable(reg_8921_l23);
-		if (rc) {
-			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"hdmi_avdd", rc);
-			return rc;
-		}
-		rc = regulator_enable(reg_8921_s4);
-		if (rc) {
-			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"hdmi_vcc", rc);
-			return rc;
-		}
-		rc = gpio_request(100, "HDMI_DDC_CLK");
-		if (rc) {
-			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
-				"HDMI_DDC_CLK", 100, rc);
-			goto error1;
-		}
-		rc = gpio_request(101, "HDMI_DDC_DATA");
-		if (rc) {
-			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
-				"HDMI_DDC_DATA", 101, rc);
-			goto error2;
-		}
-		rc = gpio_request(102, "HDMI_HPD");
-		if (rc) {
-			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
-				"HDMI_HPD", 102, rc);
-			goto error3;
-		}
-		pr_debug("%s(on): success\n", __func__);
-	} else {
-		gpio_free(100);
-		gpio_free(101);
-		gpio_free(102);
-
-		rc = regulator_disable(reg_8921_l23);
-		if (rc) {
-			pr_err("disable reg_8921_l23 failed, rc=%d\n", rc);
-			return -ENODEV;
-		}
-		rc = regulator_disable(reg_8921_s4);
-		if (rc) {
-			pr_err("disable reg_8921_s4 failed, rc=%d\n", rc);
-			return -ENODEV;
-		}
-		rc = regulator_set_optimum_mode(reg_8921_l23, 100);
-		if (rc < 0) {
-			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
-			return -EINVAL;
-		}
-		pr_debug("%s(off): success\n", __func__);
-	}
-
-	prev_on = on;
-
-	return 0;
-
-error3:
-	gpio_free(101);
-error2:
-	gpio_free(100);
-error1:
-	regulator_disable(reg_8921_l23);
-	regulator_disable(reg_8921_s4);
-	return rc;
-}
-#endif /* CONFIG_FB_MSM_HDMI_MSM_PANEL */
-
 #ifdef CONFIG_FB_MSM_WRITEBACK_MSM_PANEL
 static char wfd_check_mdp_iommu_split_domain(void)
 {
@@ -663,9 +447,6 @@ void __init jet_init_fb(void)
 #ifdef CONFIG_FB_MSM_WRITEBACK_MSM_PANEL
 	platform_device_register(&wfd_panel_device);
 	platform_device_register(&wfd_device);
-#endif
-#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
-	platform_device_register(&hdmi_msm_device);
 #endif
 	platform_device_register(&mipi_dsi_jet_panel_device);
 	msm_fb_register_device("mdp", &mdp_pdata);
