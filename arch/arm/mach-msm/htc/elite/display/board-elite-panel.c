@@ -21,7 +21,6 @@
 #include <mach/panel_id.h>
 #include <mach/msm_memtypes.h>
 #include <linux/bootmem.h>
-#include <video/msm_hdmi_modes.h>
 
 #include "../devices.h"
 #include "../board-elite.h"
@@ -71,6 +70,144 @@ static struct platform_device msm_fb_device = {
 	.resource          = msm_fb_resources,
 	.dev.platform_data = &msm_fb_pdata,
 };
+
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
+static struct resource hdmi_msm_resources[] = {
+	{
+		.name  = "hdmi_msm_qfprom_addr",
+		.start = 0x00700000,
+		.end   = 0x007060FF,
+		.flags = IORESOURCE_MEM,
+	},
+	{
+		.name  = "hdmi_msm_hdmi_addr",
+		.start = 0x04A00000,
+		.end   = 0x04A00FFF,
+		.flags = IORESOURCE_MEM,
+	},
+	{
+		.name  = "hdmi_msm_irq",
+		.start = HDMI_IRQ,
+		.end   = HDMI_IRQ,
+		.flags = IORESOURCE_IRQ,
+	},
+};
+
+#ifdef CONFIG_FB_MSM_HDMI_MHL
+static mhl_driving_params elite_driving_params[] = {
+	{.format = HDMI_VFRMT_640x480p60_4_3,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_720x480p60_16_9,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1280x720p60_16_9,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_720x576p50_16_9,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1920x1080p24_16_9, .reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1920x1080p30_16_9, .reg_a3=0xEC, .reg_a6=0x0C},
+};
+#endif
+
+static int hdmi_core_power(int on, int show);
+
+static struct msm_hdmi_platform_data hdmi_msm_data = {
+	.irq = HDMI_IRQ,
+	.enable_5v = hdmi_enable_5v,
+	.core_power = hdmi_core_power,
+#ifdef CONFIG_FB_MSM_HDMI_MHL
+	.driving_params =  elite_driving_params,
+	.driving_params_count = ARRAY_SIZE(elite_driving_params),
+#endif
+};
+
+static struct platform_device hdmi_msm_device = {
+	.name = "hdmi_msm",
+	.id = 0,
+	.num_resources = ARRAY_SIZE(hdmi_msm_resources),
+	.resource = hdmi_msm_resources,
+	.dev.platform_data = &hdmi_msm_data,
+};
+
+int hdmi_enable_5v(int on)
+{
+	static int prev_on;
+	int rc;
+
+	if (on == prev_on)
+		return 0;
+
+	if (on) {
+		rc = gpio_request(ELITE_GPIO_V_BOOST_5V_EN, "HDMI_BOOST_5V");
+		if (rc) {
+			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
+				"HDMI_BOOST_5V", ELITE_GPIO_V_BOOST_5V_EN, rc);
+			goto error;
+		}
+		gpio_set_value(ELITE_GPIO_V_BOOST_5V_EN, 1);
+		pr_info("%s(on): success\n", __func__);
+	} else {
+		gpio_set_value(ELITE_GPIO_V_BOOST_5V_EN, 0);
+		gpio_free(ELITE_GPIO_V_BOOST_5V_EN);
+		pr_info("%s(off): success\n", __func__);
+	}
+
+	prev_on = on;
+
+	return 0;
+error:
+	return rc;
+}
+
+static int hdmi_core_power(int on, int show)
+{
+	static struct regulator *reg_8921_l23;
+	static int prev_on;
+	int rc;
+
+	if (on == prev_on)
+		return 0;
+
+	if (!reg_8921_l23) {
+		reg_8921_l23 = regulator_get(&hdmi_msm_device.dev, "hdmi_avdd");
+		if (IS_ERR(reg_8921_l23)) {
+			pr_err("could not get reg_8921_l23, rc = %ld\n",
+				PTR_ERR(reg_8921_l23));
+			return -ENODEV;
+		}
+		rc = regulator_set_voltage(reg_8921_l23, 1800000, 1800000);
+		if (rc) {
+			pr_err("set_voltage failed for 8921_l23, rc=%d\n", rc);
+			return -EINVAL;
+		}
+	}
+	if (on) {
+		rc = regulator_set_optimum_mode(reg_8921_l23, 100000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+		rc = regulator_enable(reg_8921_l23);
+		if (rc) {
+			pr_err("'%s' regulator enable failed, rc=%d\n",
+				"hdmi_avdd", rc);
+			return rc;
+		}
+
+		pr_info("%s(on): success\n", __func__);
+	} else {
+		rc = regulator_disable(reg_8921_l23);
+		if (rc) {
+			pr_err("disable reg_8921_l23 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+
+		rc = regulator_set_optimum_mode(reg_8921_l23, 100);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+		pr_info("%s(off): success\n", __func__);
+	}
+	prev_on = on;
+	return rc;
+}
+#endif
 
 uint32_t cfg_panel_te_active[] = {
 	GPIO_CFG(ELITE_GPIO_LCD_TE, 1, GPIO_CFG_INPUT, GPIO_CFG_NO_PULL, GPIO_CFG_2MA)
@@ -395,15 +532,9 @@ static struct msm_bus_scale_pdata mdp_bus_scale_pdata = {
 };
 #endif
 
-int mdp_core_clk_rate_table[] = {
-	85330000,
-	85330000,
-	160000000,
-	200000000,
-};
-
 static struct msm_panel_common_pdata mdp_pdata = {
 	.gpio = ELITE_GPIO_LCD_TE,
+	.mdp_max_clk = 200000000,
 #ifdef CONFIG_MSM_BUS_SCALING
 	.mdp_bus_scale_table = &mdp_bus_scale_pdata,
 #endif
@@ -413,7 +544,6 @@ static struct msm_panel_common_pdata mdp_pdata = {
 #else
 	.mem_hid = MEMTYPE_EBI1,
 #endif
-	.mdp_max_clk = 200000000,
 };
 
 void __init msm8960_allocate_fb_region(void)
@@ -440,168 +570,6 @@ void __init msm8960_mdp_writeback(struct memtype_reserve* reserve_table)
 		mdp_pdata.ov1_wb_size;
 #endif
 }
-
-#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
-static struct resource hdmi_msm_resources[] = {
-	{
-		.name  = "hdmi_msm_qfprom_addr",
-		.start = 0x00700000,
-		.end   = 0x007060FF,
-		.flags = IORESOURCE_MEM,
-	},
-	{
-		.name  = "hdmi_msm_hdmi_addr",
-		.start = 0x04A00000,
-		.end   = 0x04A00FFF,
-		.flags = IORESOURCE_MEM,
-	},
-	{
-		.name  = "hdmi_msm_irq",
-		.start = HDMI_IRQ,
-		.end   = HDMI_IRQ,
-		.flags = IORESOURCE_IRQ,
-	},
-};
-
-static int hdmi_core_power(int on, int show);
-
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
-static mhl_driving_params elite_driving_params[] = {
-	{
-		.format = HDMI_VFRMT_640x480p60_4_3,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_720x480p60_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1280x720p60_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_720x576p50_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1920x1080p24_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1920x1080p30_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-};
-#endif
-
-static struct msm_hdmi_platform_data hdmi_msm_data = {
-	.irq = HDMI_IRQ,
-	.enable_5v = hdmi_enable_5v,
-	.core_power = hdmi_core_power,
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
-	.driving_params =  elite_driving_params,
-	.dirving_params_count = ARRAY_SIZE(elite_driving_params),
-#endif
-};
-
-static struct platform_device hdmi_msm_device = {
-	.name = "hdmi_msm",
-	.id = 0,
-	.num_resources = ARRAY_SIZE(hdmi_msm_resources),
-	.resource = hdmi_msm_resources,
-	.dev.platform_data = &hdmi_msm_data,
-};
-
-int hdmi_enable_5v(int on)
-{
-	static int prev_on;
-	int rc;
-
-	if (on == prev_on)
-		return 0;
-
-	if (on) {
-		rc = gpio_request(ELITE_GPIO_V_BOOST_5V_EN, "HDMI_BOOST_5V");
-		if (rc) {
-			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
-				"HDMI_BOOST_5V", ELITE_GPIO_V_BOOST_5V_EN, rc);
-			goto error;
-		}
-		gpio_set_value(ELITE_GPIO_V_BOOST_5V_EN, 1);
-		pr_info("%s(on): success\n", __func__);
-	} else {
-		gpio_set_value(ELITE_GPIO_V_BOOST_5V_EN, 0);
-		gpio_free(ELITE_GPIO_V_BOOST_5V_EN);
-		pr_info("%s(off): success\n", __func__);
-	}
-
-	prev_on = on;
-
-	return 0;
-error:
-	return rc;
-}
-
-static int hdmi_core_power(int on, int show)
-{
-	static struct regulator *reg_8921_l23;
-	static int prev_on;
-	int rc;
-
-	if (on == prev_on)
-		return 0;
-
-	if (!reg_8921_l23) {
-		reg_8921_l23 = regulator_get(&hdmi_msm_device.dev, "hdmi_avdd");
-		if (IS_ERR(reg_8921_l23)) {
-			pr_err("could not get reg_8921_l23, rc = %ld\n",
-				PTR_ERR(reg_8921_l23));
-			return -ENODEV;
-		}
-		rc = regulator_set_voltage(reg_8921_l23, 1800000, 1800000);
-		if (rc) {
-			pr_err("set_voltage failed for 8921_l23, rc=%d\n", rc);
-			return -EINVAL;
-		}
-	}
-	if (on) {
-		rc = regulator_set_optimum_mode(reg_8921_l23, 100000);
-		if (rc < 0) {
-			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
-			return -EINVAL;
-		}
-		rc = regulator_enable(reg_8921_l23);
-		if (rc) {
-			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"hdmi_avdd", rc);
-			return rc;
-		}
-
-		pr_info("%s(on): success\n", __func__);
-	} else {
-		rc = regulator_disable(reg_8921_l23);
-		if (rc) {
-			pr_err("disable reg_8921_l23 failed, rc=%d\n", rc);
-			return -ENODEV;
-		}
-
-		rc = regulator_set_optimum_mode(reg_8921_l23, 100);
-		if (rc < 0) {
-			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
-			return -EINVAL;
-		}
-		pr_info("%s(off): success\n", __func__);
-	}
-	prev_on = on;
-	return rc;
-}
-#endif /* CONFIG_FB_MSM_HDMI_MSM_PANEL */
 
 #ifdef CONFIG_FB_MSM_WRITEBACK_MSM_PANEL
 static char wfd_check_mdp_iommu_split_domain(void)
