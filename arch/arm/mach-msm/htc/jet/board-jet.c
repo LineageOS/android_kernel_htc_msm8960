@@ -2196,19 +2196,6 @@ static struct attribute_group three_virtual_key_properties_attr_group = {
 	.attrs = three_virtual_key_properties_attrs,
 };
 
-static void config_gpio_table(uint32_t *table, int len)
-{
-	int n, rc;
-	for (n = 0; n < len; n++) {
-		rc = gpio_tlmm_config(table[n], GPIO_CFG_ENABLE);
-		if (rc) {
-			pr_err("[CAM] %s: gpio_tlmm_config(%#x)=%d\n",
-				__func__, table[n], rc);
-			break;
-		}
-	}
-}
-
 static struct bma250_platform_data gsensor_bma250_platform_data = {
 	.intr = JET_GPIO_GSENSOR_INT,
 	.chip_layout = 1,
@@ -2351,6 +2338,144 @@ static struct i2c_board_info i2c_CM36282_devices[] = {
 	},
 };
 
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
+static struct resource hdmi_msm_resources[] = {
+	{
+		.name  = "hdmi_msm_qfprom_addr",
+		.start = 0x00700000,
+		.end   = 0x007060FF,
+		.flags = IORESOURCE_MEM,
+	},
+	{
+		.name  = "hdmi_msm_hdmi_addr",
+		.start = 0x04A00000,
+		.end   = 0x04A00FFF,
+		.flags = IORESOURCE_MEM,
+	},
+	{
+		.name  = "hdmi_msm_irq",
+		.start = HDMI_IRQ,
+		.end   = HDMI_IRQ,
+		.flags = IORESOURCE_IRQ,
+	},
+};
+
+static int hdmi_enable_5v(int on);
+static int hdmi_core_power(int on, int show);
+
+static mhl_driving_params jet_driving_params[] = {
+	{.format = HDMI_VFRMT_640x480p60_4_3,	.reg_a3=0xF4, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_720x480p60_16_9,	.reg_a3=0xF4, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1280x720p60_16_9,	.reg_a3=0xF4, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_720x576p50_16_9,	.reg_a3=0xF4, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1920x1080p24_16_9, .reg_a3=0xF4, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1920x1080p30_16_9, .reg_a3=0xF4, .reg_a6=0x0C},
+};
+
+static struct msm_hdmi_platform_data hdmi_msm_data = {
+
+	.irq = HDMI_IRQ,
+	.enable_5v = hdmi_enable_5v,
+	.core_power = hdmi_core_power,
+	.driving_params =  jet_driving_params,
+	.driving_params_count = ARRAY_SIZE(jet_driving_params),
+};
+
+static struct platform_device hdmi_msm_device = {
+	.name = "hdmi_msm",
+	.id = 0,
+	.num_resources = ARRAY_SIZE(hdmi_msm_resources),
+	.resource = hdmi_msm_resources,
+	.dev.platform_data = &hdmi_msm_data,
+};
+#endif
+
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
+static int hdmi_enable_5v(int on)
+{
+	static int prev_on;
+	int rc;
+
+	if (on == prev_on)
+		return 0;
+
+	if (on) {
+		rc = gpio_request(JET_GPIO_V_BOOST_5V_EN, "HDMI_BOOST_5V");
+		if (rc) {
+			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
+				"HDMI_BOOST_5V", JET_GPIO_V_BOOST_5V_EN, rc);
+			goto error;
+		}
+		gpio_set_value(JET_GPIO_V_BOOST_5V_EN, 1);
+		pr_info("%s(on): success\n", __func__);
+	} else {
+		gpio_set_value(JET_GPIO_V_BOOST_5V_EN, 0);
+		gpio_free(JET_GPIO_V_BOOST_5V_EN);
+		pr_info("%s(off): success\n", __func__);
+	}
+
+	prev_on = on;
+
+	return 0;
+error:
+	return rc;
+}
+
+static int hdmi_core_power(int on, int show)
+{
+	static struct regulator *reg_8921_l23;
+	static int prev_on;
+	int rc;
+
+	if (on == prev_on)
+		return 0;
+
+	if (!reg_8921_l23) {
+		reg_8921_l23 = regulator_get(&hdmi_msm_device.dev, "hdmi_avdd");
+		if (IS_ERR(reg_8921_l23)) {
+			pr_err("could not get reg_8921_l23, rc = %ld\n",
+				PTR_ERR(reg_8921_l23));
+			return -ENODEV;
+		}
+		rc = regulator_set_voltage(reg_8921_l23, 1800000, 1800000);
+		if (rc) {
+			pr_err("set_voltage failed for 8921_l23, rc=%d\n", rc);
+			return -EINVAL;
+		}
+	}
+	if (on) {
+		rc = regulator_set_optimum_mode(reg_8921_l23, 100000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+		rc = regulator_enable(reg_8921_l23);
+		if (rc) {
+			pr_err("'%s' regulator enable failed, rc=%d\n",
+				"hdmi_avdd", rc);
+			return rc;
+		}
+
+		pr_info("%s(on): success\n", __func__);
+	} else {
+		rc = regulator_disable(reg_8921_l23);
+		if (rc) {
+			pr_err("disable reg_8921_l23 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+
+		rc = regulator_set_optimum_mode(reg_8921_l23, 100);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+		pr_info("%s(off): success\n", __func__);
+	}
+	prev_on = on;
+	return rc;
+}
+#endif
+
 #define _GET_REGULATOR(var, name) do {				\
 	var = regulator_get(NULL, name);			\
 	if (IS_ERR(var)) {					\
@@ -2361,13 +2486,21 @@ static struct i2c_board_info i2c_CM36282_devices[] = {
 	}							\
 } while (0)
 
-static uint32_t mhl_usb_switch_ouput_table[] = {
+uint32_t mhl_usb_switch_ouput_table[] = {
 	GPIO_CFG(JET_GPIO_MHL_USBz_SEL, 0, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_2MA),
 };
 
-void config_jet_mhl_gpios(void)
+static void config_gpio_table(uint32_t *table, int len)
 {
-	config_gpio_table(mhl_usb_switch_ouput_table, ARRAY_SIZE(mhl_usb_switch_ouput_table));
+	int n, rc;
+	for (n = 0; n < len; n++) {
+		rc = gpio_tlmm_config(table[n], GPIO_CFG_ENABLE);
+		if (rc) {
+			pr_err("[CAM] %s: gpio_tlmm_config(%#x)=%d\n",
+				__func__, table[n], rc);
+			break;
+		}
+	}
 }
 
 #ifdef CONFIG_FB_MSM_HDMI_MHL
@@ -2380,13 +2513,13 @@ static void jet_usb_dpdn_switch(int path)
 		int polarity = 1; /* high = mhl */
 		int mhl = (path == PATH_MHL);
 
-		config_jet_mhl_gpios();
+			config_gpio_table(mhl_usb_switch_ouput_table, ARRAY_SIZE(mhl_usb_switch_ouput_table));
+			gpio_set_value(JET_GPIO_MHL_USBz_SEL, (mhl ^ !polarity) ? 1 : 0);
+			pr_info("[CABLE]%s: Set %s path\n", __func__, mhl ? "MHL" : "USB");
+			break;
+		}
+	}
 
-		pr_info("[CABLE] %s: Set %s path\n", __func__, mhl ? "MHL" : "USB");
-		gpio_set_value(JET_GPIO_MHL_USBz_SEL, (mhl ^ !polarity) ? 1 : 0);
-		break;
-	}
-	}
 	#ifdef CONFIG_FB_MSM_HDMI_MHL
 	sii9234_change_usb_owner((path == PATH_MHL) ? 1 : 0);
 	#endif /*CONFIG_FB_MSM_HDMI_MHL*/
@@ -2394,9 +2527,9 @@ static void jet_usb_dpdn_switch(int path)
 #endif
 
 #ifdef CONFIG_FB_MSM_HDMI_MHL
-static struct regulator *reg_8921_l12;
-static struct regulator *reg_8921_s4;
-static struct regulator *reg_8921_l16;
+static struct regulator *reg_l12;
+static struct regulator *reg_l17;
+static struct regulator *reg_l9;
 static struct regulator *reg_8921_l10;
 static struct regulator *reg_8921_s2;
 uint32_t msm_hdmi_off_gpio[] = {
@@ -2410,6 +2543,8 @@ uint32_t msm_hdmi_on_gpio[] = {
 	GPIO_CFG(JET_GPIO_HDMI_DDC_DATA,  1, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
 	GPIO_CFG(JET_GPIO_HDMI_HPD,  1, GPIO_CFG_INPUT, GPIO_CFG_PULL_UP, GPIO_CFG_2MA),
 };
+void hdmi_hpd_feature(int enable);
+
 
 static int mhl_sii9234_power_vote(bool enable)
 {
@@ -2465,6 +2600,24 @@ static int mhl_sii9234_power_vote(bool enable)
 	}
 	return 0;
 }
+static int enable_l9(bool enable)
+{
+	int rc;
+	if (!reg_l9)
+		_GET_REGULATOR(reg_l9, "8921_l9");
+	rc = regulator_set_voltage(reg_l9, 3300000, 3300000);
+	if (rc) {
+		pr_err("%s: regulator_set_voltage reg_l9 failed rc=%d\n",
+			__func__, rc);
+	}
+	rc = regulator_enable(reg_l9);
+	if (rc) {
+		pr_err("'%s' regulator enable failed, rc=%d\n",
+			"reg_l9", rc);
+	}
+	pr_info("%s(on): success\n", __func__);
+	return 0;
+}
 
 static void mhl_sii9234_1v2_power(bool enable)
 {
@@ -2472,7 +2625,8 @@ static void mhl_sii9234_1v2_power(bool enable)
 
 	if (enable == prev_on)
 		return;
-
+	if(enable && (system_rev > 0))
+		enable_l9(enable);
 	if (enable) {
 		config_gpio_table(msm_hdmi_on_gpio, ARRAY_SIZE(msm_hdmi_on_gpio));
 		hdmi_hpd_feature(1);
@@ -2493,67 +2647,65 @@ static int mhl_sii9234_all_power(bool enable)
 	if (enable == prev_on)
 		return 0;
 
-	if (!reg_8921_s4)
-		_GET_REGULATOR(reg_8921_s4, "8921_s4");
-	if (!reg_8921_l16)
-		_GET_REGULATOR(reg_8921_l16, "8921_l16");
-	if (!reg_8921_l12)
-		_GET_REGULATOR(reg_8921_l12, "8921_l12");
-
+	if (!reg_l12)
+		_GET_REGULATOR(reg_l12, "8921_l12");
+	if (!reg_l9)
+		_GET_REGULATOR(reg_l9, "8921_l9");
+	if (!reg_l17)
+		_GET_REGULATOR(reg_l17, "8921_l17");
 	if (enable) {
-		rc = regulator_set_voltage(reg_8921_s4, 1800000, 1800000);
+		rc = regulator_set_voltage(reg_l12, 1200000, 1200000);
 		if (rc) {
-			pr_err("%s: regulator_set_voltage reg_8921_s4 failed rc=%d\n",
+			pr_err("%s: regulator_set_voltage reg_l12 failed rc=%d\n",
 				__func__, rc);
 			return rc;
 		}
-		rc = regulator_set_voltage(reg_8921_l16, 3300000, 3300000);
-		if (rc) {
-			pr_err("%s: regulator_set_voltage reg_8921_l16 failed rc=%d\n",
-				__func__, rc);
-			return rc;
-		}
-
-		rc = regulator_set_voltage(reg_8921_l12, 1200000, 1200000);
-		if (rc) {
-			pr_err("%s: regulator_set_voltage reg_8921_l12 failed rc=%d\n",
-				__func__, rc);
-			return rc;
-		}
-		rc = regulator_enable(reg_8921_s4);
-
+		rc = regulator_enable(reg_l12);
 		if (rc) {
 			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"reg_8921_s4", rc);
+				"reg_l12", rc);
 			return rc;
 		}
-		rc = regulator_enable(reg_8921_l16);
-		if (rc) {
-			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"reg_8921_l16", rc);
-			return rc;
-		}
-
-		rc = regulator_enable(reg_8921_l12);
-		if (rc) {
-			pr_err("'%s' regulator enable failed, rc=%d\n",
-				"reg_8921_l12", rc);
-			return rc;
+		if(system_rev > 0){
+			rc = regulator_set_voltage(reg_l9, 3300000, 3300000);
+			if (rc) {
+				pr_err("%s: regulator_set_voltage reg_l9 failed rc=%d\n",
+					__func__, rc);
+				return rc;
+			}
+			rc = regulator_enable(reg_l9);
+			if (rc) {
+				pr_err("'%s' regulator enable failed, rc=%d\n",
+					"reg_l9", rc);
+				return rc;
+			}
+		} else {
+			rc = regulator_set_voltage(reg_l17, 3300000, 3300000);
+			if (rc) {
+				pr_err("%s: regulator_set_voltage reg_l9 failed rc=%d\n",
+					__func__, rc);
+				return rc;
+			}
+			rc = regulator_enable(reg_l17);
+			if (rc) {
+				pr_err("'%s' regulator enable failed, rc=%d\n",
+					"reg_l9", rc);
+				return rc;
+			}
 		}
 		pr_info("%s(on): success\n", __func__);
 	} else {
-		rc = regulator_disable(reg_8921_s4);
+		rc = regulator_disable(reg_l12);
 		if (rc)
 			pr_warning("'%s' regulator disable failed, rc=%d\n",
-				"reg_8921_s4", rc);
-		rc = regulator_disable(reg_8921_l16);
+				"reg_l12", rc);
+		if(system_rev > 0)
+			rc = regulator_disable(reg_l9);
+		else
+			rc = regulator_disable(reg_l17);
 		if (rc)
 			pr_warning("'%s' regulator disable failed, rc=%d\n",
-				"reg_8921_l16", rc);
-		rc = regulator_disable(reg_8921_l12);
-		if (rc)
-			pr_warning("'%s' regulator disable failed, rc=%d\n",
-				"reg_8921_l12", rc);
+				(system_rev > 0)? "reg_l9" : "reg_l17" , rc);
 		pr_info("%s(off): success\n", __func__);
 	}
 
@@ -2659,6 +2811,23 @@ int64_t jet_get_usbid_adc(void)
 	return adc/1000;
 }
 
+static uint32_t usbuart_pin_enable_usb_table[] = {
+	GPIO_CFG(JET_GPIO_MHL_USB_ENz, 0, GPIO_CFG_INPUT, GPIO_CFG_PULL_DOWN, GPIO_CFG_2MA),
+};
+static uint32_t usbuart_pin_enable_uart_table[] = {
+	GPIO_CFG(JET_GPIO_MHL_USB_ENz, 0, GPIO_CFG_INPUT, GPIO_CFG_PULL_UP, GPIO_CFG_2MA),
+};
+
+static void jet_usb_uart_switch(int nvbus)
+{
+	printk(KERN_INFO "%s: %s, rev=%d\n", __func__, nvbus ? "uart" : "usb", system_rev);
+	if(nvbus == 1) {
+		gpio_tlmm_config(usbuart_pin_enable_uart_table[0], GPIO_CFG_ENABLE);
+	} else {
+		gpio_tlmm_config(usbuart_pin_enable_usb_table[0], GPIO_CFG_ENABLE);
+	}
+}
+
 static struct cable_detect_platform_data cable_detect_pdata = {
 	.detect_type		= CABLE_TYPE_PMIC_ADC,
 	.usb_id_pin_gpio	= JET_GPIO_USB_ID1,
@@ -2669,6 +2838,8 @@ static struct cable_detect_platform_data cable_detect_pdata = {
 	.mhl_1v2_power = mhl_sii9234_1v2_power,
 	.usb_dpdn_switch	= jet_usb_dpdn_switch,
 #endif
+	.usb_uart_switch = jet_usb_uart_switch,
+	.enable_vbus_usb_switch = 1,
 };
 
 static struct platform_device cable_detect_device = {
@@ -2744,68 +2915,70 @@ static struct msm_spi_platform_data msm8960_qup_spi_gsbi10_pdata = {
 #ifdef CONFIG_USB_MSM_OTG_72K
 static struct msm_otg_platform_data msm_otg_pdata;
 #else
-#define USB_5V_EN		JET_GPIO_V_BOOST_5V_EN
-
 static int msm_hsusb_vbus_power(bool on)
 {
-	int rc;
-	static bool vbus_is_on;
-	static struct regulator *mvs_otg_switch;
-	struct pm_gpio param = {
-		.direction	= PM_GPIO_DIR_OUT,
-		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
-		.output_value	= 1,
-		.pull		= PM_GPIO_PULL_NO,
-		.vin_sel	= PM_GPIO_VIN_S4,
-		.out_strength	= PM_GPIO_STRENGTH_MED,
-		.function	= PM_GPIO_FUNC_NORMAL,
-	};
+	static int prev_on;
+	int rc = 0;
 
-	if (vbus_is_on == on)
-		return 0;
-
-	printk(KERN_INFO "%s: %d\n", __func__, on);
+	if (on == prev_on)
+		return rc;
 
 	if (on) {
-		mvs_otg_switch = regulator_get(&msm8960_device_otg.dev,
-					       "vbus_otg");
-		if (IS_ERR(mvs_otg_switch)) {
-			pr_err("Unable to get mvs_otg_switch\n");
-			return -1;
+		rc = gpio_request(JET_GPIO_V_BOOST_5V_EN, "USB_BOOST_5V");
+		if (rc) {
+			pr_err("'%s'(%d) gpio_request failed, rc=%d\n",
+				"USB_BOOST_5V", JET_GPIO_V_BOOST_5V_EN, rc);
+			return rc;
 		}
-
-		rc = gpio_request(PM8921_GPIO_PM_TO_SYS(USB_5V_EN),
-						"usb_5v_en");
-		if (rc < 0) {
-			pr_err("failed to request usb_5v_en gpio\n");
-			goto put_mvs_otg;
-		}
-
-		if (regulator_enable(mvs_otg_switch)) {
-			pr_err("unable to enable mvs_otg_switch\n");
-			goto free_usb_5v_en;
-		}
-
-		rc = pm8xxx_gpio_config(PM8921_GPIO_PM_TO_SYS(USB_5V_EN),
-				&param);
-		if (rc < 0) {
-			pr_err("failed to configure usb_5v_en gpio\n");
-			goto disable_mvs_otg;
-		}
-		vbus_is_on = true;
-		return 0;
+		gpio_set_value(JET_GPIO_V_BOOST_5V_EN, 1);
+		pr_info("%s(on): success\n", __func__);
+	} else {
+		gpio_set_value(JET_GPIO_V_BOOST_5V_EN, 0);
+		gpio_free(JET_GPIO_V_BOOST_5V_EN);
+		pr_info("%s(off): success\n", __func__);
 	}
-disable_mvs_otg:
-		regulator_disable(mvs_otg_switch);
-free_usb_5v_en:
-		gpio_free(PM8921_GPIO_PM_TO_SYS(USB_5V_EN));
-put_mvs_otg:
-		regulator_put(mvs_otg_switch);
-		vbus_is_on = false;
-		return -1;
+
+	prev_on = on;
+
+	return rc;
 }
 
-static int phy_init_seq_v3[] = { 0x7f, 0x81, 0x3c, 0x82, -1};
+static struct msm_bus_vectors usb_init_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_SPS,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab = 0,
+		.ib = 0,
+	},
+};
+
+static struct msm_bus_vectors usb_max_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_SPS,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab = 60000000,         
+		.ib = 960000000,        
+	},
+};
+
+static struct msm_bus_paths usb_bus_scale_usecases[] = {
+	{
+		ARRAY_SIZE(usb_init_vectors),
+		usb_init_vectors,
+	},
+	{
+		ARRAY_SIZE(usb_max_vectors),
+		usb_max_vectors,
+	},
+};
+
+static struct msm_bus_scale_pdata usb_bus_scale_pdata = {
+	usb_bus_scale_usecases,
+	ARRAY_SIZE(usb_bus_scale_usecases),
+	.name = "usb",
+};
+
+static int phy_init_seq_v3[] = { 0x6f, 0x81, 0x3c, 0x82, -1};
 static int phy_init_seq_v3_2_1[] = { 0x5f, 0x81, 0x3c, 0x82, -1};
 
 static struct msm_otg_platform_data msm_otg_pdata = {
@@ -2816,7 +2989,7 @@ static struct msm_otg_platform_data msm_otg_pdata = {
 	/* .pmic_id_irq		= PM8921_USB_ID_IN_IRQ(PM8921_IRQ_BASE), */
 	.vbus_power		= msm_hsusb_vbus_power,
 	.power_budget		= 750,
-	.ldo_power_collapse	= true,
+	.bus_scale_table	= &usb_bus_scale_pdata,
 };
 #endif
 
@@ -2889,7 +3062,7 @@ static struct platform_device android_usb_device = {
 #define HW_8960_V3_2_1   0x07
 void jet_add_usb_devices(void)
 {
-	if (VERSION_ID == HW_8960_V3_2_1) {
+	if (VERSION_ID >= HW_8960_V3_2_1) {
 		printk(KERN_INFO "%s rev: %d v3.2.1\n", __func__, system_rev);
 		msm_otg_pdata.phy_init_seq = phy_init_seq_v3_2_1;
 	} else {
@@ -3405,6 +3578,9 @@ static struct platform_device *jet_devices[] __initdata = {
 	&msm_cpudai_afe_02_rx,
 	&msm_cpudai_afe_02_tx,
 	&msm_pcm_afe,
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
+	&hdmi_msm_device,
+#endif
 	&msm_compr_dsp,
 	&msm_cpudai_incall_music_rx,
 	&msm_cpudai_incall_record_rx,
