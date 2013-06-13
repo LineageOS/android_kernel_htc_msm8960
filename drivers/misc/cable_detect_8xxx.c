@@ -21,6 +21,7 @@
 #include <linux/platform_device.h>
 #include <linux/gpio.h>
 #include <mach/board.h>
+#include <mach/board-ext-htc.h>
 
 #ifdef CONFIG_RESET_BY_CABLE_IN
 #include <mach/board_htc.h>
@@ -89,6 +90,7 @@ struct cable_detect_info {
 
 	int  audio_dock_lock;
 	int notify_init;
+	int enable_vbus_usb_switch;
 } the_cable_info;
 
 
@@ -132,7 +134,7 @@ static void send_cable_connect_notify(int cable_type)
 	}
 
 	list_for_each_entry(notifier,
-		&g_lh_calbe_detect_notifier_list,
+		&g_lh_cable_detect_notifier_list,
 		cable_notifier_link) {
 			if (notifier->func != NULL) {
 				CABLE_INFO("Send to: %s, type %d\n",
@@ -152,7 +154,7 @@ int cable_detect_register_notifier(struct t_cable_status_notifier *notifier)
 
 	mutex_lock(&cable_notify_sem);
 	list_add(&notifier->cable_notifier_link,
-		&g_lh_calbe_detect_notifier_list);
+		&g_lh_cable_detect_notifier_list);
 	if(the_cable_info.notify_init == 1)
 		notifier->func(cable_get_connect_type());
 	mutex_unlock(&cable_notify_sem);
@@ -227,7 +229,7 @@ static void check_vbus_in(struct work_struct *w)
 	if (vbus != vbus_in) {
 		vbus = vbus_in;
 
-		if(pInfo->accessory_type == DOCK_STATE_MHL) {
+		if(pInfo->accessory_type == DOCK_STATE_MHL && pInfo->enable_vbus_usb_switch == 0) {
 			CABLE_INFO("%s: usb_uart switch, MHL cable , Do nothing\n", __func__);
 		} else {
 			if (pInfo->usb_uart_switch)
@@ -889,7 +891,7 @@ static int cable_detect_probe(struct platform_device *pdev)
 		pInfo->mhl_version_ctrl_flag = pdata->mhl_version_ctrl_flag;
 		pInfo->mhl_1v2_power = pdata->mhl_1v2_power;
 		pInfo->get_adc_cb = pdata->get_adc_cb;
-
+		pInfo->enable_vbus_usb_switch = pdata->enable_vbus_usb_switch;
 #endif
 
 		if (pdata->is_wireless_charger)
