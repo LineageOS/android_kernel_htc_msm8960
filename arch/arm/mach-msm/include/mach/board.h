@@ -537,7 +537,7 @@ struct msm_hdmi_platform_data {
 	bool (*check_hdcp_hw_support)(void);
 	bool (*source)(void);
 	bool is_mhl_enabled;
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
+#if defined(CONFIG_MACH_HTC) && defined(CONFIG_FB_MSM_HDMI_MHL)
 	mhl_driving_params *driving_params;
 	int driving_params_count;
 #endif
@@ -645,12 +645,6 @@ void msm_pm_register_irqs(void);
 struct msm_usb_host_platform_data;
 int msm_add_host(unsigned int host,
 		struct msm_usb_host_platform_data *plat);
-#if defined(CONFIG_USB_FUNCTION_MSM_HSUSB) \
-	|| defined(CONFIG_USB_MSM_72K) || defined(CONFIG_USB_MSM_72K_MODULE)
-void msm_hsusb_set_vbus_state(int online);
-#else
-static inline void msm_hsusb_set_vbus_state(int online) {}
-#endif
 
 void msm_snddev_init(void);
 void msm_snddev_init_timpani(void);

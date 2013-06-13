@@ -21,7 +21,6 @@
 #include <mach/panel_id.h>
 #include <mach/msm_memtypes.h>
 #include <linux/bootmem.h>
-#include <video/msm_hdmi_modes.h>
 
 #include "../devices.h"
 #include "../board-ville.h"
@@ -351,18 +350,9 @@ static struct lcdc_platform_data dtv_pdata = {
 };
 #endif
 
-int mdp_core_clk_rate_table[] = {
-	85330000,
-	85330000,
-	160000000,
-	200000000,
-};
-
 static struct msm_panel_common_pdata mdp_pdata = {
 	.gpio = VILLE_GPIO_LCD_TE,
-	//	.mdp_core_clk_rate = 85330000,
-	//	.mdp_core_clk_table = mdp_core_clk_rate_table,
-	//	.num_mdp_clk = ARRAY_SIZE(mdp_core_clk_rate_table),
+	.mdp_max_clk = 200000000,
 #ifdef CONFIG_MSM_BUS_SCALING
 	.mdp_bus_scale_table = &mdp_bus_scale_pdata,
 #endif
@@ -372,7 +362,6 @@ static struct msm_panel_common_pdata mdp_pdata = {
 #else
 	.mem_hid = MEMTYPE_EBI1,
 #endif
-	.mdp_max_clk = 200000000,
 };
 
 void __init msm8960_allocate_fb_region(void)
@@ -386,7 +375,6 @@ void __init msm8960_allocate_fb_region(void)
 	msm_fb_resources[0].end = msm_fb_resources[0].start + size - 1;
 	pr_info("allocating %lu bytes at %p (%lx physical) for fb\n",
 			size, addr, __pa(addr));
-
 }
 
 void __init msm8960_mdp_writeback(struct memtype_reserve* reserve_table)
@@ -423,49 +411,25 @@ static struct resource hdmi_msm_resources[] = {
 	},
 };
 
-static int hdmi_core_power(int on, int show);
-
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
+#ifdef CONFIG_FB_MSM_HDMI_MHL
 static mhl_driving_params ville_driving_params[] = {
-	{
-		.format = HDMI_VFRMT_640x480p60_4_3,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_720x480p60_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1280x720p60_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_720x576p50_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1920x1080p24_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
-	{
-		.format = HDMI_VFRMT_1920x1080p30_16_9,
-		.reg_a3=0xEC,
-		.reg_a6=0x0C,
-	},
+	{.format = HDMI_VFRMT_640x480p60_4_3,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_720x480p60_16_9,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1280x720p60_16_9,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_720x576p50_16_9,	.reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1920x1080p24_16_9, .reg_a3=0xEC, .reg_a6=0x0C},
+	{.format = HDMI_VFRMT_1920x1080p30_16_9, .reg_a3=0xEC, .reg_a6=0x0C},
 };
 #endif
+
+static int hdmi_core_power(int on, int show);
 
 static struct msm_hdmi_platform_data hdmi_msm_data = {
 	.irq = HDMI_IRQ,
 	.enable_5v = hdmi_enable_5v,
 	.core_power = hdmi_core_power,
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
-	.driving_params = ville_driving_params,
+#ifdef CONFIG_FB_MSM_HDMI_MHL
+	.driving_params =  ville_driving_params,
 	.driving_params_count = ARRAY_SIZE(ville_driving_params),
 #endif
 };
@@ -561,7 +525,7 @@ static int hdmi_core_power(int on, int show)
 	prev_on = on;
 	return rc;
 }
-#endif /* CONFIG_FB_MSM_HDMI_MSM_PANEL */
+#endif
 
 #ifdef CONFIG_FB_MSM_WRITEBACK_MSM_PANEL
 static char wfd_check_mdp_iommu_split_domain(void)
