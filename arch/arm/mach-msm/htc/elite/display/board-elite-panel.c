@@ -61,8 +61,7 @@ static struct resource msm_fb_resources[] = {
 	}
 };
 
-static struct msm_fb_platform_data msm_fb_pdata = {
-};
+static struct msm_fb_platform_data msm_fb_pdata;
 
 static struct platform_device msm_fb_device = {
 	.name   = "msm_fb",
@@ -506,7 +505,7 @@ static struct msm_hdmi_platform_data hdmi_msm_data = {
 	.core_power = hdmi_core_power,
 #ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
 	.driving_params =  elite_driving_params,
-	.dirving_params_count = ARRAY_SIZE(elite_driving_params),
+	.driving_params_count = ARRAY_SIZE(elite_driving_params),
 #endif
 };
 
