@@ -301,9 +301,4 @@ extern struct msm_rtb_platform_data msm8960_rtb_pdata;
 extern struct msm_cache_dump_platform_data msm8960_cache_dump_pdata;
 #endif
 
-#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
-int hdmi_enable_5v(int on);
-void hdmi_hpd_feature(int on);
-#endif
-
 #endif
