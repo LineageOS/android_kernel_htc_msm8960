@@ -524,41 +524,6 @@ struct msm_fb_platform_data {
 	char ext_panel_name[PANEL_NAME_MAX_LEN];
 };
 
-struct msm_hdmi_platform_data {
-	int irq;
-	int (*cable_detect)(int insert);
-	int (*comm_power)(int on, int show);
-	int (*enable_5v)(int on);
-	int (*core_power)(int on, int show);
-	int (*cec_power)(int on);
-	int (*panel_power)(int on);
-	int (*gpio_config)(int on);
-	int (*init_irq)(void);
-	bool (*check_hdcp_hw_support)(void);
-	bool (*source)(void);
-	bool is_mhl_enabled;
-#ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
-	mhl_driving_params *driving_params;
-	int driving_params_count;
-#endif
-};
-
-struct msm_mhl_platform_data {
-	int irq;
-	/* GPIO no. for mhl intr */
-	uint32_t gpio_mhl_int;
-	/* GPIO no. for mhl block reset */
-	uint32_t gpio_mhl_reset;
-	/*
-	 * below gpios are specific to targets
-	 * that have the integrated MHL soln.
-	 */
-	/* GPIO no. for mhl block power */
-	uint32_t gpio_mhl_power;
-	/* GPIO no. for hdmi-mhl mux */
-	uint32_t gpio_hdmi_mhl_mux;
-	bool mhl_enabled;
-};
 
 struct msm_i2c_platform_data {
 	int clk_freq;
@@ -645,12 +610,7 @@ void msm_pm_register_irqs(void);
 struct msm_usb_host_platform_data;
 int msm_add_host(unsigned int host,
 		struct msm_usb_host_platform_data *plat);
-#if defined(CONFIG_USB_FUNCTION_MSM_HSUSB) \
-	|| defined(CONFIG_USB_MSM_72K) || defined(CONFIG_USB_MSM_72K_MODULE)
-void msm_hsusb_set_vbus_state(int online);
-#else
-static inline void msm_hsusb_set_vbus_state(int online) {}
-#endif
+
 
 void msm_snddev_init(void);
 void msm_snddev_init_timpani(void);
