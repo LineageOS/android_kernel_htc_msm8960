@@ -1533,12 +1533,14 @@ static int mipi_fighter_lcd_on(struct platform_device *pdev)
 	mipi  = &mfd->panel_info.mipi;
 
 	if (!fighter_panel_first_init) {
+		mipi_dsi_cmd_bta_sw_trigger(); /* clean up ack_err_status */
 		if (mipi->mode == DSI_CMD_MODE)
 			fighter_send_display_cmds(cmd_on_cmds, cmd_on_cmds_count);
 		else if (mipi->mode == DSI_VIDEO_MODE)
 			fighter_send_display_cmds(novatek_video_on_cmds,
 					ARRAY_SIZE(novatek_video_on_cmds));
 		fighter_send_display_cmds(display_on_cmds, display_on_cmds_count);
+		mipi_dsi_cmd_bta_sw_trigger(); /* clean up ack_err_status */
 	}
 	printk(KERN_ERR  "[DISP] %s ---\n", __func__);
 	fighter_panel_first_init = 0;
