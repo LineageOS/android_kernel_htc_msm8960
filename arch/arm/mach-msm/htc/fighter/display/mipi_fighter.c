@@ -18,6 +18,7 @@ static int mipi_fighter_lcd_init(void);
 static void mipi_fighter_set_backlight(struct msm_fb_data_type *mfd);
 static int cur_bl_level = 0;
 
+static char sw_reset[2] = {0x01, 0x00}; /* DTYPE_DCS_WRITE */
 static char enter_sleep[2] = {0x10, 0x00}; /* DTYPE_DCS_WRITE */
 static char exit_sleep[2] = {0x11, 0x00}; /* DTYPE_DCS_WRITE */
 static char display_off[2] = {0x28, 0x00}; /* DTYPE_DCS_WRITE */
@@ -226,6 +227,8 @@ static char fir_lg_gamma22_04_eb[] = {
   };*/
 
 static struct dsi_cmd_desc novatek_video_on_cmds[] = {
+	{DTYPE_DCS_WRITE, 1, 0, 0, 50,
+		sizeof(sw_reset), sw_reset},
 	{DTYPE_DCS_WRITE, 1, 0, 0, 10,
 		sizeof(exit_sleep), exit_sleep},
 	{DTYPE_DCS_WRITE, 1, 0, 0, 10,
@@ -242,6 +245,9 @@ static struct dsi_cmd_desc novatek_video_on_cmds[] = {
 
 static struct dsi_cmd_desc novatek_cmd_on_cmds[] = {
 	/* added by our own */
+	{DTYPE_DCS_WRITE, 1, 0, 0, 10,
+		sizeof(sw_reset), sw_reset},
+
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
 		5, (char[]){0xFF, 0xAA, 0x55, 0x25, 0x01} } ,
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
@@ -285,6 +291,9 @@ static struct dsi_cmd_desc novatek_cmd_on_cmds[] = {
 
 static struct dsi_cmd_desc novatek_c2_cmd_on_cmds[] = {
 	/* added by our own */
+	{DTYPE_DCS_WRITE, 1, 0, 0, 10,
+		sizeof(sw_reset), sw_reset},
+
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
 		5, (char[]){0xFF, 0xAA, 0x55, 0x25, 0x01} } ,
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
@@ -413,6 +422,9 @@ static struct dsi_cmd_desc novatek_c2_cmd_on_cmds[] = {
 
 static struct dsi_cmd_desc novatek_c3_cmd_on_cmds[] = {
 	/* added by our own */
+	{DTYPE_DCS_WRITE, 1, 0, 0, 10,
+		sizeof(sw_reset), sw_reset},
+
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
 		6, (char[]){0xF0, 0x55, 0xAA, 0x52, 0x08, 0x00} } ,
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
@@ -442,6 +454,10 @@ static struct dsi_cmd_desc novatek_c3_cmd_on_cmds[] = {
 };
 
 static struct dsi_cmd_desc lg_novatek_cmd_on_cmds[] = {
+	/* added by our own */
+	{DTYPE_DCS_WRITE, 1, 0, 0, 30,
+		sizeof(sw_reset), sw_reset},
+
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
 		5, (char[]){0xFF, 0xAA, 0x55, 0x25, 0x01} } ,
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
@@ -562,6 +578,10 @@ static struct dsi_cmd_desc lg_novatek_cmd_on_cmds[] = {
 };
 
 static struct dsi_cmd_desc lg_novatek_c2_cmd_on_cmds[] = {
+	/* added by our own */
+	{DTYPE_DCS_WRITE, 1, 0, 0, 30,
+		sizeof(sw_reset), sw_reset},
+
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
 		5, (char[]){0xFF, 0xAA, 0x55, 0x25, 0x01} } ,
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0,
@@ -632,8 +652,12 @@ static struct dsi_cmd_desc lg_novatek_c2_cmd_on_cmds[] = {
 };
 
 static struct dsi_cmd_desc lg_novatek_mp_cmd_on_cmds[] = {
+	/* added by our own */
+	{DTYPE_DCS_WRITE, 1, 0, 0, 30,
+		sizeof(sw_reset), sw_reset},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(enable_te), enable_te},
+
 	/* page 1 */
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 1,
 		6, (char[]){0xF0, 0x55, 0xAA, 0x52, 0x08, 0x01} },/* select page 1 */
