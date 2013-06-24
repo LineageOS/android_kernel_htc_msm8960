@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "iMC.6-4",
+        "filename": "arch/arm/mach-msm/htc/jet/board-jet.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-06-24T08:25:11Z",
+      "side": 1,
+      "message": "This is unused, as MEMORY_HOTPLUG is never set.",
+      "revId": "c2b2fd657e36f44e51003d275a054b14d114bdc4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
