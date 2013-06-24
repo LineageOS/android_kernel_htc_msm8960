@@ -334,7 +334,7 @@ static struct memtype_reserve msm8960_reserve_table[] __initdata = {
 
 #if defined(CONFIG_MSM_RTB)
 static struct msm_rtb_platform_data msm_rtb_pdata = {
-	.size = SZ_1K,
+	.size = SZ_1M,
 };
 
 static int __init msm_rtb_set_buffer_size(char *p)
@@ -3001,13 +3001,13 @@ static struct msm_spm_platform_data msm_spm_data[] __initdata = {
 		.reg_base_addr = MSM_SAW0_BASE,
 		.reg_init_values[MSM_SPM_REG_SAW2_CFG] = 0x1F,
 #if defined(CONFIG_MSM_AVS_HW)
-		.reg_init_values[MSM_SPM_REG_SAW2_AVS_CTL] = 0x58589464,
-		.reg_init_values[MSM_SPM_REG_SAW2_AVS_HYSTERESIS] = 0x00020000,
+		.reg_init_values[MSM_SPM_REG_SAW2_AVS_CTL] = 0x00,
+		.reg_init_values[MSM_SPM_REG_SAW2_AVS_HYSTERESIS] = 0x00,
 #endif
 		.reg_init_values[MSM_SPM_REG_SAW2_SPM_CTL] = 0x01,
-		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DLY] = 0x03020004,
-		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_0] = 0x0084009C,
-		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_1] = 0x00A4001C,
+		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DLY] = 0x02020204,
+		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_0] = 0x0060009C,
+		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_1] = 0x0000001C,
 		.vctl_timeout_us = 50,
 		.num_modes = ARRAY_SIZE(msm_spm_boot_cpu_seq_list),
 		.modes = msm_spm_boot_cpu_seq_list,
@@ -3016,18 +3016,51 @@ static struct msm_spm_platform_data msm_spm_data[] __initdata = {
 		.reg_base_addr = MSM_SAW1_BASE,
 		.reg_init_values[MSM_SPM_REG_SAW2_CFG] = 0x1F,
 #if defined(CONFIG_MSM_AVS_HW)
-		.reg_init_values[MSM_SPM_REG_SAW2_AVS_CTL] = 0x58589464,
-		.reg_init_values[MSM_SPM_REG_SAW2_AVS_HYSTERESIS] = 0x00020000,
+		.reg_init_values[MSM_SPM_REG_SAW2_AVS_CTL] = 0x00,
+		.reg_init_values[MSM_SPM_REG_SAW2_AVS_HYSTERESIS] = 0x00,
 #endif
 		.reg_init_values[MSM_SPM_REG_SAW2_SPM_CTL] = 0x01,
-		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DLY] = 0x03020004,
-		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_0] = 0x0084009C,
-		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_1] = 0x00A4001C,
+		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DLY] = 0x02020204,
+		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_0] = 0x0060009C,
+		.reg_init_values[MSM_SPM_REG_SAW2_PMIC_DATA_1] = 0x0000001C,
 		.vctl_timeout_us = 50,
 		.num_modes = ARRAY_SIZE(msm_spm_nonboot_cpu_seq_list),
 		.modes = msm_spm_nonboot_cpu_seq_list,
 	},
 };
+
+#ifdef CONFIG_PERFLOCK
+static unsigned jet_perf_acpu_table[] = {
+	594000000,
+	810000000,
+	1026000000,
+	1134000000,
+	1512000000,
+};
+
+static struct perflock_data jet_perflock_data = {
+	.perf_acpu_table = jet_perf_acpu_table,
+	.table_size = ARRAY_SIZE(jet_perf_acpu_table),
+};
+
+static struct perflock_data jet_cpufreq_ceiling_data = {
+	.perf_acpu_table = jet_perf_acpu_table,
+	.table_size = ARRAY_SIZE(jet_perf_acpu_table),
+};
+
+static struct perflock_pdata perflock_pdata = {
+       .perf_floor = &jet_perflock_data,
+       .perf_ceiling = &jet_cpufreq_ceiling_data,
+};
+
+struct platform_device msm8960_device_perf_lock = {
+       .name = "perf_lock",
+       .id = -1,
+       .dev = {
+               .platform_data = &perflock_pdata,
+       },
+};
+#endif
 
 static uint8_t l2_spm_wfi_cmd_sequence[] __initdata = {
 			0x00, 0x20, 0x03, 0x20,
@@ -3076,45 +3109,6 @@ static struct msm_spm_platform_data msm_spm_l2_data[] __initdata = {
 		.num_modes = ARRAY_SIZE(msm_spm_l2_seq_list),
 	},
 };
-
-#ifdef CONFIG_PERFLOCK
-static unsigned jet_perf_acpu_table[] = {
-	810000000, /* LOWEST */
-	918000000, /* LOW */
-	1026000000, /* MEDIUM */
-	1242000000,/* HIGH */
-	1512000000, /* HIGHEST */
-};
-
-static unsigned jet_cpufreq_ceiling_acpu_table[] = {
-	702000000,
-	918000000,
-	1026000000,
-};
-
-static struct perflock_data jet_perflock_data = {
-	.perf_acpu_table = jet_perf_acpu_table,
-	.table_size = ARRAY_SIZE(jet_perf_acpu_table),
-};
-
-static struct perflock_data jet_cpufreq_ceiling_data = {
-	.perf_acpu_table = jet_cpufreq_ceiling_acpu_table,
-	.table_size = ARRAY_SIZE(jet_cpufreq_ceiling_acpu_table),
-};
-
-static struct perflock_pdata perflock_pdata = {
-	.perf_floor = &jet_perflock_data,
-	.perf_ceiling = &jet_cpufreq_ceiling_data,
-};
-
-struct platform_device msm8960_device_perf_lock = {
-	.name = "perf_lock",
-	.id = -1,
-	.dev = {
-		.platform_data = &perflock_pdata,
-	},
-};
-#endif
 
 static uint32_t gsbi3_gpio_table[] = {
 	GPIO_CFG(JET_GPIO_TP_I2C_DAT, 1, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
@@ -3366,6 +3360,9 @@ static struct platform_device *common_devices[] __initdata = {
 	&htc_battery_pdev,
 #endif
 	&msm_tsens_device,
+#ifdef CONFIG_PERFLOCK
+	&msm8960_device_perf_lock,
+#endif
 };
 
 static struct platform_device *jet_devices[] __initdata = {
@@ -3417,9 +3414,6 @@ static struct platform_device *jet_devices[] __initdata = {
 	&msm_bus_sys_fpb,
 	&msm_bus_cpss_fpb,
 	&msm_device_tz_log,
-#ifdef CONFIG_PERFLOCK
-	&msm8960_device_perf_lock,
-#endif
 	&scm_memchk_device,
 };
 
@@ -3744,63 +3738,70 @@ static struct msm_rpmrs_level msm_rpmrs_levels[] = {
 		MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT,
 		MSM_RPMRS_LIMITS(ON, ACTIVE, MAX, ACTIVE),
 		true,
-		1, 784, 180000, 100,
+		100, 8000, 100000, 1,
 	},
-
+#if 0
 	{
 		MSM_PM_SLEEP_MODE_RETENTION,
 		MSM_RPMRS_LIMITS(ON, ACTIVE, MAX, ACTIVE),
 		true,
 		415, 715, 340827, 475,
 	},
+#endif
 #ifdef CONFIG_MSM_STANDALONE_POWER_COLLAPSE
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE,
 		MSM_RPMRS_LIMITS(ON, ACTIVE, MAX, ACTIVE),
 		true,
-		1300, 228, 1200000, 2000,
+		2000, 6000, 60100000, 3000,
 	},
 #endif
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
 		MSM_RPMRS_LIMITS(ON, GDHS, MAX, ACTIVE),
 		false,
-		2000, 138, 1208400, 3200,
+		4600, 5000, 60350000, 3500,
 	},
 
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
+		MSM_RPMRS_LIMITS(ON, HSFS_OPEN, MAX, ACTIVE),
+		false,
+		6700, 4500, 65350000, 4800,
+	},
+	{
+		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
 		MSM_RPMRS_LIMITS(ON, HSFS_OPEN, ACTIVE, RET_HIGH),
 		false,
-		6000, 119, 1850300, 9000,
+		7400, 3500, 66600000, 5150,
 	},
 
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
 		MSM_RPMRS_LIMITS(OFF, GDHS, MAX, ACTIVE),
 		false,
-		9200, 68, 2839200, 16400,
+		12100, 2500, 67850000, 5500,
 	},
 
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
 		MSM_RPMRS_LIMITS(OFF, HSFS_OPEN, MAX, ACTIVE),
 		false,
-		10300, 63, 3128000, 18200,
+		14200, 2000, 71850000, 6800,
 	},
 
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
 		MSM_RPMRS_LIMITS(OFF, HSFS_OPEN, ACTIVE, RET_HIGH),
 		false,
-		18000, 10, 4602600, 27000,
+		30100, 500, 75850000, 8800,
 	},
 
 	{
 		MSM_PM_SLEEP_MODE_POWER_COLLAPSE,
 		MSM_RPMRS_LIMITS(OFF, HSFS_OPEN, RET_HIGH, RET_LOW),
 		false,
-		20000, 2, 5752000, 32000,
+		30100, 0, 76350000, 9800,
 	},
 };
 
