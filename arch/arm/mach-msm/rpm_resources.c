@@ -1039,6 +1039,15 @@ static struct notifier_block __refdata rpmrs_cpu_notifier = {
 	.notifier_call = rpmrs_cpu_callback,
 };
 
+void msm_rpmrs_lpm_init(uint32_t pxo, uint32_t l2_cache, uint32_t vdd_mem,
+		uint32_t vdd_dig)
+{
+	msm_rpmrs_pxo.enable_low_power = pxo;
+	msm_rpmrs_l2_cache.enable_low_power = l2_cache;
+	msm_rpmrs_vdd_mem.enable_low_power = vdd_mem;
+	msm_rpmrs_vdd_dig.enable_low_power = vdd_dig;
+}
+
 int __init msm_rpmrs_levels_init(struct msm_rpmrs_platform_data *data)
 {
 	int i, k;
