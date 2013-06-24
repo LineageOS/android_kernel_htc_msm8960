@@ -4274,6 +4274,7 @@ static void __init elite_init(void)
 	msm_thermal_init(&msm_thermal_pdata);
 	BUG_ON(msm_rpm_init(&msm8960_rpm_data));
 	BUG_ON(msm_rpmrs_levels_init(&msm_rpmrs_data));
+	msm_rpmrs_lpm_init(1, 1, 1, 1);
 
 	regulator_suppress_info_printing();
 	if (msm_xo_init())
