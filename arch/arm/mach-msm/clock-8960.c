@@ -437,6 +437,14 @@ enum vdd_sr2_hdmi_pll_levels {
 	VDD_SR2_HDMI_PLL_NUM
 };
 
+void keep_dig_voltage_low_in_idle(bool on)
+{
+	if (on)
+		vote_vdd_level(&vdd_dig, VDD_DIG_LOW);
+	else
+		unvote_vdd_level(&vdd_dig, VDD_DIG_LOW);
+}
+
 static int set_vdd_sr2_hdmi_pll_8960(struct clk_vdd_class *vdd_class, int level)
 {
 	int rc = 0;

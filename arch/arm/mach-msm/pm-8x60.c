@@ -1047,6 +1047,8 @@ static int msm_pm_enter(suspend_state_t state)
 
 		clock_debug_print_enabled();
 
+		keep_dig_voltage_low_in_idle(false);
+
 #ifdef CONFIG_MSM_SLEEP_TIME_OVERRIDE
 		if (msm_pm_sleep_time_override > 0) {
 			int64_t ns = NSEC_PER_SEC *
@@ -1075,6 +1077,9 @@ static int msm_pm_enter(suspend_state_t state)
 			pr_err("%s: cannot find the lowest power limit\n",
 				__func__);
 		}
+
+		keep_dig_voltage_low_in_idle(true);
+
 		time = msm_pm_timer_exit_suspend(time, period);
 		if (collapsed)
 			msm_pm_add_stat(MSM_PM_STAT_SUSPEND, time);
@@ -1318,6 +1323,8 @@ static int __init msm_pm_init(void)
 	msm_cpuidle_init();
 	platform_driver_register(&msm_pc_counter_driver);
 	rc = platform_driver_register(&msm_cpu_status_driver);
+
+	keep_dig_voltage_low_in_idle(true);
 
 	if (rc) {
 		pr_err("%s(): failed to register driver %s\n", __func__,
