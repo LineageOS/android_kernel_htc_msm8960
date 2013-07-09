@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac4157f_67e4f03a",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite-gpiomux.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "Should be tabs here, not spaces.",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_c7c4dc93",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 2639,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "This ifdef can be combined with the previous, also looks like a lot of this was lifted from the panel file.",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_273cb892",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 3856,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "This was also moved from the panel file, was there a reason for that?",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_27d5d842",
+        "filename": "arch/arm/mach-msm/htc/jet/board-jet-regulator.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "Tabs here as well.",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_a748c82e",
+        "filename": "arch/arm/mach-msm/include/mach/board-ext-htc.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "{ goes on the line above",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_8755c4c7",
+        "filename": "arch/arm/mach-msm/include/mach/board-ext-htc.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "I was hoping this didn\u0027t need to be moved from board.h, that will make future merges in board.h more painful.",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_475e8cea",
+        "filename": "arch/arm/mach-msm/include/mach/board-ext-htc.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "This entire file is only included if CONFIG_MACH_HTC is defined.",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_6752b0df",
+        "filename": "arch/arm/mach-msm/include/mach/board-ext-htc.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-09T05:17:58Z",
+      "side": 1,
+      "message": "Probably don\u0027t need to bring HTC\u0027s comments in too :P",
+      "revId": "de220e4222ce7566e9a9add74d1aeeb6212c3213",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
