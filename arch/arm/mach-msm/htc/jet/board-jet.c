@@ -87,7 +87,6 @@
 #include <linux/r3gd20.h>
 #include <linux/akm8975.h>
 #include <linux/bma250.h>
-#include <linux/ewtzmu2.h>
 #ifdef CONFIG_BT
 #include <mach/htc_bdaddress.h>
 #endif
@@ -2219,25 +2218,25 @@ static struct akm8975_platform_data compass_platform_data = {
 };
 
 static struct r3gd20_gyr_platform_data gyro_platform_data = {
-	.fs_range = R3GD20_GYR_FS_2000DPS,
-	.axis_map_x = 0,
-	.axis_map_y = 1,
-	.axis_map_z = 2,
-	.negate_x = 0,
-	.negate_y = 0,
-	.negate_z = 0,
+       .fs_range = R3GD20_GYR_FS_2000DPS,
+       .axis_map_x = 1,
+       .axis_map_y = 0,
+       .axis_map_z = 2,
+       .negate_x = 0,
+       .negate_y = 1,
+       .negate_z = 0,
 
-	.poll_interval = 50,
-	.min_interval = R3GD20_MIN_POLL_PERIOD_MS, /*2 */
+       .poll_interval = 50,
+       .min_interval = R3GD20_MIN_POLL_PERIOD_MS, 
 
-	/*.gpio_int1 = DEFAULT_INT1_GPIO,*/
-	/*.gpio_int2 = DEFAULT_INT2_GPIO,*/             /* int for fifo */
+       
+                    
 
-	.watermark = 0,
-	.fifomode = 0,
+       .watermark = 0,
+       .fifomode = 0,
 };
 
-static struct i2c_board_info __initdata msm_i2c_sensor_gsbi12_info[] = {
+static struct i2c_board_info msm_i2c_gsbi12_info[] = {
 	{
 		I2C_BOARD_INFO(BMA250_I2C_NAME, 0x30 >> 1),
 		.platform_data = &gsensor_bma250_platform_data,
@@ -2251,39 +2250,39 @@ static struct i2c_board_info __initdata msm_i2c_sensor_gsbi12_info[] = {
 	{
 		I2C_BOARD_INFO(R3GD20_GYR_DEV_NAME, 0xD0 >> 1),
 		.platform_data = &gyro_platform_data,
-		/*.irq = MSM_GPIO_TO_INT(JET_GYRO_INT),*/
+		
 	},
 };
 
 static struct mpu3050_platform_data mpu3050_data = {
 	.int_config = 0x10,
-	.orientation = { 1, 0, 0,
-			 0, 1, 0,
-			 0, 0, 1 },
+	.orientation = {  0,  1, 0,
+			 -1,  0, 0,
+			  0,  0, 1 },
 	.level_shifter = 0,
 
 	.accel = {
 		.get_slave_descr = get_accel_slave_descr,
-		.adapt_num = MSM_8960_GSBI12_QUP_I2C_BUS_ID, /* The i2c bus to which the mpu device is connected */
+		.adapt_num = MSM_8960_GSBI12_QUP_I2C_BUS_ID, 
 		.bus = EXT_SLAVE_BUS_SECONDARY,
 		.address = 0x30 >> 1,
-		.orientation = { 1, 0, 0,
-				 0, 1, 0,
-				 0, 0, 1
-		},
+			.orientation = { 1, 0, 0,
+					 0, 1, 0,
+					 0, 0, 1 },
+
 	},
 
 	.compass = {
 		.get_slave_descr = get_compass_slave_descr,
-		.adapt_num = MSM_8960_GSBI12_QUP_I2C_BUS_ID, /* The i2c bus to which the mpu device is connected */
+		.adapt_num = MSM_8960_GSBI12_QUP_I2C_BUS_ID, 
 		.bus = EXT_SLAVE_BUS_PRIMARY,
 		.address = 0x1A >> 1,
-		.orientation = { -1, 0,  0,
-				  0, 1,  0,
-				  0, 0, -1
-		},
+			.orientation = { 1, 0, 0,
+					 0, 1, 0,
+					 0, 0, 1 },
 	},
 };
+
 
 static struct i2c_board_info __initdata mpu3050_GSBI12_boardinfo[] = {
 	{
@@ -2324,7 +2323,7 @@ static uint8_t cm3629_mapping_table[] = {0x0, 0x3, 0x6, 0x9, 0xC,
 static struct cm3629_platform_data cm36282_pdata = {
 	.model = CAPELLA_CM36282,
 	.ps_select = CM3629_PS1_ONLY,
-	.intr = PM8921_GPIO_PM_TO_SYS(JET_GPIO_PROXIMITY_INTz),
+	.intr = PM8921_GPIO_PM_TO_SYS(JET_PMGPIO_PROXIMITY_INTz),
 	.levels = { 0, 0, 150, 383, 620, 4100, 6254, 7610, 8967, 65535},
 	.golden_adc = 0xE77,
 	.power = NULL,
@@ -2334,9 +2333,9 @@ static struct cm3629_platform_data cm36282_pdata = {
 	.ps1_thd_with_cal = 0xD,
 	.ps_calibration_rule = 1,
 	.ps_conf1_val = CM3629_PS_DR_1_80 | CM3629_PS_IT_1_6T |
-			CM3629_PS1_PERS_4,
+		CM3629_PS1_PERS_4,
 	.ps_conf2_val = CM3629_PS_ITB_1 | CM3629_PS_ITR_1 |
-			CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
+		CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
 	.ps_conf3_val = CM3629_PS2_PROL_32,
 	.enable_polling_ignore = 1,
 	.mapping_table = cm3629_mapping_table,
@@ -2347,7 +2346,7 @@ static struct i2c_board_info i2c_CM36282_devices[] = {
 	{
 		I2C_BOARD_INFO(CM3629_I2C_NAME, 0xC0 >> 1),
 		.platform_data = &cm36282_pdata,
-		.irq =  PM8921_GPIO_IRQ(PM8921_IRQ_BASE, JET_GPIO_PROXIMITY_INTz),
+		.irq =  PM8921_GPIO_IRQ(PM8921_IRQ_BASE, JET_PMGPIO_PROXIMITY_INTz),
 	},
 };
 
@@ -3203,6 +3202,12 @@ static void gsbi_qup_i2c_gpio_config(int adap_id, int config_type)
 	}
 }
 
+static struct msm_i2c_platform_data msm8960_i2c_qup_gsbi2_pdata = {
+	.clk_freq = 100000,	
+	.src_clk_rate = 24000000,
+	.msm_i2c_config_gpio = gsbi_qup_i2c_gpio_config,
+};
+
 static struct msm_i2c_platform_data msm8960_i2c_qup_gsbi4_pdata = {
 	.clk_freq = 400000,
 	.src_clk_rate = 24000000,
@@ -3216,7 +3221,7 @@ static struct msm_i2c_platform_data msm8960_i2c_qup_gsbi3_pdata = {
 };
 
 static struct msm_i2c_platform_data msm8960_i2c_qup_gsbi5_pdata = {
-	.clk_freq = 100000,
+	.clk_freq = 400000,
 	.src_clk_rate = 24000000,
 	.msm_i2c_config_gpio = gsbi_qup_i2c_gpio_config,
 };
@@ -3225,7 +3230,7 @@ static struct msm_i2c_platform_data msm8960_i2c_qup_gsbi8_pdata = {
 	.clk_freq = 400000,
 	.src_clk_rate = 24000000,
 	.msm_i2c_config_gpio = gsbi_qup_i2c_gpio_config,
-//	.share_uart_flag = 1,	/* check if QUP-I2C and Uart share the gisb */
+	.share_uart_flag = 1,	/* check if QUP-I2C and Uart share the gisb */
 };
 
 static struct msm_i2c_platform_data msm8960_i2c_qup_gsbi12_pdata = {
@@ -3299,6 +3304,7 @@ static struct platform_device *common_devices[] __initdata = {
 	&msm_device_saw_core0,
 	&msm_device_saw_core1,
 	&msm8960_device_ext_5v_vreg,
+	&msm8960_device_qup_i2c_gsbi2,
 	&msm8960_device_qup_i2c_gsbi3,
 	&msm8960_device_qup_i2c_gsbi4,
 	&msm8960_device_qup_i2c_gsbi5,
@@ -3425,11 +3431,14 @@ static struct platform_device *jet_devices[] __initdata = {
 
 static void __init msm8960_i2c_init(void)
 {
-	msm8960_device_qup_i2c_gsbi4.dev.platform_data =
-					&msm8960_i2c_qup_gsbi4_pdata;
+	msm8960_device_qup_i2c_gsbi2.dev.platform_data =
+					&msm8960_i2c_qup_gsbi2_pdata;
 
 	msm8960_device_qup_i2c_gsbi3.dev.platform_data =
 					&msm8960_i2c_qup_gsbi3_pdata;
+
+	msm8960_device_qup_i2c_gsbi4.dev.platform_data =
+					&msm8960_i2c_qup_gsbi4_pdata;
 
 	msm8960_device_qup_i2c_gsbi5.dev.platform_data =
 					&msm8960_i2c_qup_gsbi5_pdata;
@@ -3928,8 +3937,8 @@ static void __init register_i2c_devices(void)
 
 	if (gy_type == 2) {
 		i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-				msm_i2c_sensor_gsbi12_info,
-				ARRAY_SIZE(msm_i2c_sensor_gsbi12_info));
+				msm_i2c_gsbi12_info,
+				ARRAY_SIZE(msm_i2c_gsbi12_info));
 	} else {
 		i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
 				mpu3050_GSBI12_boardinfo,
