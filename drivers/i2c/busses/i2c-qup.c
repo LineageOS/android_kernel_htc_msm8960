@@ -170,6 +170,9 @@ struct qup_i2c_dev {
 	struct mutex                 mlock;
 	void                         *complete;
 	int                          i2c_gpios[ARRAY_SIZE(i2c_rsrcs)];
+#ifdef CONFIG_MACH_HTC
+	int                          share_uart;
+#endif
 };
 
 #ifdef DEBUG
@@ -1258,6 +1261,10 @@ blsp_core_init:
 	dev->pdata = pdata;
 	dev->clk_ctl = 0;
 	dev->pos = 0;
+#ifdef CONFIG_MACH_HTC
+	dev->share_uart = pdata->share_uart_flag;
+#endif
+
 
 	/*
 	 * If bootloaders leave a pending interrupt on certain GSBI's,
