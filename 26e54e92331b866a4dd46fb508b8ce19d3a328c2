@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac4157f_704b88b1",
+        "filename": "arch/arm/mach-msm/htc/jet/board-jet.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3201,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-10T23:40:19Z",
+      "side": 1,
+      "message": "Don\u0027t need this for anything.",
+      "revId": "26e54e92331b866a4dd46fb508b8ce19d3a328c2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
