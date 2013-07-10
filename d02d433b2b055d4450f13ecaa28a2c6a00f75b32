@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac4157f_f010b8aa",
+        "filename": "arch/arm/mach-msm/include/mach/board.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-10T22:22:20Z",
+      "side": 1,
+      "message": "Probably unnecessary.",
+      "revId": "d02d433b2b055d4450f13ecaa28a2c6a00f75b32",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_100c4c93",
+        "filename": "drivers/i2c/busses/i2c-qup.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-10T22:22:20Z",
+      "side": 1,
+      "message": "share_uart is declared in the device struct, but it\u0027s not read anywhere. I don\u0027t think it\u0027s necessary at all.",
+      "revId": "d02d433b2b055d4450f13ecaa28a2c6a00f75b32",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
