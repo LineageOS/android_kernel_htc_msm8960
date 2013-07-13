@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac4157f_93b6213c",
+        "filename": "arch/arm/mach-msm/htc/fighter/display/board-fighter-panel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-13T06:46:00Z",
+      "side": 1,
+      "message": "this line should be indented twice.",
+      "revId": "af3f5979d0b32c3787e661c6c47c982bd460b767",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_d39379a2",
+        "filename": "arch/arm/mach-msm/htc/fighter/display/board-fighter-panel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-13T06:46:00Z",
+      "side": 1,
+      "message": "bring this up to the previous line",
+      "revId": "af3f5979d0b32c3787e661c6c47c982bd460b767",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_1381f14a",
+        "filename": "arch/arm/mach-msm/htc/fighter/display/board-fighter-panel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-13T06:46:00Z",
+      "side": 1,
+      "message": "bring this up to the previous line",
+      "revId": "af3f5979d0b32c3787e661c6c47c982bd460b767",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_f3967d93",
+        "filename": "arch/arm/mach-msm/htc/fighter/display/board-fighter-panel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-13T06:46:00Z",
+      "side": 1,
+      "message": "bring this up to the previous line",
+      "revId": "af3f5979d0b32c3787e661c6c47c982bd460b767",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac4157f_73826d54",
+        "filename": "arch/arm/mach-msm/htc/fighter/display/board-fighter-panel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-07-13T06:46:00Z",
+      "side": 1,
+      "message": "might as well remove these lines",
+      "revId": "af3f5979d0b32c3787e661c6c47c982bd460b767",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
