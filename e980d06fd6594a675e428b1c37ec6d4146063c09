@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da37b569_f47219ad",
+        "filename": "drivers/usb/otg/Kconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-10-03T16:29:01Z",
+      "side": 1,
+      "message": "this doesn\u0027t seem to be used...?",
+      "revId": "e980d06fd6594a675e428b1c37ec6d4146063c09",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
