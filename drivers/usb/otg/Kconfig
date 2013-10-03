@@ -135,6 +135,11 @@ config USB_MSM_OTG
 	  This driver is not supported on boards like trout which
 	  has an external PHY.
 
+config USB_MSM_OTG_HTC
+	tristate "OTG support for HTC Qualcomm on-chip USB controller"
+	depends on (USB || USB_GADGET) && ARCH_MSM
+	select USB_OTG_UTILS
+
 config USB_MSM_ACA
 	bool "Support for Accessory Charger Adapter (ACA)"
 	depends on (USB_MSM_OTG || USB_MSM_OTG_72K) && ARCH_MSM
