@@ -18,6 +18,9 @@
 #include <linux/linkage.h>
 #include <linux/threads.h>
 #include <asm/assembler.h>
+#ifdef CONFIG_MACH_HTC
+#include <mach/msm_iomap.h>
+#endif
 
 #include "idle.h"
 #include "idle-macros.S"
@@ -25,6 +28,40 @@
 #ifdef CONFIG_MSM_SCM
 #define SCM_SVC_BOOT 0x1
 #define SCM_CMD_TERMINATE_PC 0x2
+#endif
+
+#ifdef CONFIG_MACH_HTC
+#define CPU_FOOT_PRINT_MAGIC			0xACBDFE00
+#define CPU_FOOT_PRINT_BASE_CPU0_PHY	(MSM_KERNEL_FOOTPRINT_PHYS + 0)
+#define CPU_FOOT_PRINT_BASE_CPU0_VIRT	(MSM_KERNEL_FOOTPRINT_VIRT + 0)
+#define CPU0_EXIT_COUNT_PHYS	(MSM_KERNEL_FOOTPRINT_PHYS + 0x10)
+#define CPU_RESET_VECTOR_PHYS		(MSM_KERNEL_FOOTPRINT_PHYS + 0x38)
+#define CPU_RESET_VECTOR_VALUE_PHYS	(MSM_KERNEL_FOOTPRINT_PHYS + 0x48)
+
+/* r0 already has the cpu number */
+.macro set_cpu_foot_print_virt, x
+	stmfd	sp!, {r5-r7}
+	ldr	r5, =cur_cpu
+	ldr	r5, [r5]
+	ldr	r6, =CPU_FOOT_PRINT_BASE_CPU0_VIRT
+	ldr	r7, =(CPU_FOOT_PRINT_MAGIC | \x)	/* make status number. */
+	str	r7, [r6, r5, LSL #2]
+	dsb						/* ensure data are written. */
+	ldmfd	sp!, {r5-r7}
+.endm
+
+#define CPU_RESET_VECTOR_CPU0_BASE		(MSM_KERNEL_FOOTPRINT_VIRT + 0x28)
+/* Store reset factor for two cpu*/
+.macro store_reset_vector_for_each_cpu
+	stmfd	sp!, {r5-r7}
+	ldr     r5, =cur_cpu
+	ldr     r5, [r5]                        /* get current cpu number */
+	ldr     r6, =msm_pm_boot_vector
+	ldr     r7, [r6, r5, LSL #2]            /* get the reset vector of cpu*/
+	ldr     r6, =CPU_RESET_VECTOR_CPU0_BASE
+	str     r7, [r6, r5, LSL #2]            /* store it */
+	ldmfd	sp!, {r5-r7}
+.endm
 #endif
 
 ENTRY(msm_arch_idle)
@@ -76,12 +113,23 @@ ENTRY(msm_pm_collapse)
 #if (NR_CPUS >= 2)
 	mrc	p15, 0, r1, c0, c0, 5	/* MPIDR */
 	ands	r1, r1, #15		/* What CPU am I */
+
+#ifdef CONFIG_MACH_HTC
+	ldr	r2, =cur_cpu
+	str	r1, [r2]		/* store current cpu number for later use. */
+#endif
+
 	mov	r2, #CPU_SAVED_STATE_SIZE
 	mul	r1, r1, r2
 	add	r0, r0, r1
 #endif
 
 	stmia   r0!, {r4-r14}
+
+#ifdef CONFIG_MACH_HTC
+	store_reset_vector_for_each_cpu
+#endif
+
 	mrc     p15, 0, r1, c1, c0, 0 /* MMU control */
 	mrc     p15, 0, r2, c2, c0, 0 /* TTBR0 */
 	mrc     p15, 0, r3, c3, c0, 0 /* dacr */
@@ -119,6 +167,9 @@ ENTRY(msm_pm_collapse)
 	blxne	r1
 
 skip:
+#ifdef CONFIG_MACH_HTC
+	set_cpu_foot_print_virt 1
+#endif
 	ldr	r1, =msm_pm_disable_l2_fn
 	ldr	r1, [r1]
 	cmp	r1, #0
@@ -210,6 +261,18 @@ ENTRY(msm_pm_collapse_exit)
 	/*add     r0, r0, #0x00C00000*/ /* UART3 */
 	mov     r1, #'A'
 	str     r1, [r0, #0x00C]
+#endif
+#ifdef CONFIG_MACH_HTC
+	ldr	r1, =CPU0_EXIT_COUNT_PHYS
+	ldr     r2, [r1]
+	add 	r2, r2, #1
+	str	r2, [r1]
+	dsb
+
+	ldr	r1, =CPU_FOOT_PRINT_BASE_CPU0_PHY
+	ldr	r2, =0xACBDFE04		/* make status number. */
+	str	r2, [r1]
+	dsb
 #endif
 	ldr     r1, =msm_saved_state_phys
 	ldr     r2, =msm_pm_collapse_exit
@@ -303,6 +366,13 @@ ENTRY(msm_pm_boot_entry)
 	mrc     p15, 0, r0, c0, c0, 5    /* MPIDR                          */
 	and     r0, r0, #15              /* what CPU am I                  */
 
+#ifdef CONFIG_MACH_HTC
+	ldr	r1, =CPU_FOOT_PRINT_BASE_CPU0_PHY
+	ldr	r2, =0xACBDFE02          /* make status number. */
+	str	r2, [r1, r0, LSL #2]
+	dsb                              /* ensure data are written. */
+#endif
+
 	ldr	r1, =msm_pc_debug_counters_phys /*phys addr for IMEM reg */
 	ldr	r2, =msm_pm_boot_entry
 	adr	r3, msm_pm_boot_entry
@@ -325,7 +395,22 @@ skip_pc_debug3:
 	add     r1, r1, r3               /* translate virt to phys addr    */
 	sub     r1, r1, r2
 
+#ifdef CONFIG_MACH_HTC
+	ldr	r3, =CPU_FOOT_PRINT_BASE_CPU0_PHY
+	ldr	r2, =0xACBDFE03          /* make status number. */
+	str	r2, [r3, r0, LSL #2]
+	dsb
+#endif
+
 	add     r1, r1, r0, LSL #2       /* locate boot vector for our cpu */
+#ifdef CONFIG_MACH_HTC
+	ldr	r2, =CPU_RESET_VECTOR_PHYS
+	str	r1, [r2, r0, LSL#2]
+	ldr	r3, [r1]
+	ldr	r2, =CPU_RESET_VECTOR_VALUE_PHYS
+	str	r3, [r2, r0, LSL#2]
+	dsb                              /* ensure data are written. */
+#endif
 	ldr     pc, [r1]                 /* jump                           */
 
 ENTRY(msm_pm_set_l2_flush_flag)
@@ -337,6 +422,13 @@ ENTRY(msm_pm_get_l2_flush_flag)
 	ldr     r1, =msm_pm_flush_l2_flag
 	ldr     r0, [r1]
 	bx      lr
+
+#ifdef CONFIG_MACH_HTC
+ENTRY(get_pm_boot_vector_symbol_address)
+	ldr     r2, =msm_pm_boot_vector
+	str	r2, [r0]
+	bx	lr
+#endif
 
 	.data
 
@@ -405,3 +497,8 @@ msm_pm_flush_l2_flag:
  */
 l2x0_saved_ctrl_reg_val:
 	.space 4 * 3
+
+#ifdef CONFIG_MACH_HTC
+cur_cpu:
+	.space	4 /* store current cpu number */
+#endif

@@ -10,6 +10,14 @@
 #include <linux/linkage.h>
 #include <linux/init.h>
 
+#ifdef CONFIG_MACH_HTC
+#include <mach/msm_iomap.h>
+
+#define CPU0_EXIT_COUNT_PHYS	(MSM_KERNEL_FOOTPRINT_PHYS + 0x10)
+#define CPU_FOOT_PRINT_MAGIC			0xACBDFE00
+#define CPU_FOOT_PRINT_BASE_CPU0_PHY	(MSM_KERNEL_FOOTPRINT_PHYS)
+#endif
+
 __CPUINIT
 
 /*
@@ -22,6 +30,20 @@ __CPUINIT
 ENTRY(msm_secondary_startup)
 	mrc	p15, 0, r0, c0, c0, 5 	@ MPIDR
 	and	r0, r0, #15		@ What CPU am I
+
+#ifdef CONFIG_MACH_HTC
+	ldr	r1, =CPU0_EXIT_COUNT_PHYS
+	ldr     r2, [r1, r0, LSL #2]
+	add 	r2, r2, #1
+	str	r2, [r1, r0, LSL #2]
+	dsb
+
+	ldr	r1, =CPU_FOOT_PRINT_BASE_CPU0_PHY
+	ldr	r2, =0xACBDFE04	/* make status number. */
+	str	r2, [r1, r0, LSL #2]
+	dsb
+#endif
+
 	adr	r4, 1f			@ address of
 	ldmia	r4, {r5, r6}		@ load curr addr and pen_rel addr
 	sub	r4, r4, r5		@ determine virtual/phys offsets

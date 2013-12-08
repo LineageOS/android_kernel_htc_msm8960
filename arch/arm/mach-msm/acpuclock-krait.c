@@ -55,6 +55,31 @@ static unsigned long acpuclk_krait_get_rate(int cpu)
 	return drv.scalable[cpu].cur_speed->khz;
 }
 
+#ifdef CONFIG_MACH_HTC
+#define CPU_FOOT_PRINT_MAGIC				0xACBDFE00
+#define CPU_FOOT_PRINT_BASE_CPU0_VIRT		(MSM_KERNEL_FOOTPRINT_BASE + 0x0)
+static void set_acpuclk_foot_print(unsigned cpu, unsigned state)
+{
+	unsigned *status = (unsigned *)(CPU_FOOT_PRINT_BASE_CPU0_VIRT + 0x6C) + cpu;
+	*status = (CPU_FOOT_PRINT_MAGIC | state);
+	mb();
+}
+
+static void set_acpuclk_cpu_freq_foot_print(unsigned cpu, unsigned khz)
+{
+	unsigned *status = (unsigned *)(CPU_FOOT_PRINT_BASE_CPU0_VIRT + 0x58) + cpu;
+	*status = khz;
+	mb();
+}
+
+static void set_acpuclk_L2_freq_foot_print(unsigned khz)
+{
+	unsigned *status = (unsigned *)(CPU_FOOT_PRINT_BASE_CPU0_VIRT + 0x68);
+	*status = khz;
+	mb();
+}
+#endif
+
 /* Select a source on the primary MUX. */
 static void set_pri_clk_src(struct scalable *sc, u32 pri_src_sel)
 {
@@ -476,11 +501,19 @@ static int acpuclk_krait_set_rate(int cpu, unsigned long rate,
 	bool skip_regulators;
 	int rc = 0;
 
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_foot_print(cpu, 0x1);
+#endif
+
 	if (cpu > num_possible_cpus())
 		return -EINVAL;
 
 	if (reason == SETRATE_CPUFREQ || reason == SETRATE_HOTPLUG)
 		mutex_lock(&driver_lock);
+
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_foot_print(cpu, 0x2);
+#endif
 
 	strt_acpu_s = drv.scalable[cpu].cur_speed;
 
@@ -531,6 +564,10 @@ static int acpuclk_krait_set_rate(int cpu, unsigned long rate,
 	dev_dbg(drv.dev, "Switching from ACPU%d rate %lu KHz -> %lu KHz\n",
 		cpu, strt_acpu_s->khz, tgt_acpu_s->khz);
 
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_foot_print(cpu, 0x3);
+#endif
+
 	/*
 	 * If we are setting the rate as part of power collapse or in the resume
 	 * path after power collapse, skip the vote for the HFPLL regulators,
@@ -543,6 +580,11 @@ static int acpuclk_krait_set_rate(int cpu, unsigned long rate,
 	/* Set the new CPU speed. */
 	set_speed(&drv.scalable[cpu], tgt_acpu_s, skip_regulators);
 
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_cpu_freq_foot_print(cpu, tgt_acpu_s->khz);
+	set_acpuclk_foot_print(cpu, 0x4);
+#endif
+
 	/*
 	 * Update the L2 vote and apply the rate change. A spinlock is
 	 * necessary to ensure L2 rate is calculated and set atomically
@@ -554,6 +596,10 @@ static int acpuclk_krait_set_rate(int cpu, unsigned long rate,
 	tgt_l2_l = compute_l2_level(&drv.scalable[cpu], tgt->l2_level);
 	set_speed(&drv.scalable[L2],
 			&drv.l2_freq_tbl[tgt_l2_l].speed, true);
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_L2_freq_foot_print(drv.l2_freq_tbl[tgt_l2_l].speed.khz);
+	set_acpuclk_foot_print(cpu, 0x5);
+#endif
 	spin_unlock(&l2_lock);
 
 	/* Nothing else to do for power collapse or SWFI. */
@@ -570,6 +616,10 @@ static int acpuclk_krait_set_rate(int cpu, unsigned long rate,
 	/* Update bus bandwith request. */
 	set_bus_bw(drv.l2_freq_tbl[tgt_l2_l].bw_level);
 
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_foot_print(cpu, 0x6);
+#endif
+
 	/* Drop VDD levels if we can. */
 	decrease_vdd(cpu, &vdd_data, reason);
 
@@ -579,11 +629,20 @@ static int acpuclk_krait_set_rate(int cpu, unsigned long rate,
 		drv.scalable[cpu].avs_enabled = true;
 	}
 
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_foot_print(cpu, 0x7);
+#endif
+
 	dev_dbg(drv.dev, "ACPU%d speed change complete\n", cpu);
 
 out:
 	if (reason == SETRATE_CPUFREQ || reason == SETRATE_HOTPLUG)
 		mutex_unlock(&driver_lock);
+
+#ifdef CONFIG_MACH_HTC
+	set_acpuclk_foot_print(cpu, 0x8);
+#endif
+
 	return rc;
 }
 

@@ -133,6 +133,44 @@ static bool msm_no_ramp_down_pc;
 static struct msm_pm_sleep_status_data *msm_pm_slp_sts;
 static bool msm_pm_pc_reset_timer;
 
+#ifdef CONFIG_MACH_HTC
+#define CPU_FOOT_PRINT_MAGIC				0xACBDFE00
+#define CPU_FOOT_PRINT_BASE_CPU0_VIRT		(MSM_KERNEL_FOOTPRINT_BASE + 0x0)
+static void set_cpu_foot_print(unsigned cpu, unsigned state)
+{
+	unsigned *status = (unsigned *)CPU_FOOT_PRINT_BASE_CPU0_VIRT + cpu;
+	*status = (CPU_FOOT_PRINT_MAGIC | state);
+	mb();
+}
+
+#define RESET_VECTOR_CLEAN_MAGIC		0xDCBAABCD
+#define CPU_RESET_VECTOR_CPU0_BASE	(MSM_KERNEL_FOOTPRINT_BASE + 0x28)
+static void clean_reset_vector_debug_info(unsigned cpu)
+{
+	unsigned *reset_vector = (unsigned *)CPU_RESET_VECTOR_CPU0_BASE;
+	reset_vector[cpu] = RESET_VECTOR_CLEAN_MAGIC;
+	mb();
+}
+
+#define SAVE_MSM_PM_BOOT_ENTRY_BASE		(MSM_KERNEL_FOOTPRINT_BASE + 0x20)
+static void store_pm_boot_entry_addr(void)
+{
+	unsigned *addr;
+	addr = (unsigned *)SAVE_MSM_PM_BOOT_ENTRY_BASE;
+	*addr = (unsigned)virt_to_phys(msm_pm_boot_entry);
+	mb();
+}
+
+#define SAVE_MSM_PM_BOOT_VECTOR_BASE			(MSM_KERNEL_FOOTPRINT_BASE + 0x24)
+static void store_pm_boot_vector_addr(unsigned value)
+{
+	unsigned *addr;
+	addr = (unsigned *)SAVE_MSM_PM_BOOT_VECTOR_BASE;
+	*addr = (unsigned)value;
+	mb();
+}
+#endif
+
 static int msm_pm_get_pc_mode(struct device_node *node,
 		const char *key, uint32_t *pc_mode_val)
 {
@@ -501,10 +539,19 @@ static bool __ref msm_pm_spm_power_collapse(
 
 	collapsed = msm_pm_collapse();
 
+#ifdef CONFIG_MACH_HTC
+	set_cpu_foot_print(cpu, 0xa);
+	clean_reset_vector_debug_info(cpu);
+#endif
+
 	if (from_idle && msm_pm_pc_reset_timer)
 		clockevents_notify(CLOCK_EVT_NOTIFY_BROADCAST_EXIT, &cpu);
 
 	msm_pm_boot_config_after_pc(cpu);
+
+#ifdef CONFIG_MACH_HTC
+	set_cpu_foot_print(cpu, 0xb);
+#endif
 
 	if (collapsed) {
 		cpu_init();
@@ -1298,6 +1345,9 @@ static struct notifier_block setup_broadcast_notifier = {
 static int __init msm_pm_init(void)
 {
 	int rc;
+#ifdef CONFIG_MACH_HTC
+	unsigned int addr;
+#endif
 
 	enum msm_pm_time_stats_id enable_stats[] = {
 		MSM_PM_STAT_IDLE_WFI,
@@ -1312,6 +1362,13 @@ static int __init msm_pm_init(void)
 	suspend_set_ops(&msm_pm_ops);
 	hrtimer_init(&pm_hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 	msm_cpuidle_init();
+
+#ifdef CONFIG_MACH_HTC
+	store_pm_boot_entry_addr();
+	get_pm_boot_vector_symbol_address(&addr);
+	store_pm_boot_vector_addr(addr);
+#endif
+
 	rc = platform_driver_register(&msm_cpu_status_driver);
 
 	if (rc) {

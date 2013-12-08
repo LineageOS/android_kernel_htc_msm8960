@@ -37,6 +37,9 @@ extern unsigned long msm_saved_state_phys;
 void msm_pm_boot_entry(void);
 void msm_pm_set_l2_flush_flag(unsigned int flag);
 int msm_pm_get_l2_flush_flag(void);
+#ifdef CONFIG_MACH_HTC
+void get_pm_boot_vector_symbol_address(unsigned *addr);
+#endif
 extern unsigned long msm_pm_pc_pgd;
 extern unsigned long msm_pm_boot_vector[NR_CPUS];
 extern uint32_t target_type;

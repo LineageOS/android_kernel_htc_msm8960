@@ -111,6 +111,30 @@ static void init_watchdog_work(struct work_struct *work);
 static DECLARE_DELAYED_WORK(dogwork_struct, pet_watchdog_work);
 static DECLARE_WORK(init_dogwork_struct, init_watchdog_work);
 
+#ifdef CONFIG_MACH_HTC
+#define APPS_WDOG_FOOT_PRINT_MAGIC	0xACBDFE00
+#define APPS_WDOG_FOOT_PRINT_BASE	(MSM_KERNEL_FOOTPRINT_BASE + 0x100)
+#define APPS_WDOG_FOOT_PRINT_EN		(APPS_WDOG_FOOT_PRINT_BASE + 0x0)
+#define APPS_WDOD_FOOT_PRINT_PET	(APPS_WDOG_FOOT_PRINT_BASE + 0x4)
+#define MPM_SCLK_COUNT_VAL		0x0024
+
+void set_WDT_EN_footprint(unsigned WDT_ENABLE)
+{
+	unsigned *status = (unsigned *)APPS_WDOG_FOOT_PRINT_EN;
+	*status = (APPS_WDOG_FOOT_PRINT_MAGIC | WDT_ENABLE);
+	mb();
+}
+
+void set_dog_pet_footprint(void)
+{
+	unsigned *time = (unsigned *)APPS_WDOD_FOOT_PRINT_PET;
+	uint32_t t = __raw_readl(MSM_RPM_MPM_BASE + MPM_SCLK_COUNT_VAL);
+	*time = t;
+
+	mb();
+}
+#endif
+
 /* Called from the FIQ bark handler */
 void msm_wdog_bark_fin(void)
 {
@@ -127,6 +151,9 @@ static int msm_watchdog_suspend(struct device *dev)
 	__raw_writel(1, msm_wdt_base + WDT_RST);
 	__raw_writel(0, msm_wdt_base + WDT_EN);
 	mb();
+#ifdef CONFIG_MACH_HTC
+	set_WDT_EN_footprint(0);
+#endif
 	return 0;
 }
 
@@ -138,6 +165,9 @@ static int msm_watchdog_resume(struct device *dev)
 	__raw_writel(1, msm_wdt_base + WDT_EN);
 	__raw_writel(1, msm_wdt_base + WDT_RST);
 	mb();
+#ifdef CONFIG_MACH_HTC
+	set_WDT_EN_footprint(1);
+#endif
 	return 0;
 }
 
@@ -147,6 +177,9 @@ static int panic_wdog_handler(struct notifier_block *this,
 	if (panic_timeout == 0) {
 		__raw_writel(0, msm_wdt_base + WDT_EN);
 		mb();
+#ifdef CONFIG_MACH_HTC
+		set_WDT_EN_footprint(0);
+#endif
 	} else {
 		__raw_writel(WDT_HZ * (panic_timeout + 4),
 				msm_wdt_base + WDT_BARK_TIME);
@@ -193,6 +226,9 @@ static void wdog_disable_work(struct work_struct *work)
 		container_of(work, struct wdog_disable_work_data, work);
 	__raw_writel(0, msm_wdt_base + WDT_EN);
 	mb();
+#ifdef CONFIG_MACH_HTC
+	set_WDT_EN_footprint(0);
+#endif
 	if (has_vic) {
 		free_irq(msm_wdog_irq, 0);
 	} else {
@@ -274,6 +310,10 @@ void pet_watchdog(void)
 static void pet_watchdog_work(struct work_struct *work)
 {
 	pet_watchdog();
+
+#ifdef CONFIG_MACH_HTC
+	set_dog_pet_footprint();
+#endif
 
 	if (enable)
 		schedule_delayed_work_on(0, &dogwork_struct, delay_time);
@@ -408,6 +448,10 @@ static void init_watchdog_work(struct work_struct *work)
 
 	__raw_writel(1, msm_wdt_base + WDT_EN);
 	__raw_writel(1, msm_wdt_base + WDT_RST);
+#ifdef CONFIG_MACH_HTC
+	set_dog_pet_footprint();
+	set_WDT_EN_footprint(1);
+#endif
 	last_pet = sched_clock();
 
 	if (!has_vic)
