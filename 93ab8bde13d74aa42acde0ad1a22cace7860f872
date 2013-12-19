@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a7e1126_4c683fbb",
+        "filename": "arch/arm/mach-msm/htc/jet/board-jet-audio.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2013-12-19T10:28:07Z",
+      "side": 1,
+      "message": "I kind of wish you didn\u0027t rename everything even if there were no changes.",
+      "revId": "93ab8bde13d74aa42acde0ad1a22cace7860f872",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
