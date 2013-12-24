@@ -77,7 +77,7 @@ KBUILD_OPTIONS := WLAN_ROOT=../$(WLAN_BLD_DIR)/prima
 # requirement we are specifying <chipset>_wlan.ko as LOCAL_MODULE.
 # This means we need to rename the module to <chipset>_wlan.ko
 # after wlan.ko is built.
-KBUILD_OPTIONS += MODNAME=wlan
+KBUILD_OPTIONS += MODNAME=prima_wlan
 KBUILD_OPTIONS += BOARD_PLATFORM=$(TARGET_BOARD_PLATFORM)
 KBUILD_OPTIONS += $(WLAN_SELECT)
 
