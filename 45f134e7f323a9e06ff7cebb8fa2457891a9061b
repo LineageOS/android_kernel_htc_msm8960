@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a5ae5dd_342c1eab",
+        "filename": "arch/arm/configs/elite_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 3467,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-01-06T14:43:20Z",
+      "side": 1,
+      "message": "You can disable these altogether, they are unused.",
+      "revId": "45f134e7f323a9e06ff7cebb8fa2457891a9061b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
