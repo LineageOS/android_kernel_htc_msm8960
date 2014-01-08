@@ -376,7 +376,7 @@ static int mipi_dsi_panel_power(int on)
 			printk(KERN_ERR "enable regulator %s failed, rc=%d\n", dsivdd_str, rc);
 			return -ENODEV;
 		}
-		usleep(1);
+		hr_msleep(1);
 		rc = regulator_enable(v_lcmio);
 		if (rc) {
 			printk(KERN_ERR "enable regulator %s failed, rc=%d\n", lcmio_str, rc);
@@ -390,14 +390,14 @@ static int mipi_dsi_panel_power(int on)
 		}
 
 		if (!mipi_lcd_on) {
-			usleep(10);
+			hr_msleep(10);
 			gpio_set_value(VILLE_GPIO_LCD_RSTz, 1);
-			usleep(1);
+			hr_msleep(1);
 			gpio_set_value(VILLE_GPIO_LCD_RSTz, 0);
-			usleep(35);
+			hr_msleep(35);
 			gpio_set_value(VILLE_GPIO_LCD_RSTz, 1);
 		}
-		usleep(60);
+		hr_msleep(60);
 
 		bPanelPowerOn = true;
 	} else {
