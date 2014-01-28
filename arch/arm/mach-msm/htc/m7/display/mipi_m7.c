@@ -899,6 +899,7 @@ static void m7_set_cabc(struct msm_fb_data_type *mfd, int mode)
 static int m7_lcd_on(struct platform_device *pdev)
 {
 	struct msm_fb_data_type *mfd;
+	bool clk_ctrl = false;
 
 	mfd = platform_get_drvdata(pdev);
 	if (!mfd)
@@ -906,7 +907,10 @@ static int m7_lcd_on(struct platform_device *pdev)
 	if (mfd->key != MFD_KEY)
 		return -EINVAL;
 
-	send_display_cmds(panel_on_cmds, panel_on_cmds_count, false);
+	if (mfd->panel_info.type == MIPI_CMD_PANEL)
+		clk_ctrl = true;
+
+	send_display_cmds(panel_on_cmds, panel_on_cmds_count, clk_ctrl);
 
 	return 0;
 }
@@ -932,6 +936,7 @@ static int m7_lcd_off(struct platform_device *pdev)
 static int m7_display_on(struct platform_device *pdev)
 {
 	struct msm_fb_data_type *mfd;
+	bool clk_ctrl = false;
 
 	mfd = platform_get_drvdata(pdev);
 	if (!mfd)
@@ -939,7 +944,10 @@ static int m7_display_on(struct platform_device *pdev)
 	if (mfd->key != MFD_KEY)
 		return -EINVAL;
 
-	send_display_cmds(display_on_cmds, display_on_cmds_count, false);
+	if (mfd->panel_info.type == MIPI_CMD_PANEL)
+		clk_ctrl = true;
+
+	send_display_cmds(display_on_cmds, display_on_cmds_count, clk_ctrl);
 
 	return 0;
 }
@@ -947,7 +955,7 @@ static int m7_display_on(struct platform_device *pdev)
 static int m7_display_off(struct platform_device *pdev)
 {
 	struct msm_fb_data_type *mfd;
-	bool clk_ctrl;
+	bool clk_ctrl = false;
 
 	mfd = platform_get_drvdata(pdev);
 
