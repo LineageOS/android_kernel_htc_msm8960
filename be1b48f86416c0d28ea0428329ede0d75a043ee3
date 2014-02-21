@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fade3982_61bc146d",
+        "filename": "arch/arm/mach-msm/htc/m7/display/mipi_m7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2014-02-21T01:48:37Z",
+      "side": 1,
+      "message": "This is never initialized..  If this isn\u0027t a CMD_PANEL then clk_ctrl could randomly be either true or false.",
+      "revId": "be1b48f86416c0d28ea0428329ede0d75a043ee3",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
