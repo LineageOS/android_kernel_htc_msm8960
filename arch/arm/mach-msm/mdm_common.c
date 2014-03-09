@@ -496,6 +496,9 @@ static long mdm_modem_ioctl(struct file *filp, unsigned int cmd,
 	case WAKE_CHARM:
 		pr_info("%s: Powering on mdm id %d\n",
 				__func__, mdev->mdm_data.device_id);
+#ifdef CONFIG_MACH_HTC
+		atomic_set(&mdm_drv->mdm_ready, 0);
+#endif
 		mdm_ops->power_on_mdm_cb(mdm_drv);
 		break;
 	case CHECK_FOR_BOOT:
