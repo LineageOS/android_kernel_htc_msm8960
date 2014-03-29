@@ -196,7 +196,7 @@ static int I2C_RxData_2(char *rxData, int length)
 
 		D("[PS][cm3629 warning] %s, i2c err, ISR gpio %d\n",
 				__func__, lpi->intr_pin);
-		usleep(10);
+		hr_msleep(10);
 	}
 
 	if (loop_i >= I2C_RETRY_COUNT) {
@@ -227,7 +227,7 @@ static int I2C_TxData(uint16_t slaveAddr, uint8_t *txData, int length)
 		D("[PS][cm3629 warning] %s, i2c err, slaveAddr 0x%x, register 0x%x, value 0x%x, ISR gpio%d, record_init_fail %d\n",
 				__func__, slaveAddr, txData[0], txData[1], lpi->intr_pin, record_init_fail);
 
-		usleep(10);
+		hr_msleep(10);
 	}
 
 	if (loop_i >= I2C_RETRY_COUNT) {
@@ -1444,6 +1444,11 @@ static int lightsensor_enable(struct cm3629_info *lpi)
 		"[LS][cm3629 error]%s: set auto light sensor fail\n",
 		__func__);
 	else {
+		if (lpi->mfg_mode != MFG_MODE)
+			hr_msleep(160);
+		else
+			hr_msleep(85);
+
 		input_report_abs(lpi->ls_input_dev, ABS_MISC, -1);
 		input_sync(lpi->ls_input_dev);
 		report_lsensor_input_event(lpi, 1);
