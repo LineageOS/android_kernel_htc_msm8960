@@ -482,9 +482,13 @@ static void fl_lcdev_brightness_set(struct led_classdev *led_cdev,
 
 static void flashlight_early_suspend(struct early_suspend *handler)
 {
+// Early suspend of flashlight disabled so that LED stays on in
+// flashlight apps when screen turns off
+#if 0
 	FLT_INFO_LOG("%s\n", __func__);
 	if (this_tps61310 != NULL && this_tps61310->mode_status)
 		flashlight_turn_off();
+#endif
 }
 
 static void flashlight_late_resume(struct early_suspend *handler)
