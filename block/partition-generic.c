@@ -277,6 +277,9 @@ static ssize_t whole_disk_show(struct device *dev,
 static DEVICE_ATTR(whole_disk, S_IRUSR | S_IRGRP | S_IROTH,
 		   whole_disk_show, NULL);
 
+#ifdef CONFIG_MACH_HTC
+const char *get_partition_name_by_num(int partnum);
+#endif
 struct hd_struct *add_partition(struct gendisk *disk, int partno,
 				sector_t start, sector_t len, int flags,
 				struct partition_meta_info *info)
@@ -329,6 +332,14 @@ struct hd_struct *add_partition(struct gendisk *disk, int partno,
 		dev_set_name(pdev, "%sp%d", dname, partno);
 	else
 		dev_set_name(pdev, "%s%d", dname, partno);
+
+#ifdef CONFIG_MACH_HTC
+	if (!strncmp(dev_name(pdev), "mmcblk0p", 8)) {
+		const char *pname = get_partition_name_by_num(p->partno);
+		if (pname)
+			snprintf(p->info->volname, PARTITION_META_INFO_VOLNAMELTH, pname);
+	}
+#endif
 
 	device_initialize(pdev);
 	pdev->class = &block_class;
