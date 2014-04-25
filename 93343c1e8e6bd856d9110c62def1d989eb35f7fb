@@ -16,6 +16,24 @@
       "revId": "93343c1e8e6bd856d9110c62def1d989eb35f7fb",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af24918_e6be80d3",
+        "filename": "block/partition-generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2014-04-25T05:29:39Z",
+      "side": 1,
+      "message": "prototype moved to board-ext-htc.h for patchset 2",
+      "parentUuid": "7af24918_e6d7a021",
+      "revId": "93343c1e8e6bd856d9110c62def1d989eb35f7fb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
