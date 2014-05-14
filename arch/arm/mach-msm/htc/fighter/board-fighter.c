@@ -1255,11 +1255,175 @@ static struct platform_device htc_battery_pdev = {
 };
 #endif /* CONFIG_HTC_BATT_8960 */
 
+static uint32_t headset_gpio_xc[] = {
+	GPIO_CFG(FIGHTER_HS_TX_CPU, 0, GPIO_CFG_OUTPUT,
+		 GPIO_CFG_NO_PULL, GPIO_CFG_2MA),
+	GPIO_CFG(FIGHTER_HS_RX_CPU, 0, GPIO_CFG_INPUT,
+		 GPIO_CFG_PULL_DOWN, GPIO_CFG_2MA),
+	GPIO_CFG(FIGHTER_HS_MIC_BIAS_EN, 0, GPIO_CFG_OUTPUT,
+		 GPIO_CFG_NO_PULL, GPIO_CFG_2MA),
+};
+
+struct pm8xxx_gpio_init {
+	unsigned			gpio;
+	struct pm_gpio			config;
+};
+
+struct pm8xxx_gpio_init headset_pmic_gpio[] = {
+{
+	.gpio	= PM8921_GPIO_PM_TO_SYS(FIGHTER_HS_RX_PMIC_REMO),
+	.config	= {
+		.direction	= PM_GPIO_DIR_IN,
+		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
+		.output_value	= 0,
+		.pull		= PM_GPIO_PULL_NO,
+		.vin_sel	= PM_GPIO_VIN_L17,
+		.out_strength	= PM_GPIO_STRENGTH_LOW,
+		.function	= PM_GPIO_FUNC_PAIRED,
+		.inv_int_pol	= 0,
+		.disable_pin	= 0,
+	}
+}
+};
+
+struct pm8xxx_gpio_init headset_pmic_gpio_rx_xc[] = {
+{
+	.gpio	= PM8921_GPIO_PM_TO_SYS(FIGHTER_HS_TX_PMIC_UART),
+	.config	= {
+		.direction	= PM_GPIO_DIR_IN,
+		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
+		.output_value	= 0,
+		.pull		= PM_GPIO_PULL_DN,
+		.vin_sel	= PM_GPIO_VIN_S4,
+		.out_strength	= PM_GPIO_STRENGTH_LOW,
+		.function	= PM_GPIO_FUNC_NORMAL,
+		.inv_int_pol	= 0,
+		.disable_pin	= 0,
+	}
+},
+{
+	.gpio	= PM8921_GPIO_PM_TO_SYS(FIGHTER_HS_TX_PMIC_REMO),
+	.config	= {
+		.direction	= PM_GPIO_DIR_IN,
+		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
+		.output_value	= 0,
+		.pull		= PM_GPIO_PULL_NO,
+		.vin_sel	= PM_GPIO_VIN_L17,
+		.out_strength	= PM_GPIO_STRENGTH_LOW,
+		.function	= PM_GPIO_FUNC_NORMAL,
+		.inv_int_pol	= 0,
+		.disable_pin	= 0,
+	}
+},
+{
+	.gpio	= PM8921_GPIO_PM_TO_SYS(FIGHTER_HS_RX_PMIC_REMO),
+	.config	= {
+		.direction	= PM_GPIO_DIR_IN,
+		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
+		.output_value	= 0,
+		.pull		= PM_GPIO_PULL_NO,
+		.vin_sel	= PM_GPIO_VIN_L17,
+		.out_strength	= PM_GPIO_STRENGTH_LOW,
+		.function	= PM_GPIO_FUNC_NORMAL,
+		.inv_int_pol	= 0,
+		.disable_pin	= 0,
+	}
+},
+{
+	.gpio	= PM8921_GPIO_PM_TO_SYS(FIGHTER_HS_RX_PMIC_UART),
+	.config	= {
+		.direction	= PM_GPIO_DIR_IN,
+		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
+		.output_value	= 0,
+		.pull		= PM_GPIO_PULL_DN,
+		.vin_sel	= PM_GPIO_VIN_S4,
+		.out_strength	= PM_GPIO_STRENGTH_LOW,
+		.function	= PM_GPIO_FUNC_NORMAL,
+		.inv_int_pol	= 0,
+		.disable_pin	= 0,
+	}
+},
+};
+
+struct pm8xxx_gpio_init headset_pmic_gpio_rx_xd[] = {
+{
+	.gpio	= PM8921_GPIO_PM_TO_SYS(FIGHTER_LS_EN),
+	.config	= {
+		.direction	= PM_GPIO_DIR_OUT,
+		.output_buffer	= PM_GPIO_OUT_BUF_CMOS,
+		.output_value	= 0,
+		.pull		= PM_GPIO_PULL_NO,
+		.vin_sel	= PM_GPIO_VIN_S4,
+		.out_strength	= PM_GPIO_STRENGTH_HIGH,
+		.function	= PM_GPIO_FUNC_NORMAL,
+		.inv_int_pol	= 0,
+		.disable_pin	= 0,
+	}
+},
+};
+
+static void headset_init(void)
+{
+	int i = 0;
+	int rc = 0;
+
+	pr_info("[HS_BOARD] (%s) Headset initiation\n", __func__);
+
+	/* XA, XB */
+	if (system_rev < 2) {
+		rc = pm8xxx_gpio_config(headset_pmic_gpio[0].gpio,
+					&headset_pmic_gpio[0].config);
+		if (rc)
+			pr_info("[HS_BOARD] %s: Config ERROR: GPIO=%u, rc=%d\n",
+				__func__, headset_pmic_gpio[0].gpio, rc);
+		return;
+	}
+
+	/* XC */
+	gpio_tlmm_config(headset_gpio_xc[0], GPIO_CFG_ENABLE);
+	gpio_tlmm_config(headset_gpio_xc[1], GPIO_CFG_ENABLE);
+	gpio_tlmm_config(headset_gpio_xc[2], GPIO_CFG_ENABLE);
+	gpio_set_value(FIGHTER_HS_TX_CPU, 0);
+	gpio_set_value(FIGHTER_HS_MIC_BIAS_EN, 0);
+
+	for (i = 0; i < ARRAY_SIZE(headset_pmic_gpio_rx_xc); i++) {
+		rc = pm8xxx_gpio_config(headset_pmic_gpio_rx_xc[i].gpio,
+					&headset_pmic_gpio_rx_xc[i].config);
+		if (rc)
+			pr_info("[HS_BOARD] %s: Config ERROR: GPIO=%u, rc=%d\n",
+				__func__, headset_pmic_gpio_rx_xc[i].gpio, rc);
+	}
+
+	if (system_rev > 2) {
+		for (i = 0; i < ARRAY_SIZE(headset_pmic_gpio_rx_xd); i++) {
+			rc = pm8xxx_gpio_config(headset_pmic_gpio_rx_xd[i].gpio,
+					&headset_pmic_gpio_rx_xd[i].config);
+			if (rc)
+				pr_info("[HS_BOARD] %s: ERR: GPIO=%u, rc=%d\n",
+					__func__,
+					headset_pmic_gpio_rx_xd[i].gpio, rc);
+		}
+		gpio_set_value(PM8921_GPIO_PM_TO_SYS(FIGHTER_LS_EN), 1);
+	}
+}
+
+static void headset_power(int enable)
+{
+	if (system_rev < 2) /* XA, XB */
+		return;
+
+	pr_info("[HS_BOARD] (%s) Set MIC bias %d\n", __func__, enable);
+
+	if (enable)
+		gpio_set_value(FIGHTER_HS_MIC_BIAS_EN, 1);
+	else
+		gpio_set_value(FIGHTER_HS_MIC_BIAS_EN, 0);
+}
+
 /* HTC_HEADSET_PMIC Driver */
 static struct htc_headset_pmic_platform_data htc_headset_pmic_data = {
 	.driver_flag		= DRIVER_HS_PMIC_ADC,
-	.hpin_gpio		= PM8921_GPIO_PM_TO_SYS(
-					FIGHTER_EARPHONE_DETz),
+	.hpin_gpio		= PM8921_GPIO_PM_TO_SYS(FIGHTER_EARPHONE_DETz),
 	.hpin_irq		= 0,
 	.key_gpio		= PM8921_GPIO_PM_TO_SYS(
 					FIGHTER_HS_RX_PMIC_REMO),
@@ -1291,11 +1455,11 @@ static struct headset_adc_config htc_headset_mgr_config[] = {
 	{
 		.type = HEADSET_MIC,
 		.adc_max = 1560,
-		.adc_min = 1223,
+		.adc_min = 1244,
 	},
 	{
 		.type = HEADSET_BEATS,
-		.adc_max = 1222,
+		.adc_max = 1243,
 		.adc_min = 916,
 	},
 	{
@@ -1316,11 +1480,13 @@ static struct headset_adc_config htc_headset_mgr_config[] = {
 };
 
 static struct htc_headset_mgr_platform_data htc_headset_mgr_data = {
-	.driver_flag		= DRIVER_HS_MGR_FLOAT_DET,
+	.driver_flag		= 0,
 	.headset_devices_num	= ARRAY_SIZE(headset_devices),
 	.headset_devices	= headset_devices,
 	.headset_config_num	= ARRAY_SIZE(htc_headset_mgr_config),
 	.headset_config		= htc_headset_mgr_config,
+	.headset_init		= headset_init,
+	.headset_power		= headset_power,
 };
 
 static struct platform_device htc_headset_mgr = {
