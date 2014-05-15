@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c15f0_781df8bc",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-05-15T13:02:25Z",
+      "side": 1,
+      "message": "You can probably just ifdef AUD_1WIRE_DO, AUD_1WIRE_O, AUD_1WIRE_DI NC40 with HEADSET_ONE_WIRE. It should also be safe to re-arrange this array.\n\nComment also applies to arrays above.",
+      "revId": "a4fd6e206b281d14d0ef17a5cb4bfab128af9b7c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0c15f0_9820ccf9",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-05-15T13:02:25Z",
+      "side": 1,
+      "message": "NC_40 is for ONE_WIRE.",
+      "revId": "a4fd6e206b281d14d0ef17a5cb4bfab128af9b7c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
