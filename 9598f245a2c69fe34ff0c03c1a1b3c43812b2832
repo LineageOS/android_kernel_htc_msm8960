@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c15f0_f8ebc8ae",
+        "filename": "arch/arm/mach-msm/htc/ville/board-ville.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-05-15T11:50:38Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like anything uses this struct for ville.",
+      "revId": "9598f245a2c69fe34ff0c03c1a1b3c43812b2832",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
