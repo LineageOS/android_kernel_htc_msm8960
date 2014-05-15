@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c15f0_38e4200c",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2014-05-15T09:08:47Z",
+      "side": 1,
+      "message": "Ethan, for fighter I expanded the below structs so they are more human readable. Do you prefer using this define or having structs expanded?",
+      "revId": "9a2310ec019f6a45246e937536d2188d4bf603ff",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
