@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c15f0_38cb8074",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-05-15T09:32:58Z",
+      "side": 1,
+      "message": "I\u0027m assuming you can backport the macro from the elite GPIO config code to here.",
+      "revId": "e000c7d4c56a27715ef6106bb0266a8cf95c3acd",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0c15f0_58ce3484",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-05-15T09:32:58Z",
+      "side": 1,
+      "message": "Was there a reason this got changed?",
+      "revId": "e000c7d4c56a27715ef6106bb0266a8cf95c3acd",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
