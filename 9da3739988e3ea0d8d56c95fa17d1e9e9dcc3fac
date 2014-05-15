@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c15f0_78033810",
+        "filename": "arch/arm/mach-msm/htc/jet/board-jet.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2014-05-15T19:37:26Z",
+      "side": 1,
+      "message": "should be headset_rx_xc[i]",
+      "revId": "9da3739988e3ea0d8d56c95fa17d1e9e9dcc3fac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
