@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da0c15f0_d8a084a8",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2014-05-15T09:34:28Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "da0c15f0_38cb8074",
+      "revId": "e000c7d4c56a27715ef6106bb0266a8cf95c3acd",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0c15f0_58ce3484",
         "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-05-15T09:32:58Z",
       "side": 1,
       "message": "Was there a reason this got changed?",
+      "revId": "e000c7d4c56a27715ef6106bb0266a8cf95c3acd",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0c15f0_78c5f859",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2014-05-15T09:34:28Z",
+      "side": 1,
+      "message": "Not a good reason, I\u0027ll double check the character count on that line.",
+      "parentUuid": "da0c15f0_58ce3484",
       "revId": "e000c7d4c56a27715ef6106bb0266a8cf95c3acd",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
