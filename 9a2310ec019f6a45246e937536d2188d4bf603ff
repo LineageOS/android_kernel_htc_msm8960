@@ -16,6 +16,24 @@
       "revId": "9a2310ec019f6a45246e937536d2188d4bf603ff",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0c15f0_d8b9a4ee",
+        "filename": "arch/arm/mach-msm/htc/elite/board-elite.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-05-15T09:17:42Z",
+      "side": 1,
+      "message": "I\u0027d rather have the define. I suspect once this goes in, it will largely be ignored afterwards.",
+      "parentUuid": "da0c15f0_38e4200c",
+      "revId": "9a2310ec019f6a45246e937536d2188d4bf603ff",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
