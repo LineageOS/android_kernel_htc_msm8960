@@ -89,7 +89,6 @@
 enum {
 	SLIM_1_RX_1 = 145, /* BT-SCO and USB TX */
 	SLIM_1_TX_1 = 146, /* BT-SCO and USB RX */
-	SLIM_1_TX_2 = 147, /* USB RX */
 	SLIM_3_RX_1 = 151, /* External echo-cancellation ref */
 	SLIM_3_RX_2 = 152, /* External echo-cancellation ref */
 	SLIM_3_TX_1 = 153, /* HDMI RX */
@@ -1186,7 +1185,7 @@ static int msm_slimbus_1_hw_params(struct snd_pcm_substream *substream,
 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
 	int ret = 0;
-	unsigned int rx_ch = SLIM_1_RX_1, tx_ch[2] = {SLIM_1_TX_1, SLIM_1_TX_2};
+	unsigned int rx_ch = SLIM_1_RX_1, tx_ch = SLIM_1_TX_1;
 
 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
 		pr_debug("%s: APQ BT/USB TX -> SLIMBUS_1_RX -> MDM TX shared ch %d\n",
@@ -1200,11 +1199,10 @@ static int msm_slimbus_1_hw_params(struct snd_pcm_substream *substream,
 			goto end;
 		}
 	} else {
-		pr_debug("%s: MDM RX ->SLIMBUS_1_TX ->APQ BT/USB Rx shared ch %d %d\n",
-			  __func__, tx_ch[0], tx_ch[1]);
+		pr_debug("%s: MDM RX -> SLIMBUS_1_TX -> APQ BT/USB Rx shared ch %d\n",
+			__func__, tx_ch);
 
-		ret = snd_soc_dai_set_channel_map(cpu_dai, msm_slim_1_tx_ch,
-						  tx_ch, 0, 0);
+		ret = snd_soc_dai_set_channel_map(cpu_dai, 1, &tx_ch, 0, 0);
 		if (ret < 0) {
 			pr_err("%s: Erorr %d setting SLIM_1 TX channel map\n",
 				__func__, ret);
