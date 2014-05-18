@@ -127,7 +127,6 @@ static int clk_users;
 
 static struct snd_soc_jack hs_jack;
 static struct snd_soc_jack button_jack;
-static atomic_t auxpcm_rsc_ref;
 static atomic_t q6_effect_mode = ATOMIC_INIT(-1);
 
 static int apq8064_hs_detect_use_gpio = -1;
@@ -184,6 +183,7 @@ static void param_set_mask(struct snd_pcm_hw_params *p, int n, unsigned bit)
 }
 
 static struct mutex cdc_mclk_mutex;
+static struct mutex aux_pcm_mutex;
 
 static void msm_enable_ext_spk_amp_gpio(u32 spk_amp_gpio)
 {
@@ -1807,18 +1807,27 @@ static int msm_startup(struct snd_pcm_substream *substream)
 	return 0;
 }
 
+static int aux_pcm_open = 0;
 static int msm_auxpcm_startup(struct snd_pcm_substream *substream)
 {
 	int ret = 0;
+	mutex_lock(&aux_pcm_mutex);
 
-	pr_debug("%s(): substream = %s, auxpcm_rsc_ref counter = %d\n",
-		__func__, substream->name, atomic_read(&auxpcm_rsc_ref));
-	if (atomic_inc_return(&auxpcm_rsc_ref) == 1)
-		ret = msm_aux_pcm_get_gpios();
+	aux_pcm_open++;
+
+	if(aux_pcm_open > 1) {
+		mutex_unlock(&aux_pcm_mutex);
+		return 0;
+	}
+	pr_debug("%s(): substream = %s\n", __func__, substream->name);
+	ret = msm_aux_pcm_get_gpios();
 	if (ret < 0) {
 		pr_err("%s: Aux PCM GPIO request failed\n", __func__);
+		aux_pcm_open--;
+		mutex_unlock(&aux_pcm_mutex);
 		return -EINVAL;
 	}
+	mutex_unlock(&aux_pcm_mutex);
 	return 0;
 }
 
@@ -1929,10 +1938,15 @@ static int msm_slimbus_1_startup(struct snd_pcm_substream *substream)
 static void msm_auxpcm_shutdown(struct snd_pcm_substream *substream)
 {
 
-	pr_debug("%s(): substream = %s, auxpcm_rsc_ref counter = %d\n",
-		__func__, substream->name, atomic_read(&auxpcm_rsc_ref));
-	if (atomic_dec_return(&auxpcm_rsc_ref) == 0)
+	pr_debug("%s(): substream = %s\n", __func__, substream->name);
+	mutex_lock(&aux_pcm_mutex);
+	aux_pcm_open--;
+
+	if(aux_pcm_open < 1) {
 		msm_aux_pcm_free_gpios();
+	}
+
+	mutex_unlock(&aux_pcm_mutex);
 }
 
 static void msm_shutdown(struct snd_pcm_substream *substream)
@@ -2744,7 +2758,7 @@ static int __init msm_audio_init(void)
 	mi2s_gpio_init();
 
 	mutex_init(&cdc_mclk_mutex);
-	atomic_set(&auxpcm_rsc_ref, 0);
+	mutex_init(&aux_pcm_mutex);
 	return ret;
 
 }
@@ -2761,6 +2775,7 @@ static void __exit msm_audio_exit(void)
 		gpio_free(mbhc_cfg.gpio);
 	kfree(mbhc_cfg.calibration);
 	mutex_destroy(&cdc_mclk_mutex);
+	mutex_destroy(&aux_pcm_mutex);
 }
 module_exit(msm_audio_exit);
 
