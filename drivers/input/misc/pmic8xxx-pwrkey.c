@@ -27,6 +27,10 @@
 #define PON_CNTL_PULL_UP BIT(7)
 #define PON_CNTL_TRIG_DELAY_MASK (0x7)
 
+#ifdef CONFIG_TOUCHSCREEN_SYNAPTICS_TAP2WAKE
+#include <linux/synaptics_i2c_rmi.h>
+#endif
+
 /**
  * struct pmic8xxx_pwrkey - pmic8xxx pwrkey information
  * @key_press_irq: key press irq number
@@ -193,6 +197,11 @@ static int __devinit pmic8xxx_pwrkey_probe(struct platform_device *pdev)
 		input_report_key(pwrkey->pwr, KEY_POWER, 1);
 		input_sync(pwrkey->pwr);
 	}
+
+#ifdef CONFIG_TOUCHSCREEN_SYNAPTICS_TAP2WAKE
+	tap2wake_setdev(pwr);
+	pr_info("[tap2wake] set device %s\n", pwr->name);
+#endif
 
 	err = request_any_context_irq(key_press_irq, pwrkey_press_irq,
 		IRQF_TRIGGER_RISING, "pmic8xxx_pwrkey_press", pwrkey);
