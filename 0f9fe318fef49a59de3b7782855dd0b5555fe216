@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c15f0_77dde741",
+        "filename": "arch/arm/mach-msm/htc/jet/board-jet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-10T12:39:33Z",
+      "side": 0,
+      "message": "Thought this was a duplicate at first, but it\u0027s actually unused.",
+      "revId": "0f9fe318fef49a59de3b7782855dd0b5555fe216",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
