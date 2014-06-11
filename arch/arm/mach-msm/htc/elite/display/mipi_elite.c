@@ -11,16 +11,20 @@ static struct msm_panel_common_pdata *mipi_elite_pdata;
 static int mipi_elite_lcd_init(void);
 // Selected codes
 static struct dsi_cmd_desc *elite_video_on_cmds = NULL;
-int elite_video_on_cmds_count = 0;
+static int elite_video_on_cmds_count = 0;
 static struct dsi_cmd_desc *elite_display_off_cmds = NULL;
-int elite_display_off_cmds_count = 0;
+static int elite_display_off_cmds_count = 0;
 static struct dsi_cmd_desc *elite_cmd_backlight_cmds = NULL;
-int elite_cmd_backlight_cmds_count = 0;
+static int elite_cmd_backlight_cmds_count = 0;
 
 /* All MIPI codes .. */
 static char display_on[2] = {0x29, 0x00}; /* DTYPE_DCS_WRITE */
 static char display_off[2] = {0x28, 0x00}; /* DTYPE_DCS_WRITE */
 static char enter_sleep[2] = {0x10, 0x00}; /* DTYPE_DCS_WRITE */
+
+static struct dsi_cmd_desc display_on_cmds[] = {
+	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
+};
 
 static struct dsi_cmd_desc display_off_cmds[] = {
 	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
@@ -525,8 +529,6 @@ static struct dsi_cmd_desc sony_panel_video_mode_cmds[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep},*/
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc sony_panel_video_mode_cmds_id28103[] = {
@@ -1010,8 +1012,6 @@ static struct dsi_cmd_desc sony_panel_video_mode_cmds_id28103[] = {
 
 	/*    {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep},*/
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24} },
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 /* himax command begin */
@@ -1019,7 +1019,7 @@ static struct dsi_cmd_desc sony_panel_video_mode_cmds_id28103[] = {
 static char himax_max_pkt_size[2] = {0x03, 0x00};
 static char himax_password[4] = {0xB9, 0xFF, 0x83, 0x92}; /* DTYPE_DCS_LWRITE */
 
-struct dsi_cmd_desc sharp_nt_video_on_cmds_idA1B100[] = {
+static struct dsi_cmd_desc sharp_nt_video_on_cmds_idA1B100[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(set_threelane), set_threelane},
 #ifdef EVA_CMD_MODE_PANEL
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(display_mode_cmd), display_mode_cmd},
@@ -1148,11 +1148,9 @@ struct dsi_cmd_desc sharp_nt_video_on_cmds_idA1B100[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
-struct dsi_cmd_desc sharp_nt_video_on_cmds_nv3[] = {
+static struct dsi_cmd_desc sharp_nt_video_on_cmds_nv3[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(set_threelane), set_threelane},
 #ifdef EVA_CMD_MODE_PANEL
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(display_mode_cmd), display_mode_cmd},
@@ -1262,11 +1260,9 @@ struct dsi_cmd_desc sharp_nt_video_on_cmds_nv3[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
-struct dsi_cmd_desc sharp_nt_video_on_cmds_nv4[] = {
+static struct dsi_cmd_desc sharp_nt_video_on_cmds_nv4[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(set_threelane), set_threelane},
 #ifdef EVA_CMD_MODE_PANEL
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(display_mode_cmd), display_mode_cmd},
@@ -1370,11 +1366,9 @@ struct dsi_cmd_desc sharp_nt_video_on_cmds_nv4[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
-struct dsi_cmd_desc himax_video_on_cmds_id311100[] = {
+static struct dsi_cmd_desc himax_video_on_cmds_id311100[] = {
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 10, sizeof(himax_password), himax_password},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(set_threelane), set_threelane},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0, sizeof(himax_max_pkt_size), himax_max_pkt_size},
@@ -1387,7 +1381,6 @@ struct dsi_cmd_desc himax_video_on_cmds_id311100[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(led_pwm2), led_pwm2},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(led_pwm3), led_pwm3},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(enable_te), enable_te},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc nvt_LowTemp_wrkr_enter[] = {
@@ -1455,9 +1448,6 @@ static int mipi_elite_lcd_on(struct platform_device *pdev)
 	if (mfd->key != MFD_KEY)
 		return -EINVAL;
 
-	if (mipi_lcd_on)
-		return 0;
-
 	mipi = &mfd->panel_info.mipi;
 
 	if (mipi->mode == DSI_VIDEO_MODE) {
@@ -1492,7 +1482,6 @@ static int mipi_elite_lcd_on(struct platform_device *pdev)
 	} else
 		pr_err("%s: panel_type is not supported!(%d)", __func__, panel_type);
 
-	mipi_lcd_on = 1;
 	return 0;
 }
 
@@ -1510,13 +1499,67 @@ static int mipi_elite_lcd_off(struct platform_device *pdev)
 	if (!mipi_lcd_on)
 		return 0;
 
+	mipi_lcd_on = 0;
+
+	return 0;
+}
+
+static int mipi_elite_display_on(struct platform_device *pdev)
+{
+	struct msm_fb_data_type *mfd;
+	struct mipi_panel_info *mipi;
+
+	mfd = platform_get_drvdata(pdev);
+	if (!mfd)
+		return -ENODEV;
+	if (mfd->key != MFD_KEY)
+		return -EINVAL;
+
+	if (mipi_lcd_on)
+		return 0;
+
+	mipi = &mfd->panel_info.mipi;
+
+	if (mipi->mode == DSI_VIDEO_MODE) {
+		pr_err("%s: does not support video mode\n",
+				__func__);
+		return -EINVAL;
+	}
+
+	if (panel_type == PANEL_ID_ELITE_SONY_NT ||
+			panel_type == PANEL_ID_ELITE_SONY_NT_C1 ||
+			panel_type == PANEL_ID_ELITE_SONY_NT_C2 ||
+			panel_type == PANEL_ID_ELITE_SHARP_NT ||
+			panel_type == PANEL_ID_ELITE_SHARP_NT_C1 ||
+			panel_type == PANEL_ID_ELITE_SHARP_NT_C2 ||
+			panel_type == PANEL_ID_ELITE_SHARP_HX) {
+		elite_send_display_cmds(display_on_cmds,
+				ARRAY_SIZE(display_on_cmds), false);
+		pr_info("%s: panel_type (%d)", __func__, panel_type);
+	} else
+		pr_err("%s: panel_type is not supported!(%d)", __func__, panel_type);
+
+	mipi_lcd_on = 1;
+	return 0;
+}
+
+static int mipi_elite_display_off(struct platform_device *pdev)
+{
+	struct msm_fb_data_type *mfd;
+
+	mfd = platform_get_drvdata(pdev);
+
+	if (!mfd)
+		return -ENODEV;
+	if (mfd->key != MFD_KEY)
+		return -EINVAL;
+
 	if (panel_type != PANEL_ID_NONE)
 		elite_send_display_cmds(elite_display_off_cmds,
 				elite_display_off_cmds_count, false);
 
-	mipi_lcd_on = 0;
-
 	return 0;
+
 }
 
 static unsigned char elite_shrink_pwm(int val)
@@ -1643,6 +1686,8 @@ static struct msm_fb_panel_data elite_panel_data = {
 	.on = mipi_elite_lcd_on,
 	.off = mipi_elite_lcd_off,
 	.set_backlight = mipi_elite_set_backlight,
+	.late_init = mipi_elite_display_on,
+	.early_off = mipi_elite_display_off,
 #ifdef CONFIG_FB_MSM_CABC
 	.enable_cabc = mipi_elite_enable_ic_cabc,
 #endif
