@@ -233,6 +233,10 @@ static struct dsi_cmd_desc enable_dim[] = {{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof
 static struct dsi_cmd_desc *cabc_cmds = cabc_off; /* default disable cabc */
 #endif
 
+static struct dsi_cmd_desc display_on_cmds[] = {
+	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
+};
+
 static struct dsi_cmd_desc lg_novatek_cmd_on_cmds[] = {
 	{DTYPE_DCS_WRITE, 1, 0, 0, 30,
 		sizeof(sw_reset), sw_reset},
@@ -347,8 +351,6 @@ static struct dsi_cmd_desc lg_novatek_cmd_on_cmds[] = {
 		sizeof(led_pwm2), led_pwm2},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(led_pwm3), led_pwm3},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc sony_c1_video_on_cmds[] = {
@@ -831,8 +833,6 @@ static struct dsi_cmd_desc sony_c1_video_on_cmds[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24} },
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc sony_panel_video_mode_cmds_c2[] = {
@@ -1304,8 +1304,6 @@ static struct dsi_cmd_desc sony_panel_video_mode_cmds_c2[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 /* AUO timing fix */
@@ -1973,8 +1971,6 @@ static struct dsi_cmd_desc auo_panel_video_mode_cmds[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24} },
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc auo_panel_video_mode_cmds_c2[] = {
@@ -2456,8 +2452,6 @@ static struct dsi_cmd_desc auo_panel_video_mode_cmds_c2[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc auo_panel_video_mode_cmds_c3[] = {
@@ -2562,8 +2556,6 @@ static struct dsi_cmd_desc auo_panel_video_mode_cmds_c3[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static struct dsi_cmd_desc auo_panel_video_mode_cmds_c3_1[] = {
@@ -3054,8 +3046,6 @@ static struct dsi_cmd_desc auo_panel_video_mode_cmds_c3_1[] = {
 
 	/* {DTYPE_DCS_WRITE, 1, 0, 0, 150, sizeof(exit_sleep), exit_sleep}, */
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, 2, (char[]){0x53, 0x24}},
-
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
 static int jet_send_display_cmds(struct dsi_cmd_desc *cmd, int cnt,
@@ -3090,9 +3080,6 @@ static int mipi_jet_lcd_on(struct platform_device *pdev)
 	if (mfd->key != MFD_KEY)
 		return -EINVAL;
 
-	if (mipi_lcd_on)
-		return 0;
-
 	mipi = &mfd->panel_info.mipi;
 
 	jet_send_display_cmds(nvt_LowTemp_wrkr_enter,
@@ -3102,9 +3089,9 @@ static int mipi_jet_lcd_on(struct platform_device *pdev)
 			ARRAY_SIZE(nvt_LowTemp_wrkr_exit), false);
 
 	gpio_set_value(JET_GPIO_LCD_RSTz, 0);
-	msleep(1);
+	hr_msleep(1);
 	gpio_set_value(JET_GPIO_LCD_RSTz, 1);
-	msleep(20);
+	hr_msleep(20);
 
 	if (panel_type != PANEL_ID_NONE) {
 		if (mipi->mode == DSI_VIDEO_MODE) {
@@ -3118,7 +3105,6 @@ static int mipi_jet_lcd_on(struct platform_device *pdev)
 		}
 	} else
 		pr_info("%s: panel_type not supported!(%d)", __func__, panel_type);
-	mipi_lcd_on = 1;
 
 	return 0;
 }
@@ -3137,13 +3123,53 @@ static int mipi_jet_lcd_off(struct platform_device *pdev)
 	if (!mipi_lcd_on)
 		return 0;
 
+	mipi_lcd_on = 0;
+
+	return 0;
+}
+
+static int mipi_jet_display_on(struct platform_device *pdev)
+{
+	struct msm_fb_data_type *mfd;
+	struct mipi_panel_info *mipi;
+
+	mfd = platform_get_drvdata(pdev);
+	if (!mfd)
+		return -ENODEV;
+	if (mfd->key != MFD_KEY)
+		return -EINVAL;
+
+	if (mipi_lcd_on)
+		return 0;
+
+	mipi = &mfd->panel_info.mipi;
+
+	if (panel_type != PANEL_ID_NONE) {
+		jet_send_display_cmds(display_on_cmds,
+				ARRAY_SIZE(display_on_cmds), false);
+	} else
+		pr_info("%s: panel_type not supported!(%d)", __func__, panel_type);
+	mipi_lcd_on = 1;
+
+	return 0;
+}
+
+static int mipi_jet_display_off(struct platform_device *pdev)
+{
+	struct msm_fb_data_type *mfd;
+
+	mfd = platform_get_drvdata(pdev);
+
+	if (!mfd)
+		return -ENODEV;
+	if (mfd->key != MFD_KEY)
+		return -EINVAL;
+
 	if (panel_type != PANEL_ID_NONE) {
 		pr_info("%s\n", __func__);
 		jet_send_display_cmds(jet_display_off_cmds,
 				jet_display_off_cmds_count, false);
 	}
-
-	mipi_lcd_on = 0;
 
 	return 0;
 }
@@ -3288,6 +3314,8 @@ static struct msm_fb_panel_data jet_panel_data = {
 	.on = mipi_jet_lcd_on,
 	.off = mipi_jet_lcd_off,
 	.set_backlight = mipi_jet_set_backlight,
+	.late_init = mipi_jet_display_on,
+	.early_off = mipi_jet_display_off,
 #ifdef CONFIG_FB_MSM_CABC
 	.enable_cabc = mipi_jet_enable_ic_cabc,
 #endif
