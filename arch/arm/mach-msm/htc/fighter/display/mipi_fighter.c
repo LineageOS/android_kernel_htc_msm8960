@@ -35,6 +35,10 @@ static char max_pktsize[2] = {MIPI_DSI_MRPS, 0x00}; /* LSB tx first, 16 bytes */
 
 static char novatek_e0[3] = {0xE0, 0x01, 0x03}; /* DTYPE_DCS_LWRITE */
 
+static struct dsi_cmd_desc display_on_cmds[] = {
+	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
+};
+
 static struct dsi_cmd_desc fighter_cmd_backlight_cmds[] = {
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 1, sizeof(led_pwm1), led_pwm1},
 };
@@ -177,8 +181,6 @@ static struct dsi_cmd_desc novatek_video_on_cmds[] = {
 		sizeof(sw_reset), sw_reset},
 	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
 		sizeof(exit_sleep), exit_sleep},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(set_num_of_lanes), set_num_of_lanes},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
@@ -219,8 +221,6 @@ static struct dsi_cmd_desc novatek_cmd_on_cmds[] = {
 
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(enable_te), enable_te},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	/*
@@ -348,8 +348,6 @@ static struct dsi_cmd_desc novatek_c2_cmd_on_cmds[] = {
 
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(enable_te), enable_te},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	/*
@@ -379,8 +377,6 @@ static struct dsi_cmd_desc novatek_c3_cmd_on_cmds[] = {
 
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(enable_te), enable_te},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	/*
@@ -501,8 +497,6 @@ static struct dsi_cmd_desc lg_novatek_cmd_on_cmds[] = {
 		sizeof(exit_sleep), exit_sleep},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(enable_te), enable_te},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	/*
@@ -579,8 +573,6 @@ static struct dsi_cmd_desc lg_novatek_c2_cmd_on_cmds[] = {
 		sizeof(exit_sleep), exit_sleep},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
 		sizeof(enable_te), enable_te},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
@@ -652,8 +644,6 @@ static struct dsi_cmd_desc lg_novatek_mp_cmd_on_cmds[] = {
 
 	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
 		sizeof(exit_sleep), exit_sleep},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
@@ -1200,8 +1190,6 @@ static struct dsi_cmd_desc sony_orise9608a_mp_panel_cmd_mode_cmds[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(sony_orise9608a_112), sony_orise9608a_112},
 	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
 		sizeof(exit_sleep), exit_sleep},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
@@ -1238,8 +1226,6 @@ static struct dsi_cmd_desc sony_orise9608a_c1_1_panel_cmd_mode_cmds[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(sony_orise9608a_112), sony_orise9608a_112},
 	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
 		sizeof(exit_sleep), exit_sleep},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0,
-		sizeof(display_on), display_on},
 	{DTYPE_MAX_PKTSIZE, 1, 0, 0, 0,
 		sizeof(max_pktsize), max_pktsize},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0,
@@ -1431,7 +1417,6 @@ static struct dsi_cmd_desc sony_orise9608a_panel_cmd_mode_cmds[] = {
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(sony_orise9608a_110), sony_orise9608a_110},
 
 	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(exit_sleep), exit_sleep},
-	{DTYPE_DCS_WRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(pwm_freq_sel_cmds1), pwm_freq_sel_cmds1},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(pwm_freq_sel_cmds2), pwm_freq_sel_cmds2},
@@ -1497,9 +1482,6 @@ static int mipi_fighter_lcd_on(struct platform_device *pdev)
 	if (mfd->key != MFD_KEY)
 		return -EINVAL;
 
-	if (mipi_lcd_on)
-		return 0;
-
 	mipi = &mfd->panel_info.mipi;
 
 	if (mipi->mode == DSI_CMD_MODE)
@@ -1509,7 +1491,6 @@ static int mipi_fighter_lcd_on(struct platform_device *pdev)
 		fighter_send_display_cmds(novatek_video_on_cmds,
 				ARRAY_SIZE(novatek_video_on_cmds), false);
 
-	mipi_lcd_on = 1;
 	return 0;
 }
 
@@ -1527,11 +1508,48 @@ static int mipi_fighter_lcd_off(struct platform_device *pdev)
 	if (!mipi_lcd_on)
 		return 0;
 
+	mipi_lcd_on = 0;
+	return 0;
+}
+
+static int mipi_fighter_display_on(struct platform_device *pdev)
+{
+	struct msm_fb_data_type *mfd;
+	struct mipi_panel_info *mipi;
+
+	mfd = platform_get_drvdata(pdev);
+	if (!mfd)
+		return -ENODEV;
+	if (mfd->key != MFD_KEY)
+		return -EINVAL;
+
+	if (mipi_lcd_on)
+		return 0;
+
+	mipi = &mfd->panel_info.mipi;
+
+	fighter_send_display_cmds(display_on_cmds,
+			ARRAY_SIZE(display_on_cmds), false);
+
+	mipi_lcd_on = 1;
+	return 0;
+}
+
+static int mipi_fighter_display_off(struct platform_device *pdev)
+{
+	struct msm_fb_data_type *mfd;
+
+	mfd = platform_get_drvdata(pdev);
+
+	if (!mfd)
+		return -ENODEV;
+	if (mfd->key != MFD_KEY)
+		return -EINVAL;
+
 	if (panel_type != PANEL_ID_NONE)
 		fighter_send_display_cmds(display_off_cmds,
 				display_off_cmds_count, false);
 
-	mipi_lcd_on = 0;
 	return 0;
 }
 
@@ -1647,6 +1665,8 @@ static struct msm_fb_panel_data fighter_panel_data = {
 	.on		= mipi_fighter_lcd_on,
 	.off		= mipi_fighter_lcd_off,
 	.set_backlight = mipi_fighter_set_backlight,
+	.late_init = mipi_fighter_display_on,
+	.early_off = mipi_fighter_display_off,
 };
 
 static int ch_used[3];
