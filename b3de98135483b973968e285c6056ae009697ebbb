@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0121b8_c23533f8",
+        "filename": "include/media/msm_camera.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-06-17T20:21:21Z",
+      "side": 1,
+      "message": "Silly question, maybe, but isn\u0027t this an ABI break for old (s4) userspace?",
+      "revId": "b3de98135483b973968e285c6056ae009697ebbb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_622547c1",
+        "filename": "include/media/msm_camera.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-06-17T20:21:21Z",
+      "side": 1,
+      "message": "This too.",
+      "revId": "b3de98135483b973968e285c6056ae009697ebbb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_4222c3ba",
+        "filename": "include/media/msm_camera.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1427,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-06-17T20:21:21Z",
+      "side": 1,
+      "message": "This too? sizeof(struct sensor_cfg_data) is now 84 bytes instead of 56.",
+      "revId": "b3de98135483b973968e285c6056ae009697ebbb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_0240cb55",
+        "filename": "include/media/msm_camera.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-06-17T20:21:21Z",
+      "side": 1,
+      "message": "And this.",
+      "revId": "b3de98135483b973968e285c6056ae009697ebbb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
