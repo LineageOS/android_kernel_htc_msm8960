@@ -475,7 +475,7 @@ int32_t s5k6a2ya_power_up(struct msm_sensor_ctrl_t *s_ctrl)
 
 #ifndef CONFIG_DISABLE_MCLK_RAWCHIP_TO_MAINCAM
 	if (!sdata->use_rawchip && (sdata->htc_image != HTC_CAMERA_IMAGE_YUSHANII_BOARD)) {
-		rc = msm_camio_clk_enable(CAMIO_CAM_MCLK_CLK);
+		rc = msm_camio_clk_enable(sdata,CAMIO_CAM_MCLK_CLK);
 		if (rc < 0) {
 			pr_err("%s: msm_camio_clk_enable failed:%d\n",
 			 __func__, rc);
@@ -490,7 +490,7 @@ int32_t s5k6a2ya_power_up(struct msm_sensor_ctrl_t *s_ctrl)
 		goto set_sensor_power_up_failed;
 	}
 #else
-	rc = msm_camio_clk_enable(CAMIO_CAM_MCLK_CLK);
+	rc = msm_camio_clk_enable(0,CAMIO_CAM_MCLK_CLK);
 	if (rc < 0) {
 		pr_err("%s msm_camio_clk_enable failed\n", __func__);
 		goto enable_mclk_failed;
