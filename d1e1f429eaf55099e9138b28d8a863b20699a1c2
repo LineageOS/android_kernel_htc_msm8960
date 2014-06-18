@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0121b8_b8a5ceb6",
+        "filename": "drivers/input/touchscreen/synaptics_3200.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2934,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-18T15:21:55Z",
+      "side": 1,
+      "message": "This is actually kind of funny code, can\u0027t you just replace all the instances of wait_time with SYN_FW_TIMEOUT?",
+      "revId": "d1e1f429eaf55099e9138b28d8a863b20699a1c2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
