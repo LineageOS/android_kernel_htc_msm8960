@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0121b8_d3c85c77",
+        "filename": "drivers/power/pm8921-charger-htc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 6102,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-06-23T20:19:43Z",
+      "side": 1,
+      "message": "Could you also stick CONFIG_MACH_M4_UL in here? m4 kernel source sets lockup_lpm_wkarnd to true as well. Or I can send a follow-up.",
+      "revId": "b1b964671ca11c7e6e796b6af27d21ba51990aec",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
