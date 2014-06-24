@@ -16,6 +16,24 @@
       "revId": "b1b964671ca11c7e6e796b6af27d21ba51990aec",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_53e8cc7c",
+        "filename": "drivers/power/pm8921-charger-htc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 6102,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T05:22:39Z",
+      "side": 1,
+      "message": "Let\u0027s make that a separate commit.",
+      "parentUuid": "ba0121b8_d3c85c77",
+      "revId": "b1b964671ca11c7e6e796b6af27d21ba51990aec",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
