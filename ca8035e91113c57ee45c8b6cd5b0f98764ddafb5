@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0121b8_de67c323",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-audio.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "You undid the whitespace changes from patchset 5.",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_be580f58",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-pmic.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_9e554b1f",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-pmic.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_fe30c709",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-pmic.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_1e72dbe5",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-regulator.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "Is this the correct value here? I notice it changed.",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_7e7797d4",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_5e7453ce",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_be812f92",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_9e7eebac",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_fe49e78f",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_de4ea395",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_3e44ff72",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_1e493b8c",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-storage.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-24T12:37:28Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "ca8035e91113c57ee45c8b6cd5b0f98764ddafb5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
