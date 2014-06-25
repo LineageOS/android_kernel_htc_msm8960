@@ -1,0 +1,990 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0121b8_646548e0",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c46254d8",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a45f600d",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_049bacca",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e49f98b2",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_44a5a402",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_24aa30d5",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_84afbce2",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-gpiomux.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_643ee8b9",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c44b7458",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a448005d",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2296,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_04744c9a",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e4783892",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2301,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_446e44ca",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_247350b3",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2323,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_84685cbc",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2330,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_843a1ccc",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 3216,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "gpiomux_install can be moved to the gpiomux.c file too.",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_245cf024",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 4403,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_44576402",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 4581,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a4b6403b",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_2481904b",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_447c8472",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e4867864",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_04828c52",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_84969c92",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_649388a4",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c4909498",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a48da07d",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_04e9ec1a",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e4edd826",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_44f3e40a",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_24f870e5",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_64da687a",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_84ddfc72",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c4e7f43e",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a4e4803b",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_04d0cc52",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e4d4b848",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_44cac4a2",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_24cfd0b1",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_84c4dc92",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c4bed4fe",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_64c1c880",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_04372cb1",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a4bbe00d",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e43b189b",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_4441240b",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_2446b023",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_844b3c2b",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_6448a82e",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c45534c7",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6china-camera.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "I kind of give up on this file, but suffice to say, you might want to run it through an auto-formatter and strip all trailing whitespace.",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_64ac28ee",
+        "filename": "arch/arm/mach-msm/htc/t6/display/board-t6-panel.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_c4b9b430",
+        "filename": "arch/arm/mach-msm/htc/t6/display/board-t6-panel.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_a452c0db",
+        "filename": "arch/arm/mach-msm/htc/t6/display/mipi_t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "lol, space at the beginning of line",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_045e0ce9",
+        "filename": "arch/arm/mach-msm/htc/t6/display/mipi_t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_445804fb",
+        "filename": "arch/arm/mach-msm/htc/t6/display/mipi_t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_e462f8ac",
+        "filename": "arch/arm/mach-msm/htc/t6/display/mipi_t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba0121b8_245d10ea",
+        "filename": "arch/arm/mach-msm/htc/t6/display/mipi_t6.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-06-25T06:47:07Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "969b88760720bbaceb9a17f7d0bbe7a64b1e9203",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
