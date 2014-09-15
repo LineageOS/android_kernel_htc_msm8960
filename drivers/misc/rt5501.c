@@ -190,6 +190,7 @@ static int rt5501_headset_detect(int on)
 				}
 
 				pr_info("%s: enable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
+				gpio_request(pdata->gpio_rt5501_spk_en, "hp_en");
 				gpio_direction_output(pdata->gpio_rt5501_spk_en, 1);
 				rt5501_query.gpiostatus = AMP_GPIO_ON;
 				closegpio = 1;
@@ -205,6 +206,7 @@ static int rt5501_headset_detect(int on)
 			if(closegpio && (rt5501_query.gpiostatus == AMP_GPIO_ON) && pdata->gpio_rt5501_spk_en) {
 				pr_info("%s: disable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
 				gpio_direction_output(pdata->gpio_rt5501_spk_en, 0);
+				gpio_free(pdata->gpio_rt5501_spk_en);
 				rt5501_query.gpiostatus = AMP_GPIO_OFF;
 
 				if(rt5501_query.s4status == AMP_S4_PWM) {
@@ -474,7 +476,9 @@ static void hs_imp_gpio_off(struct work_struct *work)
 
     mutex_lock(&rt5501_query.gpiolock);
     pr_info("%s: disable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
+    gpio_request(pdata->gpio_rt5501_spk_en, "hp_en");
     gpio_direction_output(pdata->gpio_rt5501_spk_en, 0);
+    gpio_free(pdata->gpio_rt5501_spk_en);
     rt5501_query.gpiostatus = AMP_GPIO_OFF;
 
     if(rt5501_query.s4status == AMP_S4_PWM) {
@@ -510,7 +514,9 @@ static void hs_imp_detec_func(struct work_struct *work)
 			msleep(1);
 		}
 		pr_info("%s: enable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
+		gpio_request(pdata->gpio_rt5501_spk_en, "hp_en");
 		gpio_direction_output(pdata->gpio_rt5501_spk_en, 1);
+		gpio_free(pdata->gpio_rt5501_spk_en);
 		rt5501_query.gpiostatus = AMP_GPIO_ON;
 	}
 
@@ -776,7 +782,9 @@ void set_rt5501_amp(int on)
 			msleep(50);
 #endif
             pr_info("%s: enable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
+            gpio_request(pdata->gpio_rt5501_spk_en, "hp_en");
             gpio_direction_output(pdata->gpio_rt5501_spk_en, 1);
+            gpio_free(pdata->gpio_rt5501_spk_en);
             rt5501_query.gpiostatus = AMP_GPIO_ON;
             msleep(1);
         }
@@ -1115,7 +1123,9 @@ static void rt5501_shutdown(struct i2c_client *client)
 		}
 
 		pr_info("%s: enable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
+		gpio_request(pdata->gpio_rt5501_spk_en, "hp_en");
 		gpio_direction_output(pdata->gpio_rt5501_spk_en, 1);
+		gpio_free(pdata->gpio_rt5501_spk_en);
 		rt5501_query.gpiostatus = AMP_GPIO_ON;
 		msleep(1);
 	}
@@ -1128,7 +1138,9 @@ static void rt5501_shutdown(struct i2c_client *client)
 
 	if((rt5501_query.gpiostatus == AMP_GPIO_ON) && pdata->gpio_rt5501_spk_en) {
 		pr_info("%s: disable gpio %d\n",__func__,pdata->gpio_rt5501_spk_en);
+		gpio_request(pdata->gpio_rt5501_spk_en, "hp_en");
 		gpio_direction_output(pdata->gpio_rt5501_spk_en, 0);
+		gpio_free(pdata->gpio_rt5501_spk_en);
 		rt5501_query.gpiostatus = AMP_GPIO_OFF;
 
 		if(rt5501_query.s4status == AMP_S4_PWM) {
