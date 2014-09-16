@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1b2928_2f75c4f8",
+        "filename": "drivers/misc/rt5501.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-16T06:43:00Z",
+      "side": 1,
+      "message": "Might as well make this if (gpio_is_valid(pdata-\u003egpio_rt5501_spk_en)) { ... }",
+      "revId": "5609ee46084ad7d5e337aa08a1002819d102aaf8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1b2928_4f7800f3",
+        "filename": "drivers/misc/rt5501.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-16T06:43:00Z",
+      "side": 1,
+      "message": "Should probably do if (gpio_is_valid(pdata-\u003egpio_rt5501_spk_en)) gpio_free(...); also.",
+      "revId": "5609ee46084ad7d5e337aa08a1002819d102aaf8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
