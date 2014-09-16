@@ -215,11 +215,11 @@ static void syn_handle_block_touch(struct synaptics_ts_data *ts, int enable)
 
 static bool scr_suspended = false;
 static int button_id = 0;
-static int s2w_switch = 1;
-static int l2m_switch = 1;
+static int s2w_switch = 0;
+static int l2m_switch = 0;
 static int l2w_switch = 0;
-static int dt2w_switch = 1;
-static int pocket_detect = 1;
+static int dt2w_switch = 0;
+static int pocket_detect = 0;
 static int s2w_hist[2] = {0, 0};
 static unsigned long s2w_time[3] = {0, 0, 0};
 static unsigned long l2m_time[2] = {0, 0};
