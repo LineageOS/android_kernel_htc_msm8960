@@ -118,6 +118,7 @@
 
 #ifdef CONFIG_BT
 #include <mach/htc_bdaddress.h>
+#include <mach/htc_sleep_clk.h>
 #endif
 
 #ifdef CONFIG_HTC_BATT_8960
@@ -3828,6 +3829,7 @@ static void __init m4_init(void)
 
 #ifdef CONFIG_BT
 	bt_export_bd_address();
+	htc_sleep_clk_init(8);
 	msm_uart_dm6_pdata.wakeup_irq = gpio_to_irq(MSM_BT_HOST_WAKE);
 #ifdef CONFIG_SERIAL_MSM_HS_BRCM
 	msm_device_uart_dm6.name = "msm_serial_hs_brcm";
