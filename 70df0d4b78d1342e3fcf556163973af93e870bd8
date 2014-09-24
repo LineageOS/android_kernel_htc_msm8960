@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1b2928_e74da89a",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-24T18:29:00Z",
+      "side": 1,
+      "message": "Not actually sure why struct regulator **preg is a parameter to this function, it could easily be a local variable instead if the regulator_disable function used regulator_get(\"name\") as well.",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1b2928_074b8488",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-24T18:29:00Z",
+      "side": 1,
+      "message": "Is pr_debug available in this file?",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1b2928_47457c6e",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-24T18:29:00Z",
+      "side": 1,
+      "message": "This should probably be printed as an error.",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1b2928_875f9440",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-24T18:29:00Z",
+      "side": 1,
+      "message": "Could probably make this a real kernel module with a module_init if you created a struct to hold sleep_clk_pin, sleep_clk_state_wifi, sleep_clk_state_bt, since the value passed in for sleep_clk_pin is always 8 anyway. That would let you drop the need to call this function in the main board config file.",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
