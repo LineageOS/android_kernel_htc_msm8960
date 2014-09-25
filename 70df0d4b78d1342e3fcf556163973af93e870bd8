@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a1b2928_b23010ea",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-09-25T00:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1b2928_e74da89a",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1b2928_074b8488",
         "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-09-24T18:29:00Z",
       "side": 1,
       "message": "Is pr_debug available in this file?",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1b2928_124e246f",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-09-25T00:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1b2928_074b8488",
       "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7a1b2928_f250c80c",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-09-25T00:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1b2928_47457c6e",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1b2928_875f9440",
         "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2014-09-24T18:29:00Z",
       "side": 1,
       "message": "Could probably make this a real kernel module with a module_init if you created a struct to hold sleep_clk_pin, sleep_clk_state_wifi, sleep_clk_state_bt, since the value passed in for sleep_clk_pin is always 8 anyway. That would let you drop the need to call this function in the main board config file.",
+      "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1b2928_52589c32",
+        "filename": "arch/arm/mach-msm/htc/htc_sleep_clk.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-09-25T00:35:19Z",
+      "side": 1,
+      "message": "I guess I don\u0027t understand this. htc_sleep_clk_pin can be turned into a constant and the below two initializations are superfluous because  the variables are static. With that out of the way, there\u0027s nothing really to init here.",
+      "parentUuid": "7a1b2928_875f9440",
       "revId": "70df0d4b78d1342e3fcf556163973af93e870bd8",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
