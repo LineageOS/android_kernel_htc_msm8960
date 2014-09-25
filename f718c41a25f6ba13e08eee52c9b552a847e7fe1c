@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1b2928_f2ec482b",
+        "filename": "arch/arm/mach-msm/include/mach/htc_sleep_clk.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-09-25T05:07:27Z",
+      "side": 1,
+      "message": "htc_sleep_clk_init got removed, ought to be removed from here too.",
+      "revId": "f718c41a25f6ba13e08eee52c9b552a847e7fe1c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
