@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1b2928_d47db1b2",
+        "filename": "arch/arm/mach-msm/Makefile.boot",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-10-03T20:36:03Z",
+      "side": 1,
+      "message": "Let\u0027s follow what we do for 8960 and 8064 and put CONFIG_MACH_HTC here.",
+      "revId": "abbad5a2ffb7da6a13b7bf6a3a86ffcfe2db55c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
