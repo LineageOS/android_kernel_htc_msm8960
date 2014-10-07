@@ -38,16 +38,12 @@ static int __init mipi_cmd_m4_720p_pt_init(void)
 		pinfo.lcdc.h_back_porch = 29;
 		pinfo.lcdc.h_front_porch = 55;
 		pinfo.lcdc.h_pulse_width = 16;
-		pinfo.lcdc.v_back_porch = 1;
 		pinfo.lcdc.v_front_porch = 2;
-		pinfo.lcdc.v_pulse_width = 1;
 	} else if (panel_type == PANEL_ID_KIWI_AUO_NT) {
 		pinfo.lcdc.h_back_porch = 5;
 		pinfo.lcdc.h_front_porch = 3;
 		pinfo.lcdc.h_pulse_width = 70;
-		pinfo.lcdc.v_back_porch = 1;
 		pinfo.lcdc.v_front_porch = 1;
-		pinfo.lcdc.v_pulse_width = 1;
 	}
 
 	pinfo.lcd.primary_vsync_init = pinfo.yres;
@@ -68,7 +64,6 @@ static int __init mipi_cmd_m4_720p_pt_init(void)
 	pinfo.lcd.refx100 = 6000;
 
 	pinfo.lcd.v_back_porch = 1;
-	pinfo.lcd.v_front_porch = 2;
 	pinfo.lcd.v_pulse_width = 1;
 
 	pinfo.mipi.mode = DSI_CMD_MODE;
