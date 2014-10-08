@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7a1b2928_a02ee8f7",
+        "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_cfg80211.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-10-08T18:44:11Z",
+      "side": 1,
+      "message": "derp, De Morgan\u0027s law fail.",
+      "parentUuid": "7a1b2928_20f49885",
+      "revId": "789cd01a7605d0dbc8f1282298dcb5370b4b6f53",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1b2928_e0eaa0ab",
         "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_cfg80211.c",
         "patchSetId": 1
