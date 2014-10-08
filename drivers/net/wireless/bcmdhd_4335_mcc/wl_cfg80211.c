@@ -288,7 +288,9 @@ bool dhd_APUP = false;
 extern int scan_suppress_flag;
 static int rssi_errcnt = 0;
 static int old_rssi = 0;
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 4, 0) || defined(OLD_CFG_80211)
 static int used_default_ssid = 0;
+#endif
 
 extern void wldev_san_check_channel(struct net_device *ndev,int *errcode);
 extern s32 wldev_set_ssid(struct net_device *dev,int *channel);
@@ -6692,11 +6694,13 @@ wl_cfg80211_change_beacon(
 	}
 
 	if (dev_role == NL80211_IFTYPE_AP) {
+#ifndef CUSTOMER_HW_ONE
 		if (wl_cfg80211_hostapd_sec(dev, &ies, bssidx) < 0) {
 			WL_ERR(("Hostapd update sec failed \n"));
 			err = -EINVAL;
 			goto fail;
 		}
+#endif
 	}
 
 fail:
