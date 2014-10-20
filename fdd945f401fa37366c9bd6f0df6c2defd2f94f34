@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a18252c_9b1c5379",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1879,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-10-20T16:53:00Z",
+      "side": 1,
+      "message": "The latency numbers are a little tricky here, may want to keep the CAF values instead.",
+      "revId": "fdd945f401fa37366c9bd6f0df6c2defd2f94f34",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
