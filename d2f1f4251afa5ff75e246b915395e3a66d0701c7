@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a18252c_d4a055a8",
+        "filename": "drivers/cpufreq/cpufreq_ondemand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2014-10-25T21:50:36Z",
+      "side": 1,
+      "message": "I don\u0027t believe that this code gets used.",
+      "revId": "d2f1f4251afa5ff75e246b915395e3a66d0701c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a18252c_b4a5d9b6",
+        "filename": "drivers/cpufreq/cpufreq_ondemand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2014-10-25T21:50:36Z",
+      "side": 1,
+      "message": "... because this inner declaration and then the subsequent setting of its value will be what really gets used for freq selection.",
+      "revId": "d2f1f4251afa5ff75e246b915395e3a66d0701c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
