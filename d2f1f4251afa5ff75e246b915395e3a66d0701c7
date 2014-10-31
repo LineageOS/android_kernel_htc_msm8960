@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "5a18252c_03260cba",
+        "filename": "drivers/cpufreq/cpufreq_ondemand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 4820
+      },
+      "writtenOn": "2014-10-31T01:56:21Z",
+      "side": 1,
+      "message": "Yeah, this can probably be moved.  The patch was designed for a vastly different ondemand governor.",
+      "revId": "d2f1f4251afa5ff75e246b915395e3a66d0701c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a18252c_b4a5d9b6",
         "filename": "drivers/cpufreq/cpufreq_ondemand.c",
         "patchSetId": 3
@@ -30,6 +47,23 @@
       "writtenOn": "2014-10-25T21:50:36Z",
       "side": 1,
       "message": "... because this inner declaration and then the subsequent setting of its value will be what really gets used for freq selection.",
+      "revId": "d2f1f4251afa5ff75e246b915395e3a66d0701c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a18252c_e32af07d",
+        "filename": "drivers/cpufreq/cpufreq_ondemand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 4820
+      },
+      "writtenOn": "2014-10-31T01:56:21Z",
+      "side": 1,
+      "message": "I think we should keep these though since they prevent it from jumping to max more often than needed.",
       "revId": "d2f1f4251afa5ff75e246b915395e3a66d0701c7",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
