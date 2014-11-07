@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a18252c_cc171cec",
+        "filename": "arch/arm/mach-msm/include/mach/camera.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5530
+      },
+      "writtenOn": "2014-11-07T15:30:30Z",
+      "side": 1,
+      "message": "Should this be msm_ion.h?",
+      "revId": "85862dccf1cc3c90a39497492f71b72121c5cd2d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
