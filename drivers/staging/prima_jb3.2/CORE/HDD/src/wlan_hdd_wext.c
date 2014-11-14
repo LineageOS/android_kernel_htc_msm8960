@@ -7920,7 +7920,11 @@ int hdd_UnregisterWext(struct net_device *dev)
    EXIT();
 #endif
 
+   VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO,"In %s", __func__);
+   rtnl_lock();
    dev->wireless_handlers = NULL;
+   rtnl_unlock();
+
    return 0;
 }
 
