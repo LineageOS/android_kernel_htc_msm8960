@@ -4325,7 +4325,9 @@ static struct clk_freq_tbl clk_tbl_vcodec[] = {
 	F_VCODEC(133330000, pll2, 1,  6),
 	F_VCODEC(200000000, pll2, 1,  4),
 	F_VCODEC(228570000, pll2, 2,  7),
+#ifdef CONFIG_MACH_M4_UL
 	F_VCODEC(266670000, pll2, 1,  3),
+#endif
 	F_END
 };
 
