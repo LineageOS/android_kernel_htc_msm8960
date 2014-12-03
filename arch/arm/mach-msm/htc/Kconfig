@@ -9,6 +9,13 @@ endmenu
 
 menu "HTC Specific Patches"
 
+config MACH_HTC_S4
+	bool "HTC s4 family"
+	select MACH_HTC
+	default n
+	help
+	  Enable defines specific to the HTC s4 family of devices.
+
 config HTC_BATT_ALARM
 	bool "Enable 3.0V device shutdown mechanism"
 	depends on HAS_EARLYSUSPEND
