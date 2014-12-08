@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abb7d3a_af49f990",
+        "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_android.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-08T03:54:17Z",
+      "side": 1,
+      "message": "Ew, global var",
+      "revId": "826143c1cf514461ff6bcf4b9da96c130e065282",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abb7d3a_4f7e8daf",
+        "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_android.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1603,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-08T03:54:17Z",
+      "side": 1,
+      "message": "lol, debug",
+      "revId": "826143c1cf514461ff6bcf4b9da96c130e065282",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abb7d3a_8f4eb594",
+        "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_cfg80211.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2047,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-08T03:54:17Z",
+      "side": 1,
+      "message": "This whole mIs_screen_off usage seems really nasty to me.",
+      "revId": "826143c1cf514461ff6bcf4b9da96c130e065282",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
