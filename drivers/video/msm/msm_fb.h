@@ -87,6 +87,9 @@ struct msm_fb_data_type {
 	boolean sw_currently_refreshing;
 	boolean sw_refreshing_enable;
 	boolean hw_refresh;
+	
+	boolean init_mipi_lcd;
+	
 #ifdef CONFIG_FB_MSM_OVERLAY
 	int overlay_play_enable;
 #endif
@@ -110,6 +113,7 @@ struct msm_fb_data_type {
 	struct hrtimer dma_hrtimer;
 
 	boolean panel_power_on;
+	boolean request_display_on;
 	struct work_struct dma_update_worker;
 	struct semaphore sem;
 
