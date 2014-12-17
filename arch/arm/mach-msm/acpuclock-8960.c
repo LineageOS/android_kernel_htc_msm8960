@@ -70,7 +70,11 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x0500,
+#ifdef CONFIG_MACH_ZARA
+		.vreg[VREG_HFPLL_A] = { "l2_s8", 2100000 },
+#else
 		.vreg[VREG_HFPLL_A] = { "l2_s8", 2050000 },
+#endif
 		.vreg[VREG_HFPLL_B] = { "l2_l23", 1800000 },
 	},
 };
