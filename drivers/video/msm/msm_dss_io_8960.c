@@ -563,6 +563,10 @@ void mipi_dsi_phy_init(int panel_ndx, struct msm_panel_info const *panel_info,
 {
 	struct mipi_dsi_phy_ctrl *pd;
 	int i, off;
+#ifdef CONFIG_MACH_ZARA
+	struct mipi_dsi_reg_set *rs;
+	int rs_size;
+#endif
 
 	MIPI_OUTP(MIPI_DSI_BASE + 0x128, 0x0001);/* start phy sw reset */
 	wmb();
@@ -627,6 +631,16 @@ void mipi_dsi_phy_init(int panel_ndx, struct msm_panel_info const *panel_info,
 
 	if (target_type == 1)
 		mipi_dsi_configure_serdes();
+
+#ifdef CONFIG_MACH_ZARA
+	rs = (panel_info->mipi).dsi_reg_db;
+	rs_size = (panel_info->mipi).dsi_reg_db_size;
+	if (rs && rs_size > 0) {
+		for (i = 0 ; i < rs_size; i++) {
+			MIPI_OUTP(MIPI_DSI_BASE + rs[i].reg, rs[i].value);
+		}
+	}
+#endif
 }
 
 void cont_splash_clk_ctrl(int enable)
