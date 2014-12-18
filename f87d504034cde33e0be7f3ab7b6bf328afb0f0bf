@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa08908_45f3fe0a",
+        "filename": "arch/arm/mach-msm/acpuclock-8960.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "I suspect you need this change only in acpuclock-8960 or acpuclock-8930",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_25f872e5",
+        "filename": "arch/arm/mach-msm/htc/zara/Kconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_85dde672",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-audio.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_65da7a7a",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Best to just delete dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_c5e7ee3e",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_a5e4623b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_05d0d652",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Unsure about this ifdef.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_e5d4aa48",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "More dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_45cadea2",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Even more dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_85c4c692",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_25cfd2b1",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_65c1da80",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Possibly dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_c5becefe",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "May want to compare against the board-8930-gpu file just in case.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_a5bbc20d",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-keypad.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_053736b1",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-mmc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "What the...?",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_e53b0a9b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-mmc.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "It\u0027s weird to declare an extern in a header like this.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_45413e0b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-pmic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_2546b223",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-rfkill.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "Oh noes.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_854b262b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-wifi.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "May be worthwhile to strip this out and enable it unconditionally.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_6548ba2e",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-wifi.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "This is weird as well.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_c5552ec7",
+        "filename": "arch/arm/mach-msm/htc/zara/display/mipi_zara.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_a552a2db",
+        "filename": "arch/arm/mach-msm/include/mach/board.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "I feel like this struct either exists somewhere else, or is horribly outdated.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_055e16e9",
+        "filename": "drivers/video/msm/msm_dss_io_8960.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "This is strange as well. This is absolutely necessary?",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_e562eaac",
+        "filename": "drivers/video/msm/msm_fb.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-18T20:51:27Z",
+      "side": 1,
+      "message": "This is probably a leftover from HTC.",
+      "revId": "f87d504034cde33e0be7f3ab7b6bf328afb0f0bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
