@@ -525,6 +525,13 @@ struct mipi_dsi_phy_ctrl {
 	uint32_t pll[21];
 };
 
+#ifdef CONFIG_MACH_ZARA
+struct mipi_dsi_reg_set {
+	uint32_t reg;
+	uint32_t value;
+};
+#endif
+
 struct mipi_dsi_panel_platform_data {
 	int fpga_ctrl_mode;
 	int fpga_3d_config_addr;
