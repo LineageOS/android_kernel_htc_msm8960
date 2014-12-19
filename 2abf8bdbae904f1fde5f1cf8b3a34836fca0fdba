@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa08908_6b96cb95",
+        "filename": "drivers/regulator/Makefile",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-19T16:59:56Z",
+      "side": 1,
+      "message": "Rest of this file uses spaces, not tabs, weirdly.",
+      "revId": "2abf8bdbae904f1fde5f1cf8b3a34836fca0fdba",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
