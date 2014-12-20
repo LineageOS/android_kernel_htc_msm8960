@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa08908_e3f13fcf",
+        "filename": "drivers/media/video/msm/actuators/ov5693_act.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-20T11:14:08Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "9f4f391546907109d2b6805de0348f5810c4279a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_c3eec3eb",
+        "filename": "drivers/media/video/msm/sensors/ov5693_v4l2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-20T11:14:08Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "9f4f391546907109d2b6805de0348f5810c4279a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_03bf2bd1",
+        "filename": "drivers/media/video/msm/sensors/ov5693_v4l2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-20T11:14:08Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "9f4f391546907109d2b6805de0348f5810c4279a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_23ba27e2",
+        "filename": "drivers/media/video/msm/sensors/ov5693_v4l2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-20T11:14:08Z",
+      "side": 1,
+      "message": "Dead code.",
+      "revId": "9f4f391546907109d2b6805de0348f5810c4279a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_63b42ff2",
+        "filename": "drivers/media/video/msm/sensors/ov5693_v4l2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-12-20T11:14:08Z",
+      "side": 1,
+      "message": "Line length.",
+      "revId": "9f4f391546907109d2b6805de0348f5810c4279a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
