@@ -627,6 +627,7 @@ void mipi_dsi_phy_init(int panel_ndx, struct msm_panel_info const *panel_info,
 
 	if (target_type == 1)
 		mipi_dsi_configure_serdes();
+
 }
 
 void cont_splash_clk_ctrl(int enable)
