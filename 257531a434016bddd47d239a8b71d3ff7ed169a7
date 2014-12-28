@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa08908_c1cb5071",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-28T13:41:31Z",
+      "side": 1,
+      "message": "do we need these.? - not sure",
+      "revId": "257531a434016bddd47d239a8b71d3ff7ed169a7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_21c97479",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-28T13:41:31Z",
+      "side": 1,
+      "message": "same comment as above",
+      "revId": "257531a434016bddd47d239a8b71d3ff7ed169a7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_01c6f866",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 3322,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-28T13:41:31Z",
+      "side": 1,
+      "message": "fixed in next patchset",
+      "revId": "257531a434016bddd47d239a8b71d3ff7ed169a7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
