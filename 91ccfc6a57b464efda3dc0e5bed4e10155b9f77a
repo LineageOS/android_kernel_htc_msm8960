@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7aa08908_926fd591",
+        "filename": "arch/arm/mach-msm/acpuclock-8930.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-30T17:26:39Z",
+      "side": 1,
+      "message": "yep removing this actually makes the display turn on quicker (0.5 of a second or so but noticeable)",
+      "parentUuid": "7aa08908_6f9fe203",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aa08908_0fc1fee4",
         "filename": "arch/arm/mach-msm/clock-8960.c",
         "patchSetId": 17
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "7aa08908_d2695d8d",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-30T17:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aa08908_4fbb0673",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aa08908_afb0aa8c",
         "filename": "arch/arm/mach-msm/devices.h",
         "patchSetId": 17
@@ -81,6 +117,24 @@
       "writtenOn": "2014-12-30T14:20:50Z",
       "side": 1,
       "message": "Unused.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_320541c2",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-30T17:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aa08908_afb0aa8c",
       "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
@@ -104,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "7aa08908_120ac5d2",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-30T17:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aa08908_8fadee33",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aa08908_af254ac3",
         "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
         "patchSetId": 17
@@ -115,6 +187,24 @@
       "writtenOn": "2014-12-30T14:20:50Z",
       "side": 1,
       "message": "This is always defined.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_f26c599e",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 3285,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2014-12-30T17:26:39Z",
+      "side": 1,
+      "message": "Done (I think) in the latest patchset",
+      "parentUuid": "7aa08908_af254ac3",
       "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
