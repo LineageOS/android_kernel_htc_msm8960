@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa08908_6f9fe203",
+        "filename": "arch/arm/mach-msm/acpuclock-8930.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "This can go, you have a PM8038. And an 8930AA.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_0fc1fee4",
+        "filename": "arch/arm/mach-msm/clock-8960.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 5807,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem to be referenced anywhere.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_6fb6c28b",
+        "filename": "arch/arm/mach-msm/clock-8960.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 6177,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "Same for these two.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_4fbb0673",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "Both unused.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_afb0aa8c",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "Unused.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_8fadee33",
+        "filename": "arch/arm/mach-msm/devices.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "Unused.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aa08908_af254ac3",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 3285,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2014-12-30T14:20:50Z",
+      "side": 1,
+      "message": "This is always defined.",
+      "revId": "91ccfc6a57b464efda3dc0e5bed4e10155b9f77a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
