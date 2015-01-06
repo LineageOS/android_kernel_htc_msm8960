@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa08908_aa81aa4c",
+        "filename": "drivers/video/msm/msm_dss_io_8960.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-06T00:12:50Z",
+      "side": 1,
+      "message": "It really feels like there should be a standard way to do this, rather than special casing this for zara.",
+      "revId": "8f71d2c839ab904c93b6ef23cd8675a45e20275b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
