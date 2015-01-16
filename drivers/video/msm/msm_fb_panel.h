@@ -143,6 +143,10 @@ struct mipi_panel_info {
 	char no_max_pkt_size;
 	/* Clock required during LP commands */
 	char force_clk_lane_hs;
+#ifdef CONFIG_MACH_ZARA
+	struct mipi_dsi_reg_set *dsi_reg_db;
+	uint32 dsi_reg_db_size;
+#endif
 };
 
 enum lvds_mode {
