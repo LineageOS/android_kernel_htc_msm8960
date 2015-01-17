@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a9d85d2_19b4cef0",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_f9b8e2e7",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_9976fe3c",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Dead",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_39a0aa90",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_59d136fb",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Unused if you delete those three defines below",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_19e7aee5",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "All three are unused",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_f902a26e",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "static",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_59f8167d",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "static",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_99f27e99",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Weird formatting",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_79efd2b0",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Maybe kill a tab or two",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_d92a46e7",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Too many tabs",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_39f54a83",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "static",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_1935ee45",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Way too many tabs",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_f9390243",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "static",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_593f7625",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Dead",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_393c2a2f",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Typo. Should be dfab",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_9949ded3",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Modules are disabled.",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_b9165aa5",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1484,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Modules are disabled",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_190cce93",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "static",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_f910e2aa",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Modules are disabled",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_59265617",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2652,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Use tabs",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_39238a07",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 3302,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Dead",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_9920bef9",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 3315,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Dead",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_791d12bd",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 3333,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Modules are disabled",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_d97886fb",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 3338,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-17T01:30:14Z",
+      "side": 1,
+      "message": "Same",
+      "revId": "7f5993880f0efcf2a9370ca422416a231d925457",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
