@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a9d85d2_2f9338a5",
+        "filename": "arch/arm/mach-msm/include/mach/board.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-17T11:02:22Z",
+      "side": 1,
+      "message": "Same thing here, does MDP actually read this?",
+      "revId": "2dc4a90a186ccd402ba42eca51f035a20855b7a7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a9d85d2_4f968495",
+        "filename": "drivers/video/msm/msm_fb_panel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-17T11:02:22Z",
+      "side": 1,
+      "message": "Is anything using this on the other end? It\u0027s being assigned in the board display code, but MDP code wouldn\u0027t be using this, no?",
+      "revId": "2dc4a90a186ccd402ba42eca51f035a20855b7a7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
