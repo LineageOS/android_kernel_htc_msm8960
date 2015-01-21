@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad55976_ed6ca10a",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-audio.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "I don\u0027t remember, but is this based off the slightly cleaned up version from m7? If not, it might be worth checking the m7 version.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_ad62a914",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-audio.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "ifndef?",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_cd71dde2",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-audio.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "The backends are listed in the right order for snd_soc_msm?",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_4da7ad4f",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-audio.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "indentation got funny here",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_6daa711b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-audio.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 1805,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_ad490991",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-camera.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "Need to check if S5K4E5YX_ACT depends on S5K4E5YX, otherwise you can enable the actuator and not the sensor to break the build.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_2d77d9d5",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-camera.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "Useless ifdef",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_0d7495cd",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-camera.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "tabs got weird here",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_ed43016b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "Random blank line here probably means HTC stripped out a comment line :P",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_8d4ec594",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_2d5eb945",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-gpiomux.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "This is probably an unused section.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_303a90ce",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-mmc.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "extern here? that\u0027s weird.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_b04cc077",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-storage.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "The machine_is_msmXXXX may not be useful.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_d05b342d",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-wifi.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "hmm another extern",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_d0ce94b3",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 3052,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "I think there were some 1WIRE ifdefs around as well.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_30c45091",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 3561,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "extra leading space",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_10c14c81",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 3642,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "Some of this is probably unused.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_70bec800",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-21T14:41:59Z",
+      "side": 1,
+      "message": "o____0 more externs.",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
