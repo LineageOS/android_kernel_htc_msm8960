@@ -305,6 +305,24 @@
       "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_b3d20a33",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 8657
+      },
+      "writtenOn": "2015-01-22T01:52:13Z",
+      "side": 1,
+      "message": "Pretty sure you actually need to specify external storage here or you\u0027ll get multiple definitions.",
+      "parentUuid": "fad55976_70bec800",
+      "revId": "094d3df3cc9dda57220ce95bca2447ca6b9626a9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
