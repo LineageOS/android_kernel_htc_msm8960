@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad55976_b662edab",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-regulator.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-01-26T17:50:02Z",
+      "side": 1,
+      "message": "Were these changed by HTC? If so you may be running into trouble.",
+      "revId": "21792bdac17d75f1a9a174d862f51e1dff52ed3c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
