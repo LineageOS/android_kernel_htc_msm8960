@@ -16,6 +16,24 @@
       "revId": "21792bdac17d75f1a9a174d862f51e1dff52ed3c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad55976_b6be6dd2",
+        "filename": "arch/arm/mach-msm/htc/t6/board-t6-regulator.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5530
+      },
+      "writtenOn": "2015-01-26T18:55:08Z",
+      "side": 1,
+      "message": "85 is HTC stock. I have no idea why these were 60 to begin with.",
+      "parentUuid": "fad55976_b662edab",
+      "revId": "21792bdac17d75f1a9a174d862f51e1dff52ed3c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
