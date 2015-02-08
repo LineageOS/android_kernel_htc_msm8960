@@ -246,9 +246,6 @@ int __init m4_init_mmc()
 	printk(KERN_INFO "m4: %s\n", __func__);
 
 
-
-#if 1
-
 	pm_config.direction = PM_GPIO_DIR_OUT;
 	pm_config.output_buffer = PM_GPIO_OUT_BUF_CMOS;
 	pm_config.output_value = 0;
@@ -260,8 +257,6 @@ int __init m4_init_mmc()
 	pm_config.disable_pin = 0;
 	pm8xxx_gpio_config(PM8038_GPIO_PM_TO_SYS(8), &pm_config);
 	mdelay(5);
-#endif
-
 
 	id = GPIO_CFG(MSM_WL_HOST_WAKE, 0, GPIO_CFG_OUTPUT,
 		GPIO_CFG_NO_PULL, GPIO_CFG_2MA);

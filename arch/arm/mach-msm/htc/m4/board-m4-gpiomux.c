@@ -133,28 +133,6 @@ static struct gpiomux_setting atmel_ldo_en_act_cfg = {
 	.pull = GPIOMUX_PULL_DOWN,
 };
 
-#ifdef MSM8930_PHASE_2
-static struct gpiomux_setting hsusb_sus_cfg = {
-	.func = GPIOMUX_FUNC_GPIO,
-	.drv = GPIOMUX_DRV_2MA,
-	.pull = GPIOMUX_PULL_NONE,
-	.dir = GPIOMUX_OUT_LOW,
-};
-static struct msm_gpiomux_config msm8930_hsusb_configs[] = {
-	{
-		.gpio = 63,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &hsusb_sus_cfg,
-		},
-	},
-	{
-		.gpio = 97,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &hsusb_sus_cfg,
-		},
-	},
-};
-#endif
 static struct gpiomux_setting mdp_vsync_suspend_cfg = {
 	.func = GPIOMUX_FUNC_GPIO,
 	.drv = GPIOMUX_DRV_2MA,
@@ -507,10 +485,6 @@ int __init msm8930_init_gpiomux(void)
 
 	if (machine_is_msm8930_mtp() || machine_is_msm8930_fluid() ||
 		machine_is_msm8930_cdp()) {
-#ifdef MSM8930_PHASE_2
-		msm_gpiomux_install(msm8930_hsusb_configs,
-			ARRAY_SIZE(msm8930_hsusb_configs));
-#endif
 	}
 
 
