@@ -507,10 +507,8 @@ int __init msm8930_init_gpiomux(void)
 
 	if (machine_is_msm8930_mtp() || machine_is_msm8930_fluid() ||
 		machine_is_msm8930_cdp()) {
-#ifdef MSM8930_PHASE_2
 		msm_gpiomux_install(msm8930_hsusb_configs,
 			ARRAY_SIZE(msm8930_hsusb_configs));
-#endif
 	}
 
 

@@ -240,27 +240,9 @@ static struct msm_rpmrs_level msm_rpmrs_levels[] __initdata = {
 int __init m4_init_mmc()
 {
 	uint32_t id;
-	struct pm_gpio pm_config;
 	wifi_status_cb = NULL;
 
 	printk(KERN_INFO "m4: %s\n", __func__);
-
-
-
-#if 1
-
-	pm_config.direction = PM_GPIO_DIR_OUT;
-	pm_config.output_buffer = PM_GPIO_OUT_BUF_CMOS;
-	pm_config.output_value = 0;
-	pm_config.pull = PM_GPIO_PULL_NO;
-	pm_config.vin_sel = PM8038_GPIO_VIN_L11;
-	pm_config.out_strength = PM_GPIO_STRENGTH_HIGH;
-	pm_config.function = PM_GPIO_FUNC_1;
-	pm_config.inv_int_pol = 0;
-	pm_config.disable_pin = 0;
-	pm8xxx_gpio_config(PM8038_GPIO_PM_TO_SYS(8), &pm_config);
-	mdelay(5);
-#endif
 
 
 	id = GPIO_CFG(MSM_WL_HOST_WAKE, 0, GPIO_CFG_OUTPUT,
