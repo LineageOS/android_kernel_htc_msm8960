@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bacf61ea_f093a2a1",
+        "filename": "drivers/hid/hid-wiimote-debug.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-02-26T14:55:56Z",
+      "side": 1,
+      "message": "You should separate this into a different commit.",
+      "revId": "f2a9ea876602f71712f2ccbc4b137cd80ee6c390",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
