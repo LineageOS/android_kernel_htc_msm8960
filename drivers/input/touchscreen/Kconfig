@@ -493,7 +493,7 @@ config TOUCHSCREEN_SYNAPTICS_I2C_RMI
 
 config TOUCHSCREEN_SYNAPTICS_SWEEP2WAKE
         tristate "Sweep2Wake for SYNAPTICS_3k based touchscreens"
-        default y
+        default n
 
 config TOUCHSCREEN_SYNAPTICS_RMI4_I2C
 	tristate "Synaptics i2c touchscreen(ClearPad 3000)"
