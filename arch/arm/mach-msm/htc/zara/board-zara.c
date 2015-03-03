@@ -121,6 +121,10 @@
 #include "linux/mfd/pm8xxx/pm8921-charger.h"
 #endif
 
+unsigned skuid;
+extern unsigned int system_rev;
+extern unsigned int engineerid;
+
 static struct platform_device msm_fm_platform_init = {
 	.name = "iris_fm",
 	.id   = -1,
@@ -139,7 +143,7 @@ static struct platform_device msm_fm_platform_init = {
 #define HOLE_SIZE	0x20000
 #define MSM_CONTIG_MEM_SIZE	0x65000
 #ifdef CONFIG_MSM_IOMMU
-#define MSM_ION_MM_SIZE            0x3800000 /* Need to be multiple of 64K */
+#define MSM_ION_MM_SIZE            0x4800000 /* Need to be multiple of 64K */
 #define MSM_ION_SF_SIZE            0x0
 #define MSM_ION_QSECOM_SIZE	0x780000 /* (7.5MB) */
 #define MSM_ION_HEAP_NUM	7
@@ -153,11 +157,6 @@ static struct platform_device msm_fm_platform_init = {
 #define MSM_ION_MFC_SIZE	SZ_8K
 #define MSM_ION_AUDIO_SIZE	MSM_PMEM_AUDIO_SIZE
 
-#define MSM_LIQUID_ION_MM_SIZE (MSM_ION_MM_SIZE + 0x600000)
-#define MSM_LIQUID_ION_SF_SIZE MSM_LIQUID_PMEM_SIZE
-#define MSM_HDMI_PRIM_ION_SF_SIZE MSM_HDMI_PRIM_PMEM_SIZE
-
-#define MSM_MM_FW_SIZE	(0x200000 - HOLE_SIZE)
 #define MSM8930_FIXED_AREA_START (0xa0000000 - (MSM_ION_MM_FW_SIZE + \
 								HOLE_SIZE))
 #define MAX_FIXED_AREA_SIZE	0x10000000
@@ -178,6 +177,9 @@ static int __init msm_contig_mem_size_setup(char *p)
 }
 early_param("msm_contig_mem_size", msm_contig_mem_size_setup);
 #endif
+
+int __init parse_tag_memsize(const struct tag *tags);
+static unsigned int mem_size_mb;
 
 #ifdef CONFIG_ANDROID_PMEM
 static unsigned pmem_size = MSM_PMEM_SIZE;
@@ -3794,6 +3796,9 @@ static void __init zara_init(void)
 static void __init zara_fixup(struct tag *tags,
 				 char **cmdline, struct meminfo *mi)
 {
+	mem_size_mb = parse_tag_memsize((const struct tag *)tags);
+	printk(KERN_DEBUG "%s: mem_size_mb=%u\n, mfg_mode = %d", __func__, mem_size_mb());
+
 	mi->nr_banks = 2;
 	mi->bank[0].start = PHY_BASE_ADDR1;
 	if(parse_tag_smlog(tags))
@@ -3802,6 +3807,14 @@ static void __init zara_fixup(struct tag *tags,
 		mi->bank[0].size = SIZE_ADDR1;
 	mi->bank[1].start = PHY_BASE_ADDR2;
 	mi->bank[1].size = SIZE_ADDR2;
+
+	if (mem_size_mb == 64)	{
+		mi->nr_banks = 1;
+		mi->bank[0].start = PHY_BASE_ADDR1;
+		mi->bank[0].size = SIZE_ADDR1_SMLOG;
+	}
+	skuid = parse_tag_skuid((const struct tag *)tags)&0xFF;
+	printk(KERN_INFO "zara_fixup:skuid=0x%x\n", skuid);
 }
 
 MACHINE_START(ZARA, "zara")
