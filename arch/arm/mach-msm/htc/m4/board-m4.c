@@ -251,7 +251,7 @@ static struct platform_device msm8930_android_pmem_audio_device = {
 #endif /* CONFIG_MSM_MULTIMEDIA_USE_ION */
 #endif /* CONFIG_ANDROID_PMEM */
 
-struct fmem_platform_data msm8930_fmem_pdata = {
+static struct fmem_platform_data msm8930_fmem_pdata = {
 };
 
 #define DSP_RAM_BASE_8960 0x8da00000
@@ -493,7 +493,7 @@ static struct platform_device msm8930_ion_dev = {
 };
 #endif
 
-struct platform_device msm8930_fmem_device = {
+static struct platform_device msm8930_fmem_device = {
 	.name = "fmem",
 	.id = 1,
 	.dev = { .platform_data = &msm8930_fmem_pdata },
@@ -1094,7 +1094,7 @@ static struct sf_lut rbatt_sf_id_2 = {
 		}
 };
 
-struct pm8921_bms_battery_data  bms_battery_data_id_2 = {
+static struct pm8921_bms_battery_data  bms_battery_data_id_2 = {
 	.fcc			= 1800,
 	.fcc_temp_lut		= &fcc_temp_id_2,
 	.fcc_sf_lut		= &fcc_sf_id_2,
@@ -1498,7 +1498,7 @@ static uint32_t usb_ID_PIN_ouput_table[] = {
 	GPIO_CFG(MSM_USB_ID1, 0, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_2MA),
 };
 
-void config_k2_m4_usb_id_gpios(bool output)
+static void config_k2_m4_usb_id_gpios(bool output)
 {
 	if (output) {
 		gpio_tlmm_config(usb_ID_PIN_ouput_table[0], GPIO_CFG_ENABLE);
@@ -1956,7 +1956,7 @@ static struct platform_device android_usb_device = {
 
 #define EVM_VERSION		0x99
 
-void m4_add_usb_devices(void)
+static void m4_add_usb_devices(void)
 {
 	printk(KERN_INFO "%s rev: %d\n", __func__, system_rev);
 	if ((system_rev >= PVT_VERSION) && (system_rev < EVM_VERSION))
