@@ -332,7 +332,6 @@ static int msm8930_paddr_to_memtype(unsigned int paddr)
 }
 
 #define FMEM_ENABLED 0
-
 #ifdef CONFIG_ION_MSM
 #ifdef CONFIG_MSM_MULTIMEDIA_USE_ION
 static struct ion_cp_heap_pdata cp_mm_zara_ion_pdata = {
@@ -946,14 +945,14 @@ static struct sf_lut rbatt_sf_id_1 = {
 };
 
 static struct pm8921_bms_battery_data  bms_battery_data_id_1 = {
-	.fcc                = 2100,
+	.fcc			= 2100,
 	.fcc_temp_lut		= &fcc_temp_id_1,
 	.fcc_sf_lut		= &fcc_sf_id_1,
 	.pc_temp_ocv_lut	= &pc_temp_ocv_id_1,
 	.pc_sf_lut		= &pc_sf_id_1,
 	.rbatt_sf_lut		= &rbatt_sf_id_1,
 	.rbatt_est_ocv_lut	= &rbatt_est_ocv_id_1,
-	.default_rbatt_mohm = 250,
+	.default_rbatt_mohm		=250,
 	.delta_rbatt_mohm     = 0,
 };
 
@@ -1058,14 +1057,14 @@ static struct sf_lut rbatt_sf_id_2 = {
 };
 
 static struct pm8921_bms_battery_data  bms_battery_data_id_2 = {
-	.fcc                   = 2100,
-	.fcc_temp_lut          = &fcc_temp_id_2,
-	.fcc_sf_lut            = &fcc_sf_id_2,
-	.pc_temp_ocv_lut       = &pc_temp_ocv_id_2,
-	.pc_sf_lut             = &pc_sf_id_2,
-	.rbatt_sf_lut          = &rbatt_sf_id_2,
-	.rbatt_est_ocv_lut     = &rbatt_est_ocv_id_2,
-	.default_rbatt_mohm    = 250,
+	.fcc			= 2100,
+	.fcc_temp_lut		= &fcc_temp_id_2,
+	.fcc_sf_lut		= &fcc_sf_id_2,
+	.pc_temp_ocv_lut	= &pc_temp_ocv_id_2,
+	.pc_sf_lut		= &pc_sf_id_2,
+	.rbatt_sf_lut		= &rbatt_sf_id_2,
+	.rbatt_est_ocv_lut	= &rbatt_est_ocv_id_2,
+	.default_rbatt_mohm		=250,
 	.delta_rbatt_mohm     = 0,
 };
 
@@ -1752,7 +1751,8 @@ static int cm3629_power(int ls_or_ps, uint8_t enable)
 	return rc;
 }
 
-static uint8_t cm3629_mapping_table[] = {0x0, 0x3, 0x6, 0x9, 0xC,
+static uint8_t cm3629_mapping_table[] = {
+	0x0, 0x3, 0x6, 0x9, 0xC,
 	0xF, 0x12, 0x15, 0x18, 0x1B,
 	0x1E, 0x21, 0x24, 0x27, 0x2A,
 	0x2D, 0x30, 0x33, 0x36, 0x39,
@@ -2102,7 +2102,6 @@ static struct msm_spm_platform_data msm_spm_l2_data[] __initdata = {
 		.num_modes = ARRAY_SIZE(msm_spm_l2_seq_list),
 	},
 };
-
 
 static void config_flashlight_gpios(void)
 {
@@ -3767,7 +3766,6 @@ static void __init zara_init(void)
 	zara_init_cam();
 	msm8930_init_mmc();
 	zara_init_mmc();
-
 	register_i2c_devices();
 	zara_init_fb();
 	syn_init_vkeys_zara();
