@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad45d7e_30e4490c",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-04T09:30:11Z",
+      "side": 1,
+      "message": "Still missed this one",
+      "revId": "111058d076d50f245b381e74188ffd53fc88aebb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad45d7e_90f1b5d0",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 3287,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-04T09:30:11Z",
+      "side": 1,
+      "message": "You probably want to catch module definitions too, although modules are turned off.",
+      "revId": "111058d076d50f245b381e74188ffd53fc88aebb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}

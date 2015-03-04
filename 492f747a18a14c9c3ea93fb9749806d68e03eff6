@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad45d7e_7017e1ed",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara-keypad.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-04T09:30:11Z",
+      "side": 0,
+      "message": "This table is otherwise unused?",
+      "revId": "492f747a18a14c9c3ea93fb9749806d68e03eff6",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
