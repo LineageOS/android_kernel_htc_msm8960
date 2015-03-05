@@ -16,6 +16,24 @@
       "revId": "26db0a6ddcd0aad8bff909ba2470c20131bd4355",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad45d7e_5ace3484",
+        "filename": "arch/arm/configs/zara_defconfig",
+        "patchSetId": 6
+      },
+      "lineNbr": 2914,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2015-03-05T21:48:17Z",
+      "side": 0,
+      "message": "Can\u0027t we just do it in this changeset?",
+      "parentUuid": "9ad45d7e_44ff7f34",
+      "revId": "26db0a6ddcd0aad8bff909ba2470c20131bd4355",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
