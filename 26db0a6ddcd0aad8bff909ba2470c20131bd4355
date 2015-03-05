@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad45d7e_44ff7f34",
+        "filename": "arch/arm/configs/zara_defconfig",
+        "patchSetId": 6
+      },
+      "lineNbr": 2914,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-05T09:20:42Z",
+      "side": 0,
+      "message": "This one change seems out of place in this changeset.",
+      "revId": "26db0a6ddcd0aad8bff909ba2470c20131bd4355",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
