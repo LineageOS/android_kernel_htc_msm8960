@@ -16,6 +16,23 @@
       "revId": "f0aaf7804bc1e0af95d5f2c09333424abef7bd92",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad45d7e_b9349dde",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-06T13:39:37Z",
+      "side": 0,
+      "message": "Might not want to remove this right now. Mixing cleanup with non-cleanup commits gets messy.",
+      "revId": "f0aaf7804bc1e0af95d5f2c09333424abef7bd92",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }

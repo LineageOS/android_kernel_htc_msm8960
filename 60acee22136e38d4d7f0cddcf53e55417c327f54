@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad45d7e_3920ad9b",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 3802,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-06T13:39:37Z",
+      "side": 1,
+      "message": "Got an extra newline here.",
+      "revId": "60acee22136e38d4d7f0cddcf53e55417c327f54",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
