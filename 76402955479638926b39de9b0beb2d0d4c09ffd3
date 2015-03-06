@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "9ad45d7e_75550b1c",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2015-03-06T13:20:28Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "9ad45d7e_35f6f3d7",
+      "revId": "76402955479638926b39de9b0beb2d0d4c09ffd3",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad45d7e_d504b7c7",
         "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
         "patchSetId": 7
