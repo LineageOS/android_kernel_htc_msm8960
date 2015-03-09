@@ -23,9 +23,9 @@ GNU General Public License for more details.
 #include <linux/fs.h>
 #include <linux/syscalls.h>
 
-#define ATAG_MSM_AWB_CAL	0x59504550 
+#define ATAG_MSM_AWB_CAL	0x59504550
 
-#define AWB_CAL_MAX_SIZE	0x2000U     
+#define AWB_CAL_MAX_SIZE	0x2000U
 
 struct qct_lsc_struct{
 	unsigned long int	lsc_verify;
@@ -37,12 +37,12 @@ struct qct_lsc_struct{
 struct qct_awb_lsc_struct{
 	unsigned long int caBuff[8];
 	struct qct_lsc_struct qct_lsc_data;
-	
-	unsigned long int flashcaBuff[8];  
-	
-       
-       unsigned long int ois_data[8];
-       
+
+	unsigned long int flashcaBuff[8];
+
+
+	unsigned long int ois_data[8];
+
 
 };
 
@@ -72,7 +72,7 @@ static int __init parse_tag_cam_awb_cal(const struct tag *tag)
 			((tag->hdr.size - 2) * sizeof(__u32)), (AWB_CAL_MAX_SIZE));
 
 	gCAM_AWB_CAL_LEN = size;
-	memcpy(cam_awb_ram, dummy(dptr), size); 
+	memcpy(cam_awb_ram, dummy(dptr), size);
 
 
 #ifdef ATAG_CAM_AWB_CAL_DEBUG
@@ -102,10 +102,10 @@ static ssize_t awb_calibration_show(struct device *dev,
 	unsigned char *ptr;
 
 	ptr = get_cam_awb_cal();
-	
+
 
 	ret = sizeof(struct qct_awb_lsc_struct);
-	
+
 	printk(KERN_INFO "awb_calibration_show(%d)\n", ret);
 	memcpy(buf, ptr, ret);
 
@@ -133,10 +133,10 @@ static ssize_t awb_calibration_front_show(struct device *dev,
 		return 0;
 
 	ptr = get_cam_awb_cal();
-	
+
 
 	ret = sizeof(struct qct_awb_lsc_struct);
-	
+
 	printk(KERN_INFO "awb_calibration_front_show(%d)\n", ret);
 	memcpy(buf, ptr + 0x1000U, ret);
 
@@ -166,7 +166,7 @@ static int cam_get_awb_cal(void)
 {
 	int ret ;
 
-	
+
 	cam_awb_cal = kobject_create_and_add("android_camera_awb_cal", NULL);
 	if (cam_awb_cal == NULL) {
 		pr_info("cam_get_awb_cal: subsystem_register failed\n");
