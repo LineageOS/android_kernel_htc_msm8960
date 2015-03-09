@@ -42,9 +42,9 @@ static int oem_sensor_init(void *arg)
 	struct timespec ts_start, ts_end;
 #endif
 
-	
+
 	pr_info("%s: E", __func__);
-	
+
 
 	s_ctrl->func_tbl->sensor_stop_stream(s_ctrl);
 
@@ -74,7 +74,7 @@ static int oem_sensor_init(void *arg)
 	msleep(30);
 
 	msm_sensor_write_init_settings(s_ctrl);
-	
+
 
 #ifdef CONFIG_RAWCHIP
 	if (s_ctrl->sensordata->use_rawchip) {
@@ -141,7 +141,7 @@ int32_t msm_sensor_adjust_frame_lines(struct msm_sensor_ctrl_t *s_ctrl,
 				s_ctrl,
 				s_ctrl->prev_gain,
 				s_ctrl->prev_line);
-	
+
 		msm_camera_i2c_read(s_ctrl->sensor_i2c_client,
 			s_ctrl->sensor_exp_gain_info->coarse_int_time_addr,
 			&cur_line,
@@ -162,7 +162,7 @@ int32_t msm_sensor_adjust_frame_lines(struct msm_sensor_ctrl_t *s_ctrl,
 	}
 	return 0;
 }
- 
+
 
 int32_t msm_sensor_write_init_settings(struct msm_sensor_ctrl_t *s_ctrl)
 {
@@ -457,7 +457,7 @@ int32_t msm_sensor_setting3(struct msm_sensor_ctrl_t *s_ctrl,
 }
 
 int32_t msm_sensor_write_exp_gain1_ex(struct msm_sensor_ctrl_t *s_ctrl,
-		int mode, uint16_t gain, uint16_t dig_gain, uint32_t line) 
+		int mode, uint16_t gain, uint16_t dig_gain, uint32_t line)
 {
 	uint32_t fl_lines;
 	uint8_t offset;
@@ -494,16 +494,16 @@ int32_t msm_sensor_write_exp_gain1_ex(struct msm_sensor_ctrl_t *s_ctrl,
 	msm_camera_i2c_write(s_ctrl->sensor_i2c_client,
 		s_ctrl->sensor_exp_gain_info->global_gain_addr, gain,
 		MSM_CAMERA_I2C_WORD_DATA);
-	
+
 	if (s_ctrl->func_tbl->sensor_set_dig_gain)
 		s_ctrl->func_tbl->sensor_set_dig_gain(s_ctrl, dig_gain);
-	
+
 	s_ctrl->func_tbl->sensor_group_hold_off(s_ctrl);
 	return 0;
 }
 
 int32_t msm_sensor_write_exp_gain2_ex(struct msm_sensor_ctrl_t *s_ctrl,
-		int mode, uint16_t gain, uint32_t line) 
+		int mode, uint16_t gain, uint32_t line)
 {
 	uint32_t fl_lines, ll_pclk, ll_ratio;
 	uint8_t offset;
@@ -543,7 +543,7 @@ int32_t msm_sensor_write_exp_gain_ov(struct msm_sensor_ctrl_t *s_ctrl,
 {
 	uint32_t fl_lines;
 	uint8_t offset;
-	uint32_t aec_msb_24; 
+	uint32_t aec_msb_24;
 	uint16_t aec_msb;
 	uint16_t aec_lsb;
 	uint32_t phy_line_2 = 0;
@@ -701,7 +701,7 @@ int32_t msm_sensor_setting_parallel(struct msm_sensor_ctrl_t *s_ctrl,
 			pr_info("%s: MSM_SENSOR_REG_INIT already inited\n", __func__);
 			return rc;
 		}
-		mutex_lock(s_ctrl->sensor_first_mutex);  
+		mutex_lock(s_ctrl->sensor_first_mutex);
 
 #ifdef CONFIG_RAWCHIPII
 		if (s_ctrl->sensordata->htc_image == HTC_CAMERA_IMAGE_YUSHANII_BOARD) {
@@ -714,15 +714,15 @@ int32_t msm_sensor_setting_parallel(struct msm_sensor_ctrl_t *s_ctrl,
 			pr_err("%s: kthread_create failed", __func__);
 			rc = PTR_ERR(s_ctrl->tsk_sensor_init);
 			s_ctrl->tsk_sensor_init = NULL;
-			mutex_unlock(s_ctrl->sensor_first_mutex);  
+			mutex_unlock(s_ctrl->sensor_first_mutex);
 		} else
 			wake_up_process(s_ctrl->tsk_sensor_init);
 
 		s_ctrl->first_init = 1;
 	} else if (update_type == MSM_SENSOR_UPDATE_PERIODIC) {
-		
 
-		
+
+
 		mutex_lock(s_ctrl->sensor_first_mutex);
 
 #ifdef CONFIG_RAWCHIPII
@@ -751,8 +751,8 @@ int32_t msm_sensor_setting_parallel(struct msm_sensor_ctrl_t *s_ctrl,
 			mdelay(50);
 		s_ctrl->first_init = 0;
 
-		pr_info("%s: update_type=MSM_SENSOR_UPDATE_PERIODIC, res=%d\n", __func__, res);  
-		
+		pr_info("%s: update_type=MSM_SENSOR_UPDATE_PERIODIC, res=%d\n", __func__, res);
+
 
 		msm_sensor_write_res_settings(s_ctrl, res);
 		if (s_ctrl->curr_csi_params != s_ctrl->csi_params[res]) {
@@ -816,7 +816,7 @@ int32_t msm_sensor_setting_parallel(struct msm_sensor_ctrl_t *s_ctrl,
 
 #ifdef CONFIG_RAWCHIPII
 			if (s_ctrl->sensordata->htc_image == HTC_CAMERA_IMAGE_YUSHANII_BOARD) {
-				if (s_ctrl->msm_sensor_reg->output_settings_yushanii)	 
+				if (s_ctrl->msm_sensor_reg->output_settings_yushanii)
 					s_ctrl->msm_sensor_reg->output_settings = s_ctrl->msm_sensor_reg->output_settings_yushanii;
 				YushanII_Init(s_ctrl,res);
 			}
@@ -839,7 +839,7 @@ int32_t msm_sensor_setting_parallel(struct msm_sensor_ctrl_t *s_ctrl,
 		}
 		s_ctrl->func_tbl->sensor_start_stream(s_ctrl);
 		msleep(30);
-		mutex_unlock(s_ctrl->sensor_first_mutex);  
+		mutex_unlock(s_ctrl->sensor_first_mutex);
 	}
 	return rc;
 }
@@ -878,7 +878,7 @@ int32_t msm_sensor_setting(struct msm_sensor_ctrl_t *s_ctrl,
 		msm_sensor_write_init_settings(s_ctrl);
 		s_ctrl->first_init = 1;
 	} else if (update_type == MSM_SENSOR_UPDATE_PERIODIC) {
-		
+
 		if(!s_ctrl->first_init)
 			mdelay(50);
 		s_ctrl->first_init = 0;
@@ -1016,7 +1016,7 @@ int32_t msm_sensor_setting_ov(struct msm_sensor_ctrl_t *s_ctrl,
 		msm_sensor_write_init_settings(s_ctrl);
 		s_ctrl->first_init = 1;
 	} else if (update_type == MSM_SENSOR_UPDATE_PERIODIC) {
-		
+
 		if(!s_ctrl->first_init)
 			mdelay(50);
 		s_ctrl->first_init = 0;
@@ -1202,7 +1202,7 @@ static int oem_sensor_init_ov(void *arg)
 #endif
 
 	pr_info("%s: X", __func__);
-	mutex_unlock(s_ctrl->sensor_first_mutex);  
+	mutex_unlock(s_ctrl->sensor_first_mutex);
 
 	return rc;
 }
@@ -1225,7 +1225,7 @@ int32_t msm_sensor_setting_parallel_ov(struct msm_sensor_ctrl_t *s_ctrl,
 			pr_info("%s: MSM_SENSOR_REG_INIT already inited\n", __func__);
 			return rc;
 		}
-		mutex_lock(s_ctrl->sensor_first_mutex);  
+		mutex_lock(s_ctrl->sensor_first_mutex);
 
 #ifdef CONFIG_RAWCHIPII
 		if (s_ctrl->sensordata->htc_image == HTC_CAMERA_IMAGE_YUSHANII_BOARD) {
@@ -1238,15 +1238,15 @@ int32_t msm_sensor_setting_parallel_ov(struct msm_sensor_ctrl_t *s_ctrl,
 			pr_err("%s: kthread_create failed", __func__);
 			rc = PTR_ERR(s_ctrl->tsk_sensor_init);
 			s_ctrl->tsk_sensor_init = NULL;
-			mutex_unlock(s_ctrl->sensor_first_mutex);  
+			mutex_unlock(s_ctrl->sensor_first_mutex);
 		} else
 			wake_up_process(s_ctrl->tsk_sensor_init);
-			 
+
 
 		s_ctrl->first_init = 1;
-		
+
 	} else if (update_type == MSM_SENSOR_UPDATE_PERIODIC) {
-	
+
 		mutex_lock(s_ctrl->sensor_first_mutex);
 
 		switch (s_ctrl->intf) {
@@ -1264,13 +1264,13 @@ int32_t msm_sensor_setting_parallel_ov(struct msm_sensor_ctrl_t *s_ctrl,
 		msleep(30);
 		s_ctrl->func_tbl->sensor_stop_stream(s_ctrl);
 
-		
+
 		if(!s_ctrl->first_init)
 			mdelay(50);
 		s_ctrl->first_init = 0;
 
-		pr_info("%s: update_type=MSM_SENSOR_UPDATE_PERIODIC, res=%d\n", __func__, res);  
-		
+		pr_info("%s: update_type=MSM_SENSOR_UPDATE_PERIODIC, res=%d\n", __func__, res);
+
 
 		msm_sensor_write_res_settings(s_ctrl, res);
 		if (s_ctrl->curr_csi_params != s_ctrl->csi_params[res]) {
@@ -1360,7 +1360,7 @@ int32_t msm_sensor_setting_parallel_ov(struct msm_sensor_ctrl_t *s_ctrl,
 		}
 		s_ctrl->func_tbl->sensor_start_stream(s_ctrl);
 		msleep(30);
-		
+
 		mutex_unlock(s_ctrl->sensor_first_mutex);
 	}
 	return rc;
@@ -1425,21 +1425,21 @@ int32_t msm_sensor_get_output_info(struct msm_sensor_ctrl_t *s_ctrl,
 	sensor_output_info->mirror_flip = s_ctrl->mirror_flip;
 
 
-	
+
 	if(s_ctrl->sensor_exp_gain_info->sensor_max_linecount == 0)
 		s_ctrl->sensor_exp_gain_info->sensor_max_linecount = 0xFFFFFFFF;
 
 	sensor_output_info->sensor_max_linecount = s_ctrl->sensor_exp_gain_info->sensor_max_linecount;
-	
+
     for (i=0;i<s_ctrl->msm_sensor_reg->num_conf;++i) {
         if (s_ctrl->adjust_y_output_size)
             s_ctrl->msm_sensor_reg->output_settings[i].y_output -= 1;
         if (s_ctrl->adjust_frame_length_line)
             s_ctrl->msm_sensor_reg->output_settings[i].line_length_pclk *= 2;
     }
-	
-	
-	 
+
+
+
 	if ((s_ctrl->sensordata->htc_image == HTC_CAMERA_IMAGE_YUSHANII_BOARD) && (s_ctrl->msm_sensor_reg->output_settings_yushanii)) {
 		if (copy_to_user((void *)sensor_output_info->output_info,
 			s_ctrl->msm_sensor_reg->output_settings_yushanii,
@@ -1453,15 +1453,15 @@ int32_t msm_sensor_get_output_info(struct msm_sensor_ctrl_t *s_ctrl,
 			s_ctrl->msm_sensor_reg->num_conf))
 			rc = -EFAULT;
 	}
-	
+
     for (i=0;i<s_ctrl->msm_sensor_reg->num_conf;++i) {
         if (s_ctrl->adjust_y_output_size)
             s_ctrl->msm_sensor_reg->output_settings[i].y_output += 1;
         if (s_ctrl->adjust_frame_length_line)
             s_ctrl->msm_sensor_reg->output_settings[i].line_length_pclk /= 2;
     }
-    
-	
+
+
 	return rc;
 }
 
@@ -1627,9 +1627,9 @@ int32_t msm_sensor_config(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp)
 				s_ctrl->func_tbl->
 				sensor_write_exp_gain_ex(
 					s_ctrl,
-					cdata.mode, 
+					cdata.mode,
 					cdata.cfg.exp_gain.gain,
-					cdata.cfg.exp_gain.dig_gain, 
+					cdata.cfg.exp_gain.dig_gain,
 					cdata.cfg.exp_gain.line);
 			s_ctrl->prev_gain = cdata.cfg.exp_gain.gain;
 			s_ctrl->prev_line = cdata.cfg.exp_gain.line;
@@ -1646,7 +1646,7 @@ int32_t msm_sensor_config(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp)
 				s_ctrl->func_tbl->
 				sensor_write_hdr_exp_gain_ex(
 					s_ctrl,
-					cdata.mode, 
+					cdata.mode,
 					cdata.cfg.exp_gain.gain,
 					cdata.cfg.exp_gain.long_dig_gain,
 					cdata.cfg.exp_gain.short_dig_gain,
@@ -1676,9 +1676,9 @@ int32_t msm_sensor_config(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp)
 				s_ctrl->func_tbl->
 				sensor_write_snapshot_exp_gain_ex(
 					s_ctrl,
-					cdata.mode, 
+					cdata.mode,
 					cdata.cfg.exp_gain.gain,
-					cdata.cfg.exp_gain.dig_gain, 
+					cdata.cfg.exp_gain.dig_gain,
 					cdata.cfg.exp_gain.line);
 			break;
 
@@ -1745,7 +1745,7 @@ int32_t msm_sensor_config(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp)
 				sizeof(struct sensor_eeprom_data_t)))
 				rc = -EFAULT;
 			break;
-		
+
 		case CFG_I2C_IOCTL_R_OTP:{
 			pr_info("Line:%d CFG_I2C_IOCTL_R_OTP \n", __LINE__);
 			if (s_ctrl->func_tbl->sensor_i2c_read_fuseid == NULL) {
@@ -1757,7 +1757,7 @@ int32_t msm_sensor_config(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp)
 			rc = -EFAULT;
 		}
 		break;
-		
+
 		case CFG_SET_BLACK_LEVEL_CALIBRATION_ONGOING:
 			s_ctrl->is_black_level_calibration_ongoing = TRUE;
 			break;
@@ -2011,7 +2011,7 @@ int32_t msm_sensor_match_id(struct msm_sensor_ctrl_t *s_ctrl)
 	}
 
 	pr_info("%s: msm_sensor id: 0x%x,expect sensor_id=0x%x\n", __func__, chipid, s_ctrl->sensor_id_info->sensor_id);
-#if 1	
+#if 1
 		if (s_ctrl->sensor_id_info->sensor_id == 0x4581)
 		{
 			uint16_t chipid2 = 0;
@@ -2032,7 +2032,7 @@ int32_t msm_sensor_match_id(struct msm_sensor_ctrl_t *s_ctrl)
     || defined(CONFIG_MACH_DELUXE_U) || defined(CONFIG_MACH_DELUXE_UL)
 		if (chipid == 0x174 && s_ctrl->sensor_id_info->sensor_id == 0x175)
 		{
-			
+
 			pr_info("%s: WA for Liteon module written wrong sensor ID as IMX174\n", __func__);
 			return rc;
 		}
@@ -2079,13 +2079,13 @@ int32_t msm_sensor_i2c_probe(struct i2c_client *client,
 		return -EFAULT;
 	}
 
-	msm_camio_probe_on_bootup(s_ctrl);	
+	msm_camio_probe_on_bootup(s_ctrl);
 
 	if (s_ctrl->sensordata->use_rawchip) {
 #ifdef CONFIG_RAWCHIP
 		rc = rawchip_probe_init();
 		if (rc < 0) {
-			msm_camio_probe_on_bootup(s_ctrl);	
+			msm_camio_probe_on_bootup(s_ctrl);
 
 			pr_err("%s: rawchip probe init failed\n", __func__);
 			return rc;
@@ -2102,7 +2102,7 @@ int32_t msm_sensor_i2c_probe(struct i2c_client *client,
 				pr_info("%s: update htc_image to 0", __func__);
 				s_ctrl->sensordata->camera_yushanii_probed(HTC_CAMERA_IMAGE_NONE_BOARD);
 			}
-			
+
 		} else {
 			pr_info("%s rawhchip probe init success\n", __func__);
 			if(s_ctrl->sensordata->camera_yushanii_probed != NULL) {
@@ -2173,7 +2173,7 @@ power_down:
 #endif
 	}
 
-	msm_camio_probe_off_bootup(s_ctrl);	
+	msm_camio_probe_off_bootup(s_ctrl);
 
 	s_ctrl->intf = PIX0;
 	s_ctrl->tsk_sensor_init = NULL;
@@ -2389,32 +2389,32 @@ void msm_read_all_otp_data(struct msm_camera_i2c_client* client,short start_addr
 }
 
 void msm_dump_otp_to_file (const char* sensor_name, int valid_layer, short start_address, uint8_t* buffer, size_t count)
-{  
-    uint8_t *path= "/data/otp.txt";  
-    struct file* f = msm_fopen (path, O_CREAT|O_RDWR|O_TRUNC, 0666);  
-    char buf[512];  
-    int i=0;  
-    int len=0,offset=0;  
-    pr_info ("%s\n",__func__);  
-  
-    if (f) {  
-        len = sprintf (buf,"%s\n",sensor_name);  
-        msm_fwrite (f,offset,buf,len);  
-        offset += len;  
+{
+    uint8_t *path= "/data/otp.txt";
+    struct file* f = msm_fopen (path, O_CREAT|O_RDWR|O_TRUNC, 0666);
+    char buf[512];
+    int i=0;
+    int len=0,offset=0;
+    pr_info ("%s\n",__func__);
+
+    if (f) {
+        len = sprintf (buf,"%s\n",sensor_name);
+        msm_fwrite (f,offset,buf,len);
+        offset += len;
 	len = sprintf (buf,"valid layer=%d\n",valid_layer);
 	msm_fwrite (f,offset,buf,len);
 	offset += len;
 
 	for (i=start_address; i<start_address+count; ++i) {
 	    len = sprintf (buf,"0x%x 0x%x\n",i,*buffer++);
-            msm_fwrite (f,offset,buf,len);  
-            offset += len;  
-        }  
-        msm_fclose (f);  
-    } else {  
-        pr_err ("%s: fail to open file\n", __func__);  
-    }  
-}  
+            msm_fwrite (f,offset,buf,len);
+            offset += len;
+        }
+        msm_fclose (f);
+    } else {
+        pr_err ("%s: fail to open file\n", __func__);
+    }
+}
 
 void msm_read_command_line(struct msm_sensor_ctrl_t *s_ctrl)
 {

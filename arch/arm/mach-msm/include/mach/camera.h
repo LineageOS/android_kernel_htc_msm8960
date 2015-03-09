@@ -69,36 +69,36 @@ enum vfe_mode_of_operation{
 };
 
 enum msm_queue {
-	MSM_CAM_Q_CTRL,     
-	MSM_CAM_Q_VFE_EVT,  
-	MSM_CAM_Q_VFE_MSG,  
-	MSM_CAM_Q_V4L2_REQ, 
-	MSM_CAM_Q_VPE_MSG,  
-	MSM_CAM_Q_PP_MSG,  
+	MSM_CAM_Q_CTRL,
+	MSM_CAM_Q_VFE_EVT,
+	MSM_CAM_Q_VFE_MSG,
+	MSM_CAM_Q_V4L2_REQ,
+	MSM_CAM_Q_VPE_MSG,
+	MSM_CAM_Q_PP_MSG,
 };
 
 enum vfe_resp_msg {
 	VFE_EVENT,
 	VFE_MSG_GENERAL,
 	VFE_MSG_SNAPSHOT,
-	VFE_MSG_OUTPUT_P,   
-	VFE_MSG_OUTPUT_T,   
-	VFE_MSG_OUTPUT_S,   
-	VFE_MSG_OUTPUT_V,   
+	VFE_MSG_OUTPUT_P,
+	VFE_MSG_OUTPUT_T,
+	VFE_MSG_OUTPUT_S,
+	VFE_MSG_OUTPUT_V,
 	VFE_MSG_STATS_AEC,
 	VFE_MSG_STATS_AF,
 	VFE_MSG_STATS_AWB,
-	VFE_MSG_STATS_RS, 
+	VFE_MSG_STATS_RS,
 	VFE_MSG_STATS_CS,
 	VFE_MSG_STATS_IHIST,
 	VFE_MSG_STATS_SKIN,
-	VFE_MSG_STATS_WE, 
+	VFE_MSG_STATS_WE,
 	VFE_MSG_SYNC_TIMER0,
 	VFE_MSG_SYNC_TIMER1,
 	VFE_MSG_SYNC_TIMER2,
 	VFE_MSG_COMMON,
 	VFE_MSG_V32_START,
-	VFE_MSG_V32_START_RECORDING, 
+	VFE_MSG_V32_START_RECORDING,
 	VFE_MSG_V32_CAPTURE,
 	VFE_MSG_V32_JPEG_CAPTURE,
 	VFE_MSG_OUTPUT_IRQ,
@@ -111,7 +111,7 @@ enum vfe_resp_msg {
 
 enum vpe_resp_msg {
 	VPE_MSG_GENERAL,
-	VPE_MSG_OUTPUT_V,   
+	VPE_MSG_OUTPUT_V,
 	VPE_MSG_OUTPUT_ST_L,
 	VPE_MSG_OUTPUT_ST_R,
 };
@@ -172,7 +172,7 @@ struct msm_vpe_phy_info {
 	uint32_t p0_phy;
 	uint32_t p1_phy;
 	uint32_t p2_phy;
-	uint8_t  output_id; 
+	uint8_t  output_id;
 	uint32_t frame_id;
 };
 
@@ -233,7 +233,7 @@ struct msm_vfe_phy_info {
 	uint32_t p0_phy;
 	uint32_t p1_phy;
 	uint32_t p2_phy;
-	uint8_t  output_id; 
+	uint8_t  output_id;
 	uint32_t frame_id;
 };
 
@@ -354,20 +354,20 @@ struct msm_actuator_ctrl {
 	int (*a_create_subdevice)(void *, void *);
 	int (*a_config)(void __user *);
 	int is_ois_supported;
-	int is_cal_supported; 
+	int is_cal_supported;
 #if (CONFIG_HTC_CAMERA_HAL_VERSION >= 3)
 	int small_step_damping;
 	int medium_step_damping;
 	int big_step_damping;
 	int is_af_infinity_supported;
 #endif
-	
+
 	void (*do_vcm_on_cb)(void);
 	void (*do_vcm_off_cb)(void);
 	void (*actuator_poweroff_af)(void);
-	struct mutex *actrl_vcm_on_mut; 
+	struct mutex *actrl_vcm_on_mut;
 	enum cam_vcm_onoff_type *actrl_vcm_wa_camera_on;
-	
+
 };
 
 struct msm_strobe_flash_ctrl {
@@ -473,7 +473,7 @@ struct msm_sync {
 #define MSM_APPS_ID_PROP "msm_qct"
 
 struct msm_cam_device {
-	struct msm_sync *sync; 
+	struct msm_sync *sync;
 	struct device *device;
 	struct cdev cdev;
 	atomic_t opened;
@@ -482,7 +482,7 @@ struct msm_cam_device {
 struct msm_control_device {
 	struct msm_cam_device *pmsm;
 
-	
+
 	uint8_t ctrl_data[max_control_command_size];
 	struct msm_ctrl_cmd ctrl;
 	struct msm_queue_cmd qcmd;
@@ -588,7 +588,7 @@ enum msm_camio_clk_type {
 	CAMIO_CSI1_PHY_CLK,
 	CAMIO_CSIPHY_TIMER_SRC_CLK,
 	CAMIO_IMEM_CLK,
-	CAMIO_CAM_RAWCHIP_MCLK_CLK, 
+	CAMIO_CAM_RAWCHIP_MCLK_CLK,
 
 	CAMIO_MAX_CLK
 };
@@ -613,13 +613,13 @@ enum msm_s_resolution {
 };
 
 enum msm_s_reg_update {
-	
+
 	S_REG_INIT,
-	
+
 	S_UPDATE_PERIODIC,
-	
+
 	S_UPDATE_ALL,
-	
+
 	S_UPDATE_INVALID
 };
 
