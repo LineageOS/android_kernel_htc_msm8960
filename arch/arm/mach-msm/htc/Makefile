@@ -17,6 +17,7 @@ obj-y += htc_lpm.o
 obj-$(CONFIG_MACH_ZARA) += htc_sleep_clk.o
 obj-$(CONFIG_MACH_M4_UL) += htc_sleep_clk.o
 obj-$(CONFIG_MACH_M7_UL) += htc_4335_wl_reg.o
+obj-$(CONFIG_MACH_DLXP) += htc_4335_wl_reg.o
 
 obj-$(CONFIG_HTC_BATT_CORE) += htc_battery_core.o
 obj-$(CONFIG_HTC_BATT_8960) += htc_battery_8960.o htc_battery_cell.o

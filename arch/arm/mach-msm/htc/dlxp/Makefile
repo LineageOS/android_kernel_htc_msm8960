@@ -1,0 +1,14 @@
+obj-$(CONFIG_MACH_DLXP) += board-dlxp.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-regulator.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-gpiomux.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-storage.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-audio.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-pmic.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-keypad.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-camera.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-gpu.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-rfkill.o
+obj-$(CONFIG_MACH_DLXP) += board-dlxp-wifi.o
+obj-$(CONFIG_MACH_DLXP) += display/
+CFLAGS_board-dlxp-display.o += -Idrivers/video
+CFLAGS_board-dlxp-audio.o += -Isound/soc/msm
