@@ -25,3 +25,6 @@ obj-$(CONFIG_MACH_M4_UL) += m4/
 
 # ZARA
 obj-$(CONFIG_MACH_ZARA) += zara/
+
+# DLXP
+obj-$(CONFIG_MACH_DLXP) += dlxp/
