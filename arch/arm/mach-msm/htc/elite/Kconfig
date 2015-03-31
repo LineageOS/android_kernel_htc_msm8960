@@ -4,6 +4,7 @@ config BOARD_HEADER_FILE
 
 config MACH_ELITE
 	depends on ARCH_MSM8960
+	select HAVE_KERNEL_LZ4
 	select MACH_HTC
 	bool "HTC Elite"
 	help

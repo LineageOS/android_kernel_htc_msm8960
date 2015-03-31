@@ -4,6 +4,7 @@ config BOARD_HEADER_FILE
 
 config MACH_M7_UL
 	depends on ARCH_APQ8064
+	select HAVE_KERNEL_LZ4
 	select MACH_HTC
 	bool "HTC One"
 	help
