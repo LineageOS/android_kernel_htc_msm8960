@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac665da_2117c352",
+        "filename": "arch/arm/boot/compressed/Makefile",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-04-01T07:48:59Z",
+      "side": 1,
+      "message": "I was wrong, the -Os here appears to be from the original patchset, and _NOT_ faux123\u0027s additional patchset, which is where I thought it came from. We should re-add that here.",
+      "revId": "8f671ca178f4fedf56fa4fa5f92330bfa0e534ce",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
