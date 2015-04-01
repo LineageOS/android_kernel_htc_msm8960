@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac665da_29368903",
+        "filename": "arch/arm/configs/zara_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2015-04-01T13:25:17Z",
+      "side": 1,
+      "message": "Will check when I get home but not sure about this.",
+      "revId": "9adb2ae5636b7cb7b070623f72595b61cbcf1960",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac665da_69408157",
+        "filename": "arch/arm/configs/zara_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 2919,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2015-04-01T13:25:17Z",
+      "side": 1,
+      "message": "will check when i get home.",
+      "revId": "9adb2ae5636b7cb7b070623f72595b61cbcf1960",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac665da_893b3deb",
+        "filename": "arch/arm/configs/zara_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 2920,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2015-04-01T13:25:17Z",
+      "side": 1,
+      "message": "not sure about this.",
+      "revId": "9adb2ae5636b7cb7b070623f72595b61cbcf1960",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
