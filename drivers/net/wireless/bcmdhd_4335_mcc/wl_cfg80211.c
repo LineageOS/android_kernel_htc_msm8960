@@ -2556,8 +2556,23 @@ wl_cfg80211_scan(struct wiphy *wiphy, struct net_device *ndev,
 	if (unlikely(err)) {
 		if ((err == BCME_EPERM) && wl->scan_suppressed)
 			WL_DBG(("scan not permitted at this time (%d)\n", err));
-		else
+		else if (wl->scan_request) {
 			WL_ERR(("scan error (%d)\n", err));
+			if (wlcfg_drv_priv && (wlcfg_drv_priv == wl)) {
+				if (wl->wdev &&
+					((wl->scan_request->dev != wl_to_prmry_ndev(wl))&&
+					(wl->scan_request->dev != wl->p2p_net))){
+						wl->scan_request = NULL;
+						wl_clr_drv_status_all(wl, SCANNING);
+						if (timer_pending(&wl->scan_timeout))
+							del_timer_sync(&wl->scan_timeout);
+						WL_ERR(("Force Clear Scanning Status,due to scan_request dev have problem!!\n"));
+				}
+			} else {
+				WL_ERR(("wlcfg_drv_priv(%p) is not as wl(%p) wiphy(%p),ndev(%p)!!!!!\n",
+					     wlcfg_drv_priv,wl,wiphy,ndev));
+			}
+		}
 		return err;
 	}
 
@@ -9619,10 +9634,18 @@ static s32 wl_notify_escan_complete(struct wl_priv *wl,
 	}
 
 	if (wl->scan_request) {
+		if (wlcfg_drv_priv != wl) {
+			WL_ERR(("wlcfg_drv_priv(%p) is not as wl(%p) wiphy(%p),ndev(%p)!!!!!\n",
+			wlcfg_drv_priv,wl,wl_to_wiphy(wl),ndev));
+		}
 		dev = wl_to_prmry_ndev(wl);
 #if defined(WL_ENABLE_P2P_IF)
-		if (wl->scan_request->dev != wl->p2p_net)
-			dev = wl->scan_request->dev;
+		if ((wl->scan_request->dev != wl_to_prmry_ndev(wl))&&
+			(wl->scan_request->dev != wl->p2p_net)){
+			WL_ERR(("scan_request->dev is different %p ndev %p wl_to_prmry_ndev %p\n",
+				      wl->scan_request->dev, ndev,wl_to_prmry_ndev(wl)));
+			wl->scan_request = NULL;
+		}
 #endif 
 	}
 	else {
@@ -11233,7 +11256,10 @@ static s32 __wl_cfg80211_down(struct wl_priv *wl)
 	wl_term_iscan(wl);
 	spin_lock_irqsave(&wl->cfgdrv_lock, flags);
 	if (wl->scan_request) {
-		cfg80211_scan_done(wl->scan_request, true);
+		if(wl->scan_request->wiphy && wl->scan_request->dev){
+			printf("%s report cfg80211_scan_done to nl80211 \n",__FUNCTION__);
+			cfg80211_scan_done(wl->scan_request, true);
+		}
 		wl->scan_request = NULL;
 	}
 	spin_unlock_irqrestore(&wl->cfgdrv_lock, flags);
