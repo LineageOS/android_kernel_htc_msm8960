@@ -127,6 +127,10 @@ s32 wldev_ioctl(
 	return ret;
 }
 
+/* Format a iovar buffer, not bsscfg indexed. The bsscfg index will be
+ * taken care of in dhd_ioctl_entry. Internal use only, not exposed to
+ * wl_iw, wl_cfg80211 and wl_cfgp2p
+ */
 static s32 wldev_mkiovar(
 	s8 *iovar_name, s8 *param, s32 paramlen,
 	s8 *iovar_buf, u32 buflen)
@@ -202,6 +206,10 @@ s32 wldev_iovar_getint(
 	return err;
 }
 
+/** Format a bsscfg indexed iovar buffer. The bsscfg index will be
+ *  taken care of in dhd_ioctl_entry. Internal use only, not exposed to
+ *  wl_iw, wl_cfg80211 and wl_cfgp2p
+ */
 s32 wldev_mkiovar_bsscfg(
 	const s8 *iovar_name, s8 *param, s32 paramlen,
 	s8 *iovar_buf, s32 buflen, s32 bssidx)
@@ -217,8 +225,8 @@ s32 wldev_mkiovar_bsscfg(
 			(s8 *) iovar_buf, buflen);
 	}
 
-	prefixlen = (u32) strlen(prefix); 
-	namelen = (u32) strlen(iovar_name) + 1; 
+	prefixlen = (u32) strlen(prefix); /* lengh of bsscfg prefix */
+	namelen = (u32) strlen(iovar_name) + 1; /* lengh of iovar  name + null */
 	iolen = prefixlen + namelen + sizeof(u32) + paramlen;
 
 	if (buflen < 0 || iolen > (u32)buflen)
@@ -229,20 +237,20 @@ s32 wldev_mkiovar_bsscfg(
 
 	p = (s8 *)iovar_buf;
 
-	
+	/* copy prefix, no null */
 	memcpy(p, prefix, prefixlen);
 	p += prefixlen;
 
-	
+	/* copy iovar name including null */
 	memcpy(p, iovar_name, namelen);
 	p += namelen;
 
-	
+	/* bss config index as first param */
 	bssidx = htod32(bssidx);
 	memcpy(p, &bssidx, sizeof(u32));
 	p += sizeof(u32);
 
-	
+	/* parameter buffer follows */
 	if (paramlen)
 		memcpy(p, param, paramlen);
 
@@ -330,7 +338,7 @@ int wldev_get_link_speed(
 	if (unlikely(error))
 		return error;
 
-	
+	/* Convert internal 500Kbps to Kbps */
 	*plink_speed *= 500;
 	return error;
 }
@@ -474,7 +482,7 @@ get_channel_retry:
 			}
 #ifdef CUSTOMER_HW_ONE
 		}
-		
+		/* check if there are available channels */
 		else {
 			if (strcmp(country_code, DEF_COUNTRY_CODE) != 0) {
 				list = (wl_uint32_list_t *)(void *)chan_buf;
@@ -483,7 +491,7 @@ get_channel_retry:
 					WLDEV_ERROR(("%s: get channel list fail! %d\n", __FUNCTION__, error));
 					return error;
 				}
-				
+				/* if NULL, set default country code instead and set country code again */
 				printf("%s: channel_count = %d\n", __FUNCTION__, list->count);
 				if (list->count == 0) {
 					strcpy(country_code, DEF_COUNTRY_CODE);
@@ -502,7 +510,9 @@ get_channel_retry:
 	return 0;
 }
 
+/* 2013-12-24 brcm add ++++ for vsdb mode */
 #define VSDB_BW_ALLOCATE_ENABLE 1
+/* tuning performance for miracast */
 int wldev_miracast_tuning(
 	struct net_device *dev, int mode)
 {
@@ -512,51 +522,51 @@ int wldev_miracast_tuning(
 #ifdef VSDB_BW_ALLOCATE_ENABLE
 	int mchan_algo;
 	int mchan_bw;
-#endif 
+#endif /* VSDB_BW_ALLOCATE_ENABLE */
 
 	WLDEV_ERROR(("mode: %d\n", mode));
 
 	if (mode == 0) {
-		
-		ampdu_mpdu = -1;	
+		/* Normal mode: restore everything to default */
+		ampdu_mpdu = -1;	/* FW default */
 #if defined(ROAM_ENABLE)
-		roam_off = 0;	
+		roam_off = 0;	/* roam enable */
 #elif defined(DISABLE_BUILTIN_ROAM)
-		roam_off = 1;	
+		roam_off = 1;	/* roam disable */
 #endif
 #ifdef VSDB_BW_ALLOCATE_ENABLE
-		mchan_algo = 0;	
-		mchan_bw = 50;	
-#endif 
+		mchan_algo = 0;	/* Default */
+		mchan_bw = 50;	/* 50:50 */
+#endif /* VSDB_BW_ALLOCATE_ENABLE */
 	}
 	else if (mode == 1) {
-		
-		ampdu_mpdu = 8;	
+		/* Miracast source mode */
+		ampdu_mpdu = 8;	/* for tx latency */
 #if defined(ROAM_ENABLE) || defined(DISABLE_BUILTIN_ROAM)
-		roam_off = 1; 
+		roam_off = 1; /* roam disable */
 #endif
 #ifdef VSDB_BW_ALLOCATE_ENABLE
-		mchan_algo = 1;	
-		mchan_bw = 35;	
-#endif 
+		mchan_algo = 1;	/* BW based */
+		mchan_bw = 35;	/* 35:65 */
+#endif /* VSDB_BW_ALLOCATE_ENABLE */
 	}
 	else if (mode == 2) {
-		
-		ampdu_mpdu = -1;	
+		/* Miracast sink/PC Gaming mode */
+		ampdu_mpdu = -1;	/* FW default */
 #if defined(ROAM_ENABLE) || defined(DISABLE_BUILTIN_ROAM)
-		roam_off = 1; 
+		roam_off = 1; /* roam disable */
 #endif
 #ifdef VSDB_BW_ALLOCATE_ENABLE
-		mchan_algo = 0;	
-		mchan_bw = 50;	
-#endif 
+		mchan_algo = 0;	/* Default */
+		mchan_bw = 50;	/* 50:50 */
+#endif /* VSDB_BW_ALLOCATE_ENABLE */
 	}
 	else {
 		WLDEV_ERROR(("Unknown mode: %d\n", mode));
 		return -1;
 	}
 
-	
+	/* Update ampdu_mpdu */
 	error = wldev_iovar_setint(dev, "ampdu_mpdu", ampdu_mpdu);
 	if (error) {
 		WLDEV_ERROR(("Failed to set ampdu_mpdu: mode:%d, error:%d\n",
@@ -571,7 +581,7 @@ int wldev_miracast_tuning(
 			mode, error));
 		return -1;
 	}
-#endif 
+#endif /* ROAM_ENABLE || DISABLE_BUILTIN_ROAM */
 
 #ifdef VSDB_BW_ALLOCATE_ENABLE
 	error = wldev_iovar_setint(dev, "mchan_algo", mchan_algo);
@@ -587,12 +597,13 @@ int wldev_miracast_tuning(
 			mode, error));
 		return -1;
 	}
-#endif 
+#endif /* VSDB_BW_ALLOCATE_ENABLE */
 
 	return error;
 }
 
 #ifdef CUSTOMER_HW_ONE
+/* 2013-12-24 brcm add ++++ for vsdb mode */
 
 static s32 wldev_ioctl_no_memset(
 	struct net_device *dev, u32 cmd, void *arg, u32 len, u32 set)
@@ -616,7 +627,7 @@ static int wldev_set_pktfilter_enable_by_id(struct net_device *dev, int pkt_id, 
 	char smbuf[WLC_IOCTL_SMLEN];
 	int res;
 
-	
+	/* enable or disable pkt filter, enable:1, disable:0 */
 	enable_parm.id = htod32(pkt_id);
 	enable_parm.enable = htod32(enable);
 	res = wldev_iovar_setbuf(dev, "pkt_filter_enable", &enable_parm, sizeof(enable_parm),
@@ -681,7 +692,7 @@ wldev_restart_ap(struct net_device *dev)
 	wl_iw_restart_apsta(&ap_cfg);
 }
 
-#endif  
+#endif  /* SOFTAP */
 
 int
 wldev_get_ap_status(struct net_device *dev)
@@ -786,7 +797,7 @@ void wldev_adj_apsta_scan_param(struct net_device *dev,int enable)
     int res;
 
     if(enable){
-        
+        /*adjust parameters*/
         int scan_home_time = APSTA_SCAN_HOME_TIME;
         int scan_assoc_time = APSTA_SCAN_ASSOC_TIME;
         int scan_passive_time = APSTA_SCAN_PASSIVE_TIME;
@@ -794,32 +805,32 @@ void wldev_adj_apsta_scan_param(struct net_device *dev,int enable)
         int srl = APSTA_SCAN_SRL;
         int lrl = APSTA_SCAN_LRL;
 
-         
+         /*set scan home time*/
         if((res =  wldev_ioctl(dev, WLC_SET_SCAN_HOME_TIME, (char *)&scan_home_time,sizeof(scan_home_time), 1)))
             WLDEV_ERROR(("%s fail to  WLC_SET_SCAN_HOME_TIME\n", __FUNCTION__));
 		    
-         
+         /*set scan assoc time*/
         if((res =  wldev_ioctl(dev, WLC_SET_SCAN_CHANNEL_TIME, (char *)&scan_assoc_time,sizeof(scan_assoc_time), 1)))
             WLDEV_ERROR(("%s fail to WLC_SET_SCAN_CHANNEL_TIME\n", __FUNCTION__));
 
-         
+         /*set scan passive time*/
         if((res =  wldev_ioctl(dev, WLC_SET_SCAN_PASSIVE_TIME, (char *)&scan_passive_time,sizeof(scan_passive_time), 1)))
             WLDEV_ERROR(("%s fail WLC_SET_SCAN_PASSIVE_TIME\n", __FUNCTION__));
 		
-         
+         /*set scan nprobes*/
         if((res =  wldev_ioctl(dev, WLC_SET_SCAN_NPROBES, (char *)&scan_nprobes,sizeof(scan_nprobes), 1)))
             WLDEV_ERROR(("%s fail to WLC_SET_SCAN_NPROBES\n", __FUNCTION__));
 
-         
+         /*set srl*/
         if((res =  wldev_ioctl(dev, WLC_SET_SRL, (char *)&srl,sizeof(srl), 1)))
             WLDEV_ERROR(("%s fail to WLC_SET_SRL\n", __FUNCTION__));
 		
-         
+         /*set lrl*/
         if((res =  wldev_ioctl(dev, WLC_SET_LRL, (char *)&lrl,sizeof(lrl), 1)))
             WLDEV_ERROR(("%s fail to WLC_SET_LRL\n", __FUNCTION__));
 
     }else{
-        
+        /*revert to the original design*/
         int scan_home_time = SCAN_HOME_TIME;
         int scan_assoc_time = SCAN_ASSOC_TIME;
         int scan_passive_time = SCAN_PASSIVE_TIME;
@@ -827,28 +838,28 @@ void wldev_adj_apsta_scan_param(struct net_device *dev,int enable)
         int srl = SCAN_SRL;
         int lrl = SCAN_LRL;
   
-         
+         /*set scan home time*/
 		if((res =  wldev_ioctl(dev, WLC_SET_SCAN_HOME_TIME, (char *)&scan_home_time,sizeof(scan_home_time), 1))) {
 					WLDEV_ERROR(("%s fail to WLC_SET_SCAN_HOME_TIME\n", __FUNCTION__));
 		}
-         
+         /*store scan assoc time*/
 		if((res =  wldev_ioctl(dev, WLC_SET_SCAN_CHANNEL_TIME, (char *)&scan_assoc_time,sizeof(scan_assoc_time), 1))) {
 					WLDEV_ERROR(("%s fail to WLC_SET_SCAN_CHANNEL_TIME\n", __FUNCTION__));
 		}
-         
+         /*store scan passive time*/
 		if((res =  wldev_ioctl(dev, WLC_SET_SCAN_PASSIVE_TIME, (char *)&scan_passive_time,sizeof(scan_passive_time), 1))) {
 					WLDEV_ERROR(("%s fail to WLC_SET_SCAN_PASSIVE_TIME\n", __FUNCTION__));
 		}
-         
+         /*store scan nprobes*/
 		if((res =  wldev_ioctl(dev, WLC_SET_SCAN_NPROBES, (char *)&scan_nprobes,sizeof(scan_nprobes), 1))) {
 					WLDEV_ERROR(("%s fail WLC_SET_SCAN_NPROBES\n", __FUNCTION__));
 		}
 
-         
+         /*store srl*/
 		if((res =  wldev_ioctl(dev, WLC_SET_SRL, (char *)&srl,sizeof(srl), 1))) {
 					WLDEV_ERROR(("%s fail to WLC_SET_SRL\n", __FUNCTION__));
 		}
-         
+         /*store srl*/
 		if((res =  wldev_ioctl(dev, WLC_SET_LRL, (char *)&lrl,sizeof(lrl), 1))) {
 					WLDEV_ERROR(("%s fail to  WLC_SET_LRL\n", __FUNCTION__));
 		}
@@ -869,7 +880,7 @@ s32 wldev_set_ssid(struct net_device *dev,int *channel)
 	strncpy(ap_ssid.SSID, ap_cfg.ssid, ap_ssid.SSID_len);
 
 	bss_setbuf.cfg = 1;
-	bss_setbuf.val = 0;  
+	bss_setbuf.val = 0;  /* down the interface */
 	
 	if ((res = wldev_iovar_setbuf_bsscfg(dev, "bss", &bss_setbuf, sizeof(bss_setbuf), 
 			smbuf, sizeof(smbuf), 1, NULL)) < 0){
@@ -885,7 +896,7 @@ s32 wldev_set_ssid(struct net_device *dev,int *channel)
 
 
 	bss_setbuf.cfg = 1;
-	bss_setbuf.val = 1;  
+	bss_setbuf.val = 1;  /* up the interface */
 	bcm_mdelay(50);
 
 	if ((res = wldev_iovar_setbuf_bsscfg(dev, "bss", &bss_setbuf, sizeof(bss_setbuf), 
@@ -920,7 +931,7 @@ wldev_set_apsta(struct net_device *dev, bool enable)
    	}
 
 	if (enable){
-		
+		/* wait for interface ready */
 		wait_for_ap_ready(1);
 
 		if ( ap_net_dev == NULL ) {
@@ -973,7 +984,7 @@ wldev_set_apsta(struct net_device *dev, bool enable)
 			printf("%s Sta is not connected with any AP\n",__func__);
 
 			bss_setbuf.cfg = 1;
-			bss_setbuf.val = 1;  
+			bss_setbuf.val = 1;  /* up the interface */
 
 			if ((res = wldev_iovar_setbuf_bsscfg(dev, "bss", &bss_setbuf, sizeof(bss_setbuf), smbuf, sizeof(smbuf), 1, NULL)) < 0){
 				WLDEV_ERROR(("%s: ERROR:%d, set bss up failed\n", __FUNCTION__, res));
@@ -1020,7 +1031,7 @@ wldev_set_apsta(struct net_device *dev, bool enable)
         scan_suppress_flag = 0;
 
 
-	
+	/* 2012-09-21 Stop roam when start Concurrent ++++ */
 	roam_off = 0;
 	if((res = wldev_iovar_setint(dev, "roam_off", roam_off)))
 			printf("%s fail to set roam_off res[%d]\n", __FUNCTION__,res);
@@ -1099,7 +1110,7 @@ int wldev_set_ap_sta_registra_wsec(struct net_device *dev, char *command, int to
 
 	return bytes_written;
 }
-#endif 
+#endif /* BRCM_WPSAP */
 
 
 void wldev_san_check_channel(struct net_device *ndev,int *errcode)
@@ -1122,7 +1133,7 @@ void wldev_san_check_channel(struct net_device *ndev,int *errcode)
         *errcode = 2;
     }
 
-	
+	/*Get STA channel*/
 	if ((error = wldev_ioctl(ndev, WLC_GET_BSS_INFO, wlcfg_drv_priv->extra_buf,
         WL_EXTRA_BUF_MAX, false))) {
         printf("Failed to get conssta bss info \n");
@@ -1135,7 +1146,7 @@ void wldev_san_check_channel(struct net_device *ndev,int *errcode)
     }
     bcm_mdelay(50);
 
-	
+	/*Get ConAP channel*/
     *(u32 *) wlcfg_drv_priv->extra_buf = htod32(WL_EXTRA_BUF_MAX);
     if ((error = wldev_ioctl(ap_net_dev, WLC_GET_BSS_INFO, wlcfg_drv_priv->extra_buf,
         WL_EXTRA_BUF_MAX, false))) {
@@ -1158,7 +1169,7 @@ void wldev_san_check_channel(struct net_device *ndev,int *errcode)
     }
     printf("Leave %s errcode[%d]",__FUNCTION__,*errcode);
 }
-#endif 
+#endif /* APSTA_CONCURRENT */
 
 void
 wldev_set_scanabort(struct net_device *dev)

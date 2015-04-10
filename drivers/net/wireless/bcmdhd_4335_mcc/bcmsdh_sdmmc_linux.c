@@ -26,11 +26,11 @@
 
 #include <typedefs.h>
 #include <bcmutils.h>
-#include <sdio.h>	
-#include <bcmsdbus.h>	
-#include <sdiovar.h>	
+#include <sdio.h>	/* SDIO Device and Protocol Specs */
+#include <bcmsdbus.h>	/* bcmsdh to/from specific controller APIs */
+#include <sdiovar.h>	/* to get msglevel bit values */
 
-#include <linux/sched.h>	
+#include <linux/sched.h>	/* request_irq() */
 
 #include <linux/mmc/core.h>
 #include <linux/mmc/card.h>
@@ -39,37 +39,37 @@
 
 #if !defined(SDIO_VENDOR_ID_BROADCOM)
 #define SDIO_VENDOR_ID_BROADCOM		0x02d0
-#endif 
+#endif /* !defined(SDIO_VENDOR_ID_BROADCOM) */
 
 #define SDIO_DEVICE_ID_BROADCOM_DEFAULT	0x0000
 
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4325_SDGWB)
-#define SDIO_DEVICE_ID_BROADCOM_4325_SDGWB	0x0492	
-#endif 
+#define SDIO_DEVICE_ID_BROADCOM_4325_SDGWB	0x0492	/* BCM94325SDGWB */
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4325_SDGWB) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4325)
 #define SDIO_DEVICE_ID_BROADCOM_4325	0x0493
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4325) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4329)
 #define SDIO_DEVICE_ID_BROADCOM_4329	0x4329
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4329) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4319)
 #define SDIO_DEVICE_ID_BROADCOM_4319	0x4319
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4319) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4330)
 #define SDIO_DEVICE_ID_BROADCOM_4330	0x4330
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4330) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4334)
 #define SDIO_DEVICE_ID_BROADCOM_4334    0x4334
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4334) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4324)
 #define SDIO_DEVICE_ID_BROADCOM_4324    0x4324
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4324) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_43239)
 #define SDIO_DEVICE_ID_BROADCOM_43239    43239
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_43239) */
 #if !defined(SDIO_DEVICE_ID_BROADCOM_4335)
 #define SDIO_DEVICE_ID_BROADCOM_4335    4335
-#endif 
+#endif /* !defined(SDIO_DEVICE_ID_BROADCOM_4335) */
 
 
 #include <bcmsdh_sdmmc.h>
@@ -92,6 +92,7 @@ void sdio_function_cleanup(void);
 #define DESCRIPTION "bcmsdh_sdmmc Driver"
 #define AUTHOR "Broadcom Corporation"
 
+/* module param defaults */
 static int clockoverride = 0;
 
 module_param(clockoverride, int, 0644);
@@ -99,6 +100,7 @@ MODULE_PARM_DESC(clockoverride, "SDIO card clock override");
 
 PBCMSDH_SDMMC_INSTANCE gInstance;
 
+/* Maximum number of bcmsdh_sdmmc devices supported by driver */
 #define BCMSDH_SDMMC_MAX_DEVICES 1
 
 extern int bcmsdh_probe(struct device *dev);
@@ -125,7 +127,7 @@ static int bcmsdh_sdmmc_probe(struct sdio_func *func,
 			sdio_func_0.num = 0;
 			sdio_func_0.card = func->card;
 			gInstance->func[0] = &sdio_func_0;
-			if(func->device == 0x4) { 
+			if(func->device == 0x4) { /* 4318 */
 				gInstance->func[2] = NULL;
 				sd_trace(("NIC found, calling bcmsdh_probe...\n"));
 				ret = bcmsdh_probe(&func->dev);
@@ -173,6 +175,7 @@ static void bcmsdh_sdmmc_remove(struct sdio_func *func)
 	}
 }
 
+/* devices we support, null terminated */
 static const struct sdio_device_id bcmsdh_sdmmc_ids[] = {
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, SDIO_DEVICE_ID_BROADCOM_DEFAULT) },
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, SDIO_DEVICE_ID_BROADCOM_4325_SDGWB) },
@@ -185,7 +188,7 @@ static const struct sdio_device_id bcmsdh_sdmmc_ids[] = {
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, SDIO_DEVICE_ID_BROADCOM_43239) },
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, SDIO_DEVICE_ID_BROADCOM_4335) },
 	{ SDIO_DEVICE_CLASS(SDIO_CLASS_NONE)		},
-	{ 				},
+	{ /* end: all zeroes */				},
 };
 
 MODULE_DEVICE_TABLE(sdio, bcmsdh_sdmmc_ids);
@@ -210,7 +213,7 @@ static int bcmsdh_sdmmc_suspend(struct device *pdev)
 		return  -EINVAL;
 	}
 
-	
+	/* keep power while host suspended */
 	ret = sdio_set_host_pm_flags(func, MMC_PM_KEEP_POWER);
 	if (ret) {
 		sd_err(("%s: error while trying to keep power\n", __FUNCTION__));
@@ -245,7 +248,7 @@ static const struct dev_pm_ops bcmsdh_sdmmc_pm_ops = {
 	.suspend	= bcmsdh_sdmmc_suspend,
 	.resume		= bcmsdh_sdmmc_resume,
 };
-#endif  
+#endif  /* (LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 39)) && defined(CONFIG_PM) */
 
 #if defined(BCMLXSDMMC)
 static struct semaphore *notify_semaphore = NULL;
@@ -280,7 +283,7 @@ void sdio_func_unreg_notify(void)
 	sdio_unregister_driver(&dummy_sdmmc_driver);
 }
 
-#endif 
+#endif /* defined(BCMLXSDMMC) */
 
 static struct sdio_driver bcmsdh_sdmmc_driver = {
 	.probe		= bcmsdh_sdmmc_probe,
@@ -291,7 +294,7 @@ static struct sdio_driver bcmsdh_sdmmc_driver = {
 	.drv = {
 	.pm	= &bcmsdh_sdmmc_pm_ops,
 	},
-#endif 
+#endif /* (LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 39)) && defined(CONFIG_PM) */
 	};
 
 struct sdos_info {
@@ -328,6 +331,7 @@ sdioh_sdmmc_osfree(sdioh_info_t *sd)
 	MFREE(sd->osh, sdos, sizeof(struct sdos_info));
 }
 
+/* Interrupt enable/disable */
 SDIOH_API_RC
 sdioh_interrupt_set(sdioh_info_t *sd, bool enable)
 {
@@ -347,9 +351,9 @@ sdioh_interrupt_set(sdioh_info_t *sd, bool enable)
 		sd_err(("%s: no handler registered, will not enable\n", __FUNCTION__));
 		return SDIOH_API_RC_FAIL;
 	}
-#endif 
+#endif /* !defined(OOB_INTR_ONLY) */
 
-	
+	/* Ensure atomicity for enable/disable calls */
 	spin_lock_irqsave(&sdos->lock, flags);
 
 	sd->client_intr_enabled = enable;
@@ -387,7 +391,10 @@ MODULE_LICENSE("GPL v2");
 MODULE_DESCRIPTION(DESCRIPTION);
 MODULE_AUTHOR(AUTHOR);
 
-#endif 
+#endif /* BCMSDH_MODULE */
+/*
+ * module init
+*/
 int sdio_function_init(void)
 {
 	int error = 0;
@@ -406,6 +413,9 @@ int sdio_function_init(void)
 	return error;
 }
 
+/*
+ * module cleanup
+*/
 extern int bcmsdh_remove(struct device *dev);
 void sdio_function_cleanup(void)
 {

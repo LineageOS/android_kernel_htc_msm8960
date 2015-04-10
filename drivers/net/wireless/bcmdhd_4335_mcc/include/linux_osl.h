@@ -189,7 +189,7 @@ extern int osl_error(int bcmerror);
 #define HTC_KERNEL_FEEDBACK(x) errprintf x
 #else
 #define	printf(fmt, args...)	printk(KERN_INFO "[WLAN] "fmt , ## args)
-#endif 
+#endif /* CUSTOMER_HW_ONE */
 #include <linux/kernel.h>	
 #include <linux/string.h>	
 

@@ -233,14 +233,14 @@ typedef BWL_PRE_PACKED_STRUCT struct bcm_event {
 #ifdef CUSTOMER_HW_ONE
 #if defined(BCM4335_CHIP) || defined(BCM4334_CHIP)
 #define WLC_E_HTC_OFFSET                200
-#define WLC_E_RSSI_LOW                  WLC_E_HTC_OFFSET + 0    
-#define WLC_E_LOAD_IND                  WLC_E_HTC_OFFSET + 1    
-#define WLC_E_TX_STAT_ERROR             WLC_E_HTC_OFFSET + 2    
-#define WLC_E_LAST                      WLC_E_HTC_OFFSET + 3    
+#define WLC_E_RSSI_LOW                  WLC_E_HTC_OFFSET + 0    /* Send up rssi low event */
+#define WLC_E_LOAD_IND                  WLC_E_HTC_OFFSET + 1    /* loading incicate */
+#define WLC_E_TX_STAT_ERROR             WLC_E_HTC_OFFSET + 2    /* tx error indicate */
+#define WLC_E_LAST                      WLC_E_HTC_OFFSET + 3    /* highest val + 1 for range checking */
 #else
 #define WLC_E_LAST			125	
 #endif
-#define WLC_E_RELOAD_STATUS1            1  
+#define WLC_E_RELOAD_STATUS1            1  /* Internal Firmware Error */
 #endif
 
 

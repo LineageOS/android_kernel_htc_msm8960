@@ -165,11 +165,12 @@ typedef struct iscan_info {
 	iscan_buf_t * list_cur;
 
 	
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 	long sysioc_pid;
 	struct semaphore sysioc_sem;
 	struct completion sysioc_exited;
 #else
+/* Thread to work on iscan */
 	tsk_ctl_t tsk_ctl;
 	wl_iscan_params_t *iscan_ex_params_p;
 	int iscan_ex_param_size;
@@ -1214,7 +1215,7 @@ wl_iw_iscan_get_aplist(
 	if (!extra)
 		return -EINVAL;
 
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 	if ((!iscan) || (iscan->sysioc_pid < 0)) {
 #else
 	if ((!iscan) || (iscan->tsk_ctl.thr_pid < 0)) {
@@ -1324,7 +1325,7 @@ wl_iw_iscan_set_scan(
 	}
 #endif
 	
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 	if ((!iscan) || (iscan->sysioc_pid < 0)) {
 #else
 	if ((!iscan) || (iscan->tsk_ctl.thr_pid < 0)) {
@@ -1682,7 +1683,7 @@ wl_iw_iscan_get_scan(
 	}
 #endif
 	
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 	if ((!iscan) || (iscan->sysioc_pid < 0)) {
 #else
 	if ((!iscan) || (iscan->tsk_ctl.thr_pid < 0)) {
@@ -3086,7 +3087,7 @@ static const iw_handler wl_iw_handler[] =
 	(iw_handler) NULL,			
 	(iw_handler) wl_iw_get_range,		
 #ifdef APSTA_CONCURRENT	
-	(iw_handler) wl_iw_set_priv,
+	(iw_handler) wl_iw_set_priv,/*NULL, 		*/
 #else
 	(iw_handler) NULL,
 #endif
@@ -3404,7 +3405,10 @@ wl_iw_check_conn_fail(wl_event_msg_t *e, char* stringBuf, uint buflen)
 #define IW_CUSTOM_MAX 256 
 #endif 
 
+/* HTC_WIFI_START */
+/* keep tracking sta connection state */
 extern int sta_connected;
+/* HTC_WIFI_END */
 
 void
 wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
@@ -3457,14 +3461,14 @@ wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
 		wl_iw_send_priv_event(priv_dev, mac_buf);
 		goto wl_iw_event_end;
 		}
-#endif 
-        
-        
-        
+#endif /* APSTA_CONCURRENT */
+        /* HTC_WIFI_START*/
+        /*memcpy(wrqu.addr.sa_data, &e->addr, ETHER_ADDR_LEN);*/
+        /*wrqu.addr.sa_family = ARPHRD_ETHER;*/
         wrqu.data.length = strlen(extra);
         bzero(wrqu.addr.sa_data, ETHER_ADDR_LEN);
         bzero(&extra, ETHER_ADDR_LEN);
-        
+        /* HTC_WIFI_END*/
 #endif
 		cmd = IWEVREGISTERED;
 		break;
@@ -3487,7 +3491,7 @@ wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
 			wl_iw_send_priv_event(priv_dev, mac_buf);
 			goto wl_iw_event_end;
 		}
-#endif 
+#endif /* APSTA_CONCURRENT */
 #endif
 		cmd = SIOCGIWAP;
 		wrqu.data.length = strlen(extra);
@@ -3516,11 +3520,11 @@ wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
 				wl_iw_send_priv_event(priv_dev, "AP_DOWN");
 			}
 		}else{
-			
+			/* HTC_WIFI_START */
 			sta_connected = 0;
-			
+			/* notify traffic monitor to release perf lock when disconnected */
 			wl_android_traffic_monitor(priv_dev);
-			
+			/* HTC_WIFI_END */
 
 			WL_DEFAULT(("STA_Link Down\n"));
 			printf(KERN_INFO "[ATS][disconnect][complete]\n");
@@ -3540,18 +3544,18 @@ wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
 				WL_DEFAULT(("AP UP %d\n", event_type));
 				wl_iw_send_priv_event(priv_dev, "AP_UP");
 			}else{
-				
+				/* HTC_WIFI_START */
 				sta_connected = 1;
-				
+				/* HTC_WIFI_END */
 				WL_DEFAULT(("STA_LINK_UP\n"));
 				if ( apsta_enable && ap_net_dev ) {
 					printf("%s: schedule to restart the apsta ap part\n", __FUNCTION__);
 					schedule_delayed_work(&restart_apsta, 5*HZ);
 				}
-                
+                /* HTC_WIFI_START*/
                 bzero(wrqu.addr.sa_data, ETHER_ADDR_LEN);
                 bzero(&extra, ETHER_ADDR_LEN);
-                
+                /* HTC_WIFI_END*/
 			}
 			WL_DEFAULT(("Link UP\n"));
 		}
@@ -3642,13 +3646,13 @@ wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
 		cmd = SIOCGIWSCAN;
 #endif
 		WL_TRACE(("event WLC_E_SCAN_COMPLETE\n"));
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 		if ((g_iscan) && (g_iscan->sysioc_pid >= 0) &&
 #else
 		if ((g_iscan) && (g_iscan->tsk_ctl.thr_pid >= 0) &&
 #endif
 			(g_iscan->iscan_state != ISCAN_STATE_IDLE))
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 			up(&g_iscan->sysioc_sem);
 #else
 			up(&g_iscan->tsk_ctl.sema);
@@ -3668,7 +3672,7 @@ wl_iw_event(struct net_device *dev, wl_event_msg_t *e, void* data)
 		}
 	}
 		break;
-#endif 	
+#endif /* APSTA_CONCURRENT */	
 	default:
 		
 		break;
@@ -3788,7 +3792,7 @@ wl_iw_timerfunc(ulong data)
 	iscan->timer_on = 0;
 	if (iscan->iscan_state != ISCAN_STATE_IDLE) {
 		WL_TRACE(("timer trigger\n"));
-#ifndef USE_KTHREAD_API 
+#ifndef USE_KTHREAD_API /* BRCM TBD */
 		up(&iscan->sysioc_sem);
 #else
 		up(&iscan->tsk_ctl.sema);
@@ -4008,7 +4012,7 @@ _iscan_sysioc_thread(void *data)
 	status = WL_SCAN_RESULTS_PARTIAL;
 #ifndef USE_KTHREAD_API
 	DAEMONIZE("iscan_sysioc");
-	
+	/* signal to parent context: thread has started */
 	complete(&tsk_ctl->completed);
 #endif
 
@@ -4024,7 +4028,7 @@ _iscan_sysioc_thread(void *data)
 #if defined(SOFTAP)
                 if (ap_cfg_running && !apsta_enable) {
                  WL_SCAN(("%s skipping SCAN ops in AP mode !!!\n", __FUNCTION__));
-                 
+                 /*net_os_wake_unlock(iscan->dev);*/
                  continue;
                 }
 #endif
@@ -4278,7 +4282,7 @@ get_parameter_from_string(
 
                                 param_max_len = param_max_len >> 1;
                                 hstr_2_buf(param_str_begin, buf, param_max_len);
-                                
+                                /*dhd_print_buf(buf, param_max_len, 0);*/
                         }
                         break;
                         default:
@@ -4313,10 +4317,10 @@ int init_ap_profile_from_string(char *param_str, struct ap_profile *ap_cfg)
                 PTYPE_STRING, sub_cmd, SSID_LEN) != 0) {
          return -1;
         }
-        
+        /* broadcom, init apsta_enable flag here */
         apsta_enable = FALSE;
         if (strncmp(sub_cmd, "AP_CFG", 6)) {
-                
+                /* broadcom, add the APSTA_CFG detection */
                 if (strncmp(sub_cmd, "APSTA_CFG", 9)) {
                    WL_ERROR(("ERROR: sub_cmd:%s != 'AP_CFG'!\n", sub_cmd));
                         return -1;
@@ -4337,6 +4341,9 @@ int init_ap_profile_from_string(char *param_str, struct ap_profile *ap_cfg)
 
         ret |= get_parameter_from_string(&str_ptr, "MAX_SCB=", PTYPE_INTDEC,  &ap_cfg->max_scb, 5);
 
+        /* [kenn] temp mark for hidden AP
+        ret |= get_parameter_from_string(&str_ptr, "HIDDEN=", PTYPE_INTDEC,  &ap_cfg->closednet, 5);
+        */
         return ret;
 }
 #endif
@@ -4556,7 +4563,7 @@ thr_wait_for_2nd_eth_dev(void *data)
 
         wl_iw_send_priv_event(priv_dev, "AP_SET_CFG_OK");
 
-        
+        /* remove the attach state bit of softap */
         dhd_state_set_flags( iw->pub, DHD_ATTACH_STATE_SOFTAP, 0);
 
 
@@ -4572,6 +4579,10 @@ fail:
 #endif
 
 #ifndef AP_ONLY
+/* 
+ * broadcom, try to enable the apsta concurrent on Android. add this function 
+ * to preinit apsta's ap before wifi-tethering enabling.
+ */
 
 int set_ap_channel(struct net_device *dev, struct ap_profile *ap)
 {
@@ -4646,7 +4657,7 @@ int set_apsta_cfg(struct net_device *dev, struct ap_profile *ap)
 
 
         if (ap_cfg_running == FALSE) {
-                
+                /* broadcom, the apsta shall be ready when driver loading. */
 				turn_on_conap = 1;
                 if(wlcfg_drv_priv){
                     err = wl_cfgp2p_disable_discovery(wlcfg_drv_priv);
@@ -4671,7 +4682,7 @@ int set_apsta_cfg(struct net_device *dev, struct ap_profile *ap)
                         goto fail;
                 }
 
-                
+                /* clean station interface also */
                 {
                         wlc_ssid_t null_ssid;
                         memset(&null_ssid, 0, sizeof(wlc_ssid_t));
@@ -4683,7 +4694,7 @@ int set_apsta_cfg(struct net_device *dev, struct ap_profile *ap)
                 }
         }
 
-        
+        /* broadcom, channel is unchangable here. */
 
         max_assoc = ap->max_scb;
         if ((res = dev_wlc_intvar_set(dev, "maxassoc", max_assoc))) {
@@ -4813,11 +4824,13 @@ int wl_iw_set_ap_security(struct net_device *dev, struct ap_profile *ap)
 
                 wsec_pmk_t psk;
                 size_t key_len;
+/*BRCM WPSAP START*/
 #ifdef BRCM_WPSAP
         wsec = AES_ENABLED | SES_OW_ENABLED;
 #else
                 wsec = AES_ENABLED;
-#endif 
+#endif /* BRCM_WPSAP */
+/*BRCM WPSAP END*/
                 dev_wlc_intvar_set(dev, "wsec", wsec);
 
                 key_len = strlen(ap->key);
@@ -4867,7 +4880,7 @@ int wl_iw_set_ap_security(struct net_device *dev, struct ap_profile *ap)
         wsec = TKIP_ENABLED | SES_OW_ENABLED;
 #else
                 wsec = TKIP_ENABLED;
-#endif 
+#endif /* BRCM_WPSAP */
                 res = dev_wlc_intvar_set(dev, "wsec", wsec);
 
                 key_len = strlen(ap->key);
@@ -4995,16 +5008,16 @@ int wl_softap_stop(struct net_device *dev)
         DHD_OS_MUTEX_LOCK(&wl_softap_lock);
 
         if ((ap_cfg_running == TRUE)) {
-                
+                /*deauthenticate all connected dongle before turn off conap.*/
 		if(!old_dongle)
                     wl_iw_conap_deassoc_stations(ap_net_dev, NULL);
 
-                
+                /*HTC_WIFI_START 2012-09-24 clear queue & down interface*/
                 netif_stop_queue(dev);
                 bcm_mdelay(100);
                 dev_iw_write_cfg1_bss_var(dev, 0);
                 bcm_mdelay(100);
-                
+                /*HTC_WIFI_END 2012-09-24*/
                 if ((res = dev_iw_write_cfg1_bss_var(dev, 2)) < 0)
                         WL_ERROR(("%s failed to del BSS err = %d", __FUNCTION__, res));
 
@@ -5020,15 +5033,16 @@ int wl_softap_stop(struct net_device *dev)
         DHD_OS_MUTEX_UNLOCK(&wl_softap_lock);
         net_os_wake_unlock(dev);
 
-	
+	/*2013-02-21 Add ++++*/
 	old_dongle = 0;	
-	
+	/*2013-02-21 Add ----*/
         return res;
 
 }
 #endif
 #endif
 
+/* keep the restart function alone for other routines */
 void
 wl_iw_restart_apsta(struct ap_profile *ap)
 {
@@ -5220,7 +5234,7 @@ wl_iw_set_priv(
             else
                 wl_iw_send_priv_event(dev, "L2PE_FAIL");
         }
-#endif 
+#endif /* BRCM_WPSAP */
 	}
 
 	net_os_wake_unlock(dev);
@@ -5236,7 +5250,7 @@ wl_iw_set_priv(
 
 	return ret;
 }
-#endif 
+#endif /* APSTA_CONCURRENT */
 
 void wl_iw_apsta_adjscan_param(struct work_struct *work)
 {
@@ -5259,5 +5273,5 @@ void wl_iw_apsta_adjscan_param(struct work_struct *work)
 	wldev_adj_apsta_scan_param(netdev,enable);
 }
 
-#endif 
+#endif /* CUSTOMER_HW_ONE */
 #endif

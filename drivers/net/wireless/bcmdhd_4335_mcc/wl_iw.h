@@ -106,7 +106,7 @@ struct cntry_locales_custom {
 #define WL_COMBO_SCAN           (SIOCIWFIRSTPRIV+33)
 #ifdef BRCM_WPSAP
 #define WL_REGISTRAR_WSEC       (SIOCIWFIRSTPRIV+35)
-#endif 
+#endif /* BRCM_WPSAP */
 #include <dngl_stats.h>
 #include <dhd.h>
 extern int net_os_wake_lock(struct net_device *dev);
