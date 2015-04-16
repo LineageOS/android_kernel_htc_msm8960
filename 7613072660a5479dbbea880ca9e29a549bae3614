@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ac371cc_a0dd7572",
+        "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_android.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2597,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2015-04-16T16:29:24Z",
+      "side": 1,
+      "message": "this can\u0027t be right. jiffies_diff is not static, so this will always evaluate to true thanks to initialization of 0.",
+      "revId": "7613072660a5479dbbea880ca9e29a549bae3614",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
