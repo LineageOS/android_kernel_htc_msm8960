@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa7ab95a_c28ef726",
+        "filename": "arch/arm/mach-msm/htc/zara/board-zara.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-04-20T05:37:20Z",
+      "side": 1,
+      "message": "Strictly speaking this isn\u0027t necessary, but it makes sense to do.",
+      "revId": "3e408efb74cf27a0792bc6055f1fec6cd454e80d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
