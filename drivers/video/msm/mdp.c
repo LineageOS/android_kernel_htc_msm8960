@@ -2937,6 +2937,9 @@ static int mdp_probe(struct platform_device *pdev)
 	if (mdp_pdata) {
 		if (mdp_pdata->cont_splash_enabled &&
 				 mfd->panel_info.pdest == DISPLAY_1) {
+#ifdef CONFIG_MACH_HTC
+			mdp_clk_ctrl(1);
+#else
 			char *cp;
 			uint32 bpp = 3;
 			/*read panel wxh and calculate splash screen
@@ -2977,6 +2980,7 @@ static int mdp_probe(struct platform_device *pdev)
 
 			MDP_OUTP(MDP_BASE + 0x90008,
 					mfd->copy_splash_phys);
+#endif /* CONFIG_MACH_HTC */
 		}
 
 		mfd->cont_splash_done = (1 - mdp_pdata->cont_splash_enabled);
