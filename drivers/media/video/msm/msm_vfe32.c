@@ -3749,7 +3749,7 @@ static void vfe32_process_stats_ae_bg_irq(void)
 	} else{
 		spin_unlock_irqrestore(&vfe32_ctrl->aec_bg_ack_lock, flags);
 		vfe32_ctrl->aecbgStatsControl.droppedStatsFrameCount++;
-		pr_info("%s: droppedStatsFrameCount = %d\n", __func__,
+		pr_debug("%s: droppedStatsFrameCount = %d\n", __func__,
 			vfe32_ctrl->aecbgStatsControl.droppedStatsFrameCount);
 	}
 }
@@ -3789,7 +3789,7 @@ static void vfe32_process_stats_af_bf_irq(void)
 	} else{
 		spin_unlock_irqrestore(&vfe32_ctrl->af_bf_ack_lock, flags);
 		vfe32_ctrl->afbfStatsControl.droppedStatsFrameCount++;
-		pr_info("%s: droppedStatsFrameCount = %d\n", __func__,
+		pr_debug("%s: droppedStatsFrameCount = %d\n", __func__,
 		vfe32_ctrl->afbfStatsControl.droppedStatsFrameCount);
 	}
 }
@@ -3880,7 +3880,7 @@ static void vfe32_process_stats(uint32_t status_bits)
 		} else{
 			vfe32_ctrl->aecbgStatsControl.bufToRender = 0;
 			vfe32_ctrl->aecbgStatsControl.droppedStatsFrameCount++;
-			pr_info("vfe32_process_stats: aecbg stats dropped %d\n",
+			pr_debug("vfe32_process_stats: aecbg stats dropped %d\n",
 			vfe32_ctrl->aecbgStatsControl.droppedStatsFrameCount);
 		}
 	} else {
@@ -3913,7 +3913,7 @@ static void vfe32_process_stats(uint32_t status_bits)
 		} else {
 			vfe32_ctrl->afbfStatsControl.bufToRender = 0;
 			vfe32_ctrl->afbfStatsControl.droppedStatsFrameCount++;
-			pr_info("vfe32_process_stats: afbf stats dropped %d\n",
+			pr_debug("vfe32_process_stats: afbf stats dropped %d\n",
 			vfe32_ctrl->afbfStatsControl.droppedStatsFrameCount);
 		}
 	} else {

@@ -329,7 +329,7 @@ static int msm_isp_should_drop_frame(struct msm_cam_media_controller *pmctl, uin
 	}
 
 	if (atomic_read(&pmctl->dropframe_enabled))
-		pr_info("%s: FRAME (%d): drop_frame %d [enable %d num %d drop_snap %d]",
+		pr_debug("%s: FRAME (%d): drop_frame %d [enable %d num %d drop_snap %d]",
 				__func__, msgid, drop_frame,
 				atomic_read(&pmctl->dropframe_enabled),
 				atomic_read(&pmctl->snap_dropframe_num),
