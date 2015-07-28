@@ -195,7 +195,12 @@ enum {
 extern void sweep2wake_setdev(struct input_dev * input_device);
 #endif
 
+<<<<<<< HEAD
 >>>>>>> 5623de1... S2W/DT2W/L2M/L2W
+=======
+extern uint8_t touchscreen_is_on(void);
+
+>>>>>>> 2f8f9b2... msm8960: Fix build
 extern uint8_t getPowerKeyState(void);
 #endif /* CONFIG_TOUCHSCREEN_SYNAPTICS_3K */
 #endif /* _LINUX_SYNAPTICS_I2C_RMI_H */
