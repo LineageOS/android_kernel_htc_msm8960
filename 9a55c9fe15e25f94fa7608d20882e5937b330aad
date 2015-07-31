@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf091321_6effb067",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 1,
+      "message": "This is one of real changes made, where it will error on read if it fails more than a few times.",
+      "revId": "9a55c9fe15e25f94fa7608d20882e5937b330aad",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf091321_0ef6f490",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 1,
+      "message": "NACK error count is reset after power off.",
+      "revId": "9a55c9fe15e25f94fa7608d20882e5937b330aad",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf091321_ceefdcae",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 1,
+      "message": "sleeps are reintroduced.",
+      "revId": "9a55c9fe15e25f94fa7608d20882e5937b330aad",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf091321_4e398c3f",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 2446,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 1,
+      "message": "This is dead code, FORCE_POWER_OFF is not set.",
+      "revId": "9a55c9fe15e25f94fa7608d20882e5937b330aad",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf091321_6e34504b",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 2574,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 1,
+      "message": "This is dead code, FORCE_POWER_OFF is not set.",
+      "revId": "9a55c9fe15e25f94fa7608d20882e5937b330aad",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}

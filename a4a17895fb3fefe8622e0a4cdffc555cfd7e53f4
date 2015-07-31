@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf091321_4e04ec7b",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 0,
+      "message": "Another change made: this patch removes some changes made by Matt Mower regarding power states.",
+      "revId": "a4a17895fb3fefe8622e0a4cdffc555cfd7e53f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf091321_eef2a09a",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 0,
+      "message": "Matt\u0027s power state tracking changes are removed here.",
+      "revId": "a4a17895fb3fefe8622e0a4cdffc555cfd7e53f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf091321_ae2a68e4",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-31T23:16:13Z",
+      "side": 0,
+      "message": "More power state tracking removed.",
+      "revId": "a4a17895fb3fefe8622e0a4cdffc555cfd7e53f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
