@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f0e0f27_4388491e",
+        "filename": "drivers/net/wireless/bcmdhd_4335_mcc/wl_android.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2598,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2015-08-07T14:21:23Z",
+      "side": 1,
+      "message": "If this isn\u0027t a mess-up by HTC, I can only imagine they wanted to ensure traffic_diff is set here, and not set to 0 below.",
+      "revId": "4183f2f20baf077833e77722f205ec9355a6a861",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
