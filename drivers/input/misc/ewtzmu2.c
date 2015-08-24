@@ -32,6 +32,7 @@
 #include <linux/gpio.h>
 #include <linux/akm8975.h>
 #include <linux/module.h>
+#include <linux/mutex.h>
 
 #ifndef HTC_VERSION
 #include <linux/i2c/ak8973.h>
@@ -127,6 +128,8 @@ static atomic_t gv_status;
 static atomic_t off_status_hal;
 static int m_o_times;
 
+struct mutex power_lock;
+
 static int EWTZMU2_I2C_Read(int reg_addr, int buf_len, int *buf)
 {
 	int res = 0;
@@ -141,11 +144,14 @@ static int EWTZMU2_I2C_Read(int reg_addr, int buf_len, int *buf)
 	return -2;
 	}
 
+	mutex_lock(&power_lock);
+
 	regaddr = (u8)reg_addr;
 
 	res = i2c_master_send(ewtzmu_i2c_client, &regaddr, 1);
 	if (res <= 0) {
 		E("%s EWTZMU2_I2C_Read error res = %d\n", __func__, res);
+		mutex_unlock(&power_lock);
 		return res;
 	}
 
@@ -153,10 +159,12 @@ static int EWTZMU2_I2C_Read(int reg_addr, int buf_len, int *buf)
 	res = i2c_master_recv(ewtzmu_i2c_client, readdata, buf_len);
 	if (res <= 0) {
 		E("%s EWTZMU2_I2C_Read error res = %d\n", __func__, res);
+		mutex_unlock(&power_lock);
 		return res;
 	}
 
 	memcpy(buf, (int *)readdata, buf_len);
+	mutex_unlock(&power_lock);
 	I("%s, ok, reg_addr = 0x%x,"
 		"buf_len = %d\n",
 		__func__, reg_addr, buf_len);
@@ -182,12 +190,15 @@ static int EWTZMU2_I2C_Write(int reg_addr, int buf_len, int *buf)
 	return -2;
 	}
 
+	mutex_lock(&power_lock);
+
 	databuffer[0] = (u8)reg_addr;
 	memcpy(&databuffer[1], (u8 *)buf, (buf_len-1));
 
 	res = i2c_master_send(ewtzmu_i2c_client, databuffer, buf_len);
 	if (res <= 0)
 		E("%s EWTZMU2_I2C_Write error res = %d\n", __func__, res);
+	mutex_unlock(&power_lock);
 
 	I("%s, ok, reg_addr = 0x%x,"
 		"buf_len = %d\n",
@@ -257,7 +268,8 @@ exit_EWTZMU2_Chipset_Init:
 	return 0;
 }
 
-static int EWTZMU2_Chip_Set_SampleRate(int sample_rate_state)
+/* Must be called with power_lock acquired */
+static int EWTZMU2_Chip_Set_SampleRate_Locked(int sample_rate_state)
 {
 	u8 databuf[10];
 	int res = 0;
@@ -350,6 +362,8 @@ static int EWTZMU2_ReadSensorData(char *buf, int bufsize)
 		return EW_CLIENT_ERROR;
 	}
 
+	mutex_lock(&power_lock);
+
 	read_lock(&ewtzmu_data.lock);
 	mode = ewtzmu_data.mode;
 	read_unlock(&ewtzmu_data.lock);
@@ -383,6 +397,7 @@ exit_EWTZMU2_ReadSensorData:
 		sprintf(buf, "%4x %4x %4x", gyrox, gyroy, gyroz);
 		res = EW_DRV_SUCCESS;
 	}
+	mutex_unlock(&power_lock);
 	return res;
 }
 
@@ -401,6 +416,8 @@ static int EWTZMU2_ReadSensorDataFIFO(unsigned char *buf, int bufsize)
 		*buf = 0;
 		return EW_CLIENT_ERROR;
 	}
+
+	mutex_lock(&power_lock);
 
 	read_lock(&ewtzmu_data.lock);
 	mode = ewtzmu_data.mode;
@@ -443,6 +460,7 @@ exit_EWTZMU2_ReadSensorDataFIFO:
 		 databuf[9], databuf[10], databuf[11]);
 		res = EW_DRV_SUCCESS;
 	}
+	mutex_unlock(&power_lock);
 	return res;
 }
 
@@ -769,6 +787,7 @@ static int EWTZMU2_Power_Off(void)
 {
 	u8 databuf[10];
 	int res = 0;
+	mutex_lock(&power_lock);
 	ewtzmumid_data.config_gyro_diag_gpios(1);
 	if (!ewtzmu_i2c_client) {
 		E("%s, ewtzmu_i2c_client < 0 \n", __func__);
@@ -784,6 +803,7 @@ static int EWTZMU2_Power_Off(void)
 		hr_msleep(10);
 	}
 	gpio_set_value(ewtzmumid_data.sleep_pin, 1);
+	mutex_unlock(&power_lock);
 	I("%s\n", __func__);
 	return 0;
 }
@@ -794,6 +814,7 @@ static int EWTZMU2_Power_On(void)
 	int res = 0;
 	int i = 0;
 
+	mutex_lock(&power_lock);
 	ewtzmumid_data.config_gyro_diag_gpios(0);
 	if (!ewtzmu_i2c_client) {
 		E("%s, ewtzmu_i2c_client < 0 \n", __func__);
@@ -822,7 +843,8 @@ static int EWTZMU2_Power_On(void)
 		i++;
 	}
 	i = 0;
-	EWTZMU2_Chip_Set_SampleRate(Gyro_samplerate_status);
+	EWTZMU2_Chip_Set_SampleRate_Locked(Gyro_samplerate_status);
+	mutex_unlock(&power_lock);
 	I("%s end\n", __func__);
 	return 0;
 }
@@ -1099,7 +1121,9 @@ static long ewtzmu2_ioctl(struct file *file, unsigned int cmd, unsigned long arg
 			retval = -EFAULT;
 			goto err_out;
 		}
-		EWTZMU2_Chip_Set_SampleRate(gyro_sample_rate);
+		mutex_lock(&power_lock);
+		EWTZMU2_Chip_Set_SampleRate_Locked(gyro_sample_rate);
+		mutex_unlock(&power_lock);
 	break;
 
 	case EW_IOCTL_READ_GYRODATA:
@@ -1662,7 +1686,9 @@ struct file *file, unsigned int cmd,
 			retval = -EFAULT;
 			goto err_out;
 		}
-		EWTZMU2_Chip_Set_SampleRate(gyro_sample_rate[0]);
+		mutex_lock(&power_lock);
+		EWTZMU2_Chip_Set_SampleRate_Locked(gyro_sample_rate[0]);
+		mutex_unlock(&power_lock);
 	break;
 
 	case EWDAE_IOCTL_GET_DIRPOLARITY:
@@ -2568,6 +2594,7 @@ static int __init ewtzmu2_init(void)
     rwlock_init(&ewtzmumid_data.ctrllock);
     rwlock_init(&ewtzmumid_data.datalock);
     rwlock_init(&ewtzmu_data.lock);
+	mutex_init(&power_lock);
     memset(&ewtzmumid_data.controldata[0], 0, sizeof(int)*EW_CB_LENGTH);
     ewtzmumid_data.controldata[EW_CB_LOOPDELAY] = EW_DEFAULT_POLLING_TIME;
     ewtzmumid_data.controldata[EW_CB_RUN] =           1;
