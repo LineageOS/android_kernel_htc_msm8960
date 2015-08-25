@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f1d235d_5b0ef4e5",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2015-08-25T07:06:15Z",
+      "side": 1,
+      "message": "*shudder* -- but that\u0027s a whole \u0027nother can of worms",
+      "revId": "2d48897e3de33d31c3e3d459f994e093936f4d4e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
