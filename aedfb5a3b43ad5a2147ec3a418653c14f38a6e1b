@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f1d235d_c92001fb",
+        "filename": "drivers/input/misc/ewtzmu2.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-08-25T04:07:52Z",
+      "side": 1,
+      "message": "Yes, there was actually a missing break here too.",
+      "revId": "aedfb5a3b43ad5a2147ec3a418653c14f38a6e1b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
