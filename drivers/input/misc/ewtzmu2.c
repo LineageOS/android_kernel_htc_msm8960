@@ -1834,7 +1834,7 @@ struct file *file, unsigned int cmd,
 			break;
 		akm_ready = akm_get_akmd_ready();
 		if (akm_ready == 0)
-			I("%s: EWDAE_IOCTL_GET_AKM_READY,"
+			DIF("%s: EWDAE_IOCTL_GET_AKM_READY,"
 			"akm_ready= 0x%x\n",
 			__func__, akm_ready);
 		if (copy_to_user(data, &akm_ready, sizeof(akm_ready))) {
@@ -1859,7 +1859,7 @@ struct file *file, unsigned int cmd,
 	   for (i = 0; i < sizeof(pana_gyro_gsensor_kvalue); i++) {
 			pana_gyro_gsensor_kvalue[i] =
 				gyro_gsensor_kvalue[i + 1];
-			I("gyro_gsensor_kvalue[%d] = 0x%x\n",
+			DIF("gyro_gsensor_kvalue[%d] = 0x%x\n",
 				i + 1, gyro_gsensor_kvalue[i + 1]);
 		}
 	   if (copy_to_user(data, pana_gyro_gsensor_kvalue, sizeof(pana_gyro_gsensor_kvalue))) {
