@@ -15,33 +15,35 @@
 #include "msm_camera_i2c.h"
 #include <mach/gpio.h>
 
-#define	S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR			52
-#define S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR_RAWCHIP_AF                        256 
-
+#define	AD5816_TOTAL_STEPS_NEAR_TO_FAR			52
+#define	AD5816_TOTAL_STEPS_NEAR_TO_FAR_RAWCHIP_AF			256 
 #define REG_VCM_NEW_CODE			0x30F2
-#define REG_VCM_I2C_ADDR			0x18
-#define REG_VCM_CODE_MSB			0x04
-#define REG_VCM_CODE_LSB			0x05
-#define REG_VCM_THRES_MSB			0x06
-#define REG_VCM_THRES_LSB			0x07
+#define REG_VCM_I2C_ADDR			0x1C
+#define REG_VCM_CODE_MSB			0x03
+#define REG_VCM_CODE_LSB			0x04
+#define REG_VCM_THRES_MSB			0x05
+#define REG_VCM_THRES_LSB			0x06
 #define REG_VCM_RING_CTRL			0x400
 
 #define DIV_CEIL(x, y) (x/y + (x%y) ? 1 : 0)
-
-DEFINE_MUTEX(s5k3h2yx_act_mutex);
-static struct msm_actuator_ctrl_t s5k3h2yx_act_t;
+#if 0
+#undef LINFO
+#define LINFO pr_info
+#endif
+DEFINE_MUTEX(ad5816_act_mutex);
+static struct msm_actuator_ctrl_t ad5816_act_t;
 
 static struct region_params_t g_regions[] = {
 	
 	{
-		.step_bound = {S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR, 0},
+		.step_bound = {AD5816_TOTAL_STEPS_NEAR_TO_FAR, 0},
 		.code_per_step = 2,
 	},
 };
 
 static uint16_t g_scenario[] = {
 	
-	S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR,
+	AD5816_TOTAL_STEPS_NEAR_TO_FAR,
 };
 
 static struct damping_params_t g_damping[] = {
@@ -61,42 +63,42 @@ static struct damping_t g_damping_params[] = {
 	},
 };
 
-static struct msm_actuator_info *s5k3h2yx_msm_actuator_info;
+static struct msm_actuator_info *ad5816_msm_actuator_info;
 
-static int32_t s5k3h2yx_poweron_af(void)
+static int32_t ad5816_poweron_af(void)
 {
 	int32_t rc = 0;
 	pr_info("%s enable AF actuator, gpio = %d\n", __func__,
-			s5k3h2yx_msm_actuator_info->vcm_pwd);
+			ad5816_msm_actuator_info->vcm_pwd);
 	mdelay(1);
-	rc = gpio_request(s5k3h2yx_msm_actuator_info->vcm_pwd, "s5k3h2yx");
+	rc = gpio_request(ad5816_msm_actuator_info->vcm_pwd, "ad5816");
 	if (!rc)
-		gpio_direction_output(s5k3h2yx_msm_actuator_info->vcm_pwd, 1);
+		gpio_direction_output(ad5816_msm_actuator_info->vcm_pwd, 1);
 	else
 		pr_err("%s: AF PowerON gpio_request failed %d\n", __func__, rc);
-	gpio_free(s5k3h2yx_msm_actuator_info->vcm_pwd);
+	gpio_free(ad5816_msm_actuator_info->vcm_pwd);
 	mdelay(1);
 	return rc;
 }
 
-static void s5k3h2yx_poweroff_af(void)
+static void ad5816_poweroff_af(void)
 {
 	int32_t rc = 0;
 
 	pr_info("%s disable AF actuator, gpio = %d\n", __func__,
-			s5k3h2yx_msm_actuator_info->vcm_pwd);
+			ad5816_msm_actuator_info->vcm_pwd);
 
 	msleep(1);
-	rc = gpio_request(s5k3h2yx_msm_actuator_info->vcm_pwd, "s5k3h2yx");
+	rc = gpio_request(ad5816_msm_actuator_info->vcm_pwd, "ad5816");
 	if (!rc)
-		gpio_direction_output(s5k3h2yx_msm_actuator_info->vcm_pwd, 0);
+		gpio_direction_output(ad5816_msm_actuator_info->vcm_pwd, 0);
 	else
 		pr_err("%s: AF PowerOFF gpio_request failed %d\n", __func__, rc);
-	gpio_free(s5k3h2yx_msm_actuator_info->vcm_pwd);
+	gpio_free(ad5816_msm_actuator_info->vcm_pwd);
 	msleep(1);
 }
 
-int32_t s5k3h2yx_msm_actuator_init_table(
+int32_t ad5816_msm_actuator_init_table(
 	struct msm_actuator_ctrl_t *a_ctrl)
 {
 	int32_t rc = 0;
@@ -105,17 +107,18 @@ int32_t s5k3h2yx_msm_actuator_init_table(
 
 	if (a_ctrl->func_tbl.actuator_set_params)
 		a_ctrl->func_tbl.actuator_set_params(a_ctrl);
+
 #if 0
-	if (s5k3h2yx_act_t.step_position_table) {
+	if (ad5816_act_t.step_position_table) {
 		LINFO("%s table inited\n", __func__);
 		return rc;
 	}
 #endif
 
-	if (s5k3h2yx_msm_actuator_info->use_rawchip_af && a_ctrl->af_algo == AF_ALGO_RAWCHIP)
-		a_ctrl->set_info.total_steps = S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR_RAWCHIP_AF;
+	if (ad5816_msm_actuator_info->use_rawchip_af && a_ctrl->af_algo == AF_ALGO_RAWCHIP)
+		a_ctrl->set_info.total_steps = AD5816_TOTAL_STEPS_NEAR_TO_FAR_RAWCHIP_AF;
 	else
-		a_ctrl->set_info.total_steps = S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR;
+		a_ctrl->set_info.total_steps = AD5816_TOTAL_STEPS_NEAR_TO_FAR;
 
 	
 	if (a_ctrl->step_position_table != NULL) {
@@ -128,30 +131,30 @@ int32_t s5k3h2yx_msm_actuator_init_table(
 
 	if (a_ctrl->step_position_table != NULL) {
 		uint16_t i = 0;
-		uint16_t s5k3h2yx_nl_region_boundary1 = 2;
-		uint16_t s5k3h2yx_nl_region_code_per_step1 = 32;
-		uint16_t s5k3h2yx_l_region_code_per_step = 16;
-		uint16_t s5k3h2yx_max_value = 1023;
+		uint16_t ad5816_nl_region_boundary1 = 2;
+		uint16_t ad5816_nl_region_code_per_step1 = 32;
+		uint16_t ad5816_l_region_code_per_step = 16;
+		uint16_t ad5816_max_value = 1023;
 
 		a_ctrl->step_position_table[0] = a_ctrl->initial_code;
 		for (i = 1; i <= a_ctrl->set_info.total_steps; i++) {
-			if (s5k3h2yx_msm_actuator_info->use_rawchip_af && a_ctrl->af_algo == AF_ALGO_RAWCHIP) 
+			if (ad5816_msm_actuator_info->use_rawchip_af && a_ctrl->af_algo == AF_ALGO_RAWCHIP) 
 				a_ctrl->step_position_table[i] =
 					a_ctrl->step_position_table[i-1] + 4;
 			else
 			{
-			if (i <= s5k3h2yx_nl_region_boundary1) {
+			if (i <= ad5816_nl_region_boundary1) {
 				a_ctrl->step_position_table[i] =
 					a_ctrl->step_position_table[i-1]
-					+ s5k3h2yx_nl_region_code_per_step1;
+					+ ad5816_nl_region_code_per_step1;
 			} else {
 				a_ctrl->step_position_table[i] =
 					a_ctrl->step_position_table[i-1]
-					+ s5k3h2yx_l_region_code_per_step;
+					+ ad5816_l_region_code_per_step;
 			}
 
-			if (a_ctrl->step_position_table[i] > s5k3h2yx_max_value)
-				a_ctrl->step_position_table[i] = s5k3h2yx_max_value;
+			if (a_ctrl->step_position_table[i] > ad5816_max_value)
+				a_ctrl->step_position_table[i] = ad5816_max_value;
 			}
 		}
 		a_ctrl->curr_step_pos = 0;
@@ -164,7 +167,7 @@ int32_t s5k3h2yx_msm_actuator_init_table(
 	return rc;
 }
 
-int32_t s5k3h2yx_msm_actuator_move_focus(
+int32_t ad5816_msm_actuator_move_focus(
 	struct msm_actuator_ctrl_t *a_ctrl,
 	int dir,
 	int32_t num_steps)
@@ -172,6 +175,7 @@ int32_t s5k3h2yx_msm_actuator_move_focus(
 	int32_t rc = 0;
 	int8_t sign_dir = 0;
 	int16_t dest_step_pos = 0;
+	
 
 	LINFO("%s called, dir %d, num_steps %d\n",
 		__func__,
@@ -214,24 +218,24 @@ int32_t s5k3h2yx_msm_actuator_move_focus(
 	return rc;
 }
 
-int s5k3h2yx_actuator_af_power_down(void *params)
+int ad5816_actuator_af_power_down(void *params)
 {
 	int rc = 0;
 	LINFO("%s called\n", __func__);
 
-	rc = (int) msm_actuator_af_power_down(&s5k3h2yx_act_t);
-	s5k3h2yx_poweroff_af();
+	rc = (int) msm_actuator_af_power_down(&ad5816_act_t);
+	ad5816_poweroff_af();
 	return rc;
 }
 
-static int32_t s5k3h2yx_wrapper_i2c_write(struct msm_actuator_ctrl_t *a_ctrl,
+static int32_t ad5816_wrapper_i2c_write(struct msm_actuator_ctrl_t *a_ctrl,
 	int16_t next_lens_position, void *params)
 {
 	int32_t rc = 0;
 
 	rc = msm_camera_i2c_write(&a_ctrl->i2c_client,
 		REG_VCM_CODE_MSB,
-		((next_lens_position & 0x0300) >> 8),
+		((next_lens_position & 0x0300) >> 8),	
 		MSM_CAMERA_I2C_BYTE_DATA);
 	if (rc < 0) {
 		pr_err("%s VCM_CODE_MSB i2c write failed (%d)\n", __func__, rc);
@@ -240,7 +244,7 @@ static int32_t s5k3h2yx_wrapper_i2c_write(struct msm_actuator_ctrl_t *a_ctrl,
 
 	rc = msm_camera_i2c_write(&a_ctrl->i2c_client,
 		REG_VCM_CODE_LSB,
-		(next_lens_position & 0x00FF),
+		(next_lens_position & 0x00FF),	
 		MSM_CAMERA_I2C_BYTE_DATA);
 	if (rc < 0) {
 		pr_err("%s VCM_CODE_LSB i2c write failed (%d)\n", __func__, rc);
@@ -250,7 +254,7 @@ static int32_t s5k3h2yx_wrapper_i2c_write(struct msm_actuator_ctrl_t *a_ctrl,
 	return rc;
 }
 
-int32_t s5k3h2yx_act_write_focus(
+int32_t ad5816_act_write_focus(
 	struct msm_actuator_ctrl_t *a_ctrl,
 	uint16_t curr_lens_pos,
 	struct damping_params_t *damping_params,
@@ -279,7 +283,7 @@ int32_t s5k3h2yx_act_write_focus(
 	return rc;
 }
 
-static int32_t s5k3h2yx_act_init_focus(struct msm_actuator_ctrl_t *a_ctrl)
+static int32_t ad5816_act_init_focus(struct msm_actuator_ctrl_t *a_ctrl)
 {
 	int32_t rc = 0;
 
@@ -293,40 +297,40 @@ static int32_t s5k3h2yx_act_init_focus(struct msm_actuator_ctrl_t *a_ctrl)
 	return rc;
 }
 
-static const struct i2c_device_id s5k3h2yx_act_i2c_id[] = {
-	{"s5k3h2yx_act", (kernel_ulong_t)&s5k3h2yx_act_t},
+static const struct i2c_device_id ad5816_act_i2c_id[] = {
+	{"ad5816_act", (kernel_ulong_t)&ad5816_act_t},
 	{ }
 };
 
-static int s5k3h2yx_act_config(
+static int ad5816_act_config(
 	void __user *argp)
 {
 	LINFO("%s called\n", __func__);
-	return (int) msm_actuator_config(&s5k3h2yx_act_t,
-		s5k3h2yx_msm_actuator_info, argp); 
+	return (int) msm_actuator_config(&ad5816_act_t,
+		ad5816_msm_actuator_info, argp); 
 }
 
-static int s5k3h2yx_i2c_add_driver_table(
+static int ad5816_i2c_add_driver_table(
 	void)
 {
 	int32_t rc = 0;
 
-	LINFO("%s called\n", __func__);
+	pr_info("%s called\n", __func__);
 
-	rc = s5k3h2yx_poweron_af();
+	rc = ad5816_poweron_af();
 	if (rc < 0) {
 		pr_err("%s power on failed\n", __func__);
 		return (int) rc;
 	}
 
-	s5k3h2yx_act_t.step_position_table = NULL;
-	rc = s5k3h2yx_act_t.func_tbl.actuator_init_table(&s5k3h2yx_act_t);
+	ad5816_act_t.step_position_table = NULL;
+	rc = ad5816_act_t.func_tbl.actuator_init_table(&ad5816_act_t);
 	if (rc < 0) {
 		pr_err("%s init table failed\n", __func__);
 		return (int) rc;
 	}
 
-	rc = msm_camera_i2c_write(&(s5k3h2yx_act_t.i2c_client),
+	rc = msm_camera_i2c_write(&(ad5816_act_t.i2c_client),
 		0x0001, 0x01,
 		MSM_CAMERA_I2C_BYTE_DATA);
 	if (rc < 0) {
@@ -337,61 +341,59 @@ static int s5k3h2yx_i2c_add_driver_table(
 	return (int) rc;
 }
 
-static struct i2c_driver s5k3h2yx_act_i2c_driver = {
-	.id_table = s5k3h2yx_act_i2c_id,
+static struct i2c_driver ad5816_act_i2c_driver = {
+	.id_table = ad5816_act_i2c_id,
 	.probe  = msm_actuator_i2c_probe,
-	.remove = __exit_p(s5k3h2yx_act_i2c_remove),
+	.remove = __exit_p(ad5816_act_i2c_remove),
 	.driver = {
-		.name = "s5k3h2yx_act",
+		.name = "ad5816_act",
 	},
 };
 
-static int __init s5k3h2yx_i2c_add_driver(
+static int __init ad5816_i2c_add_driver(
 	void)
 {
-	LINFO("%s called\n", __func__);
-	return i2c_add_driver(s5k3h2yx_act_t.i2c_driver);
+	pr_info("%s called\n", __func__);
+	return i2c_add_driver(ad5816_act_t.i2c_driver);
 }
 
-static struct v4l2_subdev_core_ops s5k3h2yx_act_subdev_core_ops;
+static struct v4l2_subdev_core_ops ad5816_act_subdev_core_ops;
 
-static struct v4l2_subdev_ops s5k3h2yx_act_subdev_ops = {
-	.core = &s5k3h2yx_act_subdev_core_ops,
+static struct v4l2_subdev_ops ad5816_act_subdev_ops = {
+	.core = &ad5816_act_subdev_core_ops,
 };
 
-static int32_t s5k3h2yx_act_create_subdevice(
-	void *act_info,
+static int32_t ad5816_act_create_subdevice(
+	void *board_info,
 	void *sdev)
 {
 	LINFO("%s called\n", __func__);
 
-	s5k3h2yx_msm_actuator_info = (struct msm_actuator_info *)act_info;
+	ad5816_msm_actuator_info = (struct msm_actuator_info *)board_info;
 
-	return (int) msm_actuator_create_subdevice(&s5k3h2yx_act_t,
-		s5k3h2yx_msm_actuator_info->board_info,
+	return (int) msm_actuator_create_subdevice(&ad5816_act_t,
+		ad5816_msm_actuator_info->board_info,
 		(struct v4l2_subdev *)sdev);
 }
 
-static struct msm_actuator_ctrl_t s5k3h2yx_act_t = {
-	.i2c_driver = &s5k3h2yx_act_i2c_driver,
+static struct msm_actuator_ctrl_t ad5816_act_t = {
+	.i2c_driver = &ad5816_act_i2c_driver,
 	.i2c_addr = REG_VCM_I2C_ADDR,
-	.act_v4l2_subdev_ops = &s5k3h2yx_act_subdev_ops,
+	.act_v4l2_subdev_ops = &ad5816_act_subdev_ops,
 	.actuator_ext_ctrl = {
-		.a_init_table = s5k3h2yx_i2c_add_driver_table,
-		.a_power_down = s5k3h2yx_actuator_af_power_down,
-		.a_create_subdevice = s5k3h2yx_act_create_subdevice,
-		.a_config = s5k3h2yx_act_config,
-#if (CONFIG_HTC_CAMERA_HAL_VERSION == 2)
+		.a_init_table = ad5816_i2c_add_driver_table,
+		.a_power_down = ad5816_actuator_af_power_down,
+		.a_create_subdevice = ad5816_act_create_subdevice,
+		.a_config = ad5816_act_config,
 		.is_af_infinity_supported = 1,
-#endif
 	},
 
 	.i2c_client = {
-		.addr_type = MSM_CAMERA_I2C_BYTE_ADDR,
+		.addr_type = MSM_CAMERA_I2C_BYTE_ADDR,   
 	},
 
 	.set_info = {
-		.total_steps = S5K3H2YX_TOTAL_STEPS_NEAR_TO_FAR_RAWCHIP_AF, 
+		.total_steps = AD5816_TOTAL_STEPS_NEAR_TO_FAR_RAWCHIP_AF, 
 		.gross_steps = 3,	
 		.fine_steps = 1,	
 	},
@@ -399,16 +401,16 @@ static struct msm_actuator_ctrl_t s5k3h2yx_act_t = {
 	.curr_step_pos = 0,
 	.curr_region_index = 0,
 	.initial_code = 0,	
-	.actuator_mutex = &s5k3h2yx_act_mutex,
+	.actuator_mutex = &ad5816_act_mutex,
 	.af_algo = AF_ALGO_RAWCHIP, 
 
 	.func_tbl = {
-		.actuator_init_table = s5k3h2yx_msm_actuator_init_table,
-		.actuator_move_focus = s5k3h2yx_msm_actuator_move_focus,
-		.actuator_write_focus = s5k3h2yx_act_write_focus,
+		.actuator_init_table = ad5816_msm_actuator_init_table,
+		.actuator_move_focus = ad5816_msm_actuator_move_focus,
+		.actuator_write_focus = ad5816_act_write_focus,
 		.actuator_set_default_focus = msm_actuator_set_default_focus,
-		.actuator_init_focus = s5k3h2yx_act_init_focus,
-		.actuator_i2c_write = s5k3h2yx_wrapper_i2c_write,
+		.actuator_init_focus = ad5816_act_init_focus,
+		.actuator_i2c_write = ad5816_wrapper_i2c_write,
 	},
 
 	.get_info = {	
@@ -437,6 +439,6 @@ static struct msm_actuator_ctrl_t s5k3h2yx_act_t = {
 	.damping[MOVE_FAR] = g_damping_params,
 };
 
-subsys_initcall(s5k3h2yx_i2c_add_driver);
-MODULE_DESCRIPTION("S5K3H2YX actuator");
+subsys_initcall(ad5816_i2c_add_driver);
+MODULE_DESCRIPTION("AD5816 actuator");
 MODULE_LICENSE("GPL v2");
