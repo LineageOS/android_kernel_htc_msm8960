@@ -17,6 +17,9 @@ obj-$(CONFIG_MACH_VILLE) += ville/
 # M7
 obj-$(CONFIG_MACH_M7_UL) += m7/
 
+# MONARUDO
+obj-$(CONFIG_MACH_MONARUDO) += monarudo/
+
 # T6
 obj-$(CONFIG_MACH_T6_UL) += t6/
 
