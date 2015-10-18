@@ -478,4 +478,3 @@ config OV4688
 	default n
 	---help---
 	ov 4MP Bayer Sensor
-

@@ -14,6 +14,18 @@
 
 Yushan_ImageChar_t	sImageChar_context;
 struct yushan_reg_t *p_yushan_regs;
+Yushan_GainsExpTime_t prev_GainExpTime =
+{
+  .uwAnalogGainCodeGR = 0,
+  .uwAnalogGainCodeR = 0,
+  .uwAnalogGainCodeB = 0,
+  .uwPreDigGainGR = 0,
+  .uwPreDigGainR = 0,
+  .uwPreDigGainB = 0,
+  .uwExposureTime = 0,
+  .bRedGreenRatio = 0,
+  .bBlueGreenRatio = 0,
+};
 
 #define PDP_enable 0x01
 #define black_level_enable 0x01
@@ -642,15 +654,33 @@ int Yushan_sensor_open_init(struct rawchip_sensor_init_data data)
 
 	sInitStruct.bValidWCEntries = 1;
 
-	sGainsExpTime.uwAnalogGainCodeGR = 0x20; 
-	sGainsExpTime.uwAnalogGainCodeR = 0x20;
-	sGainsExpTime.uwAnalogGainCodeB = 0x20;
-	sGainsExpTime.uwPreDigGainGR = 0x100;
-	sGainsExpTime.uwPreDigGainR = 0x100;
-	sGainsExpTime.uwPreDigGainB = 0x100;
-	sGainsExpTime.uwExposureTime = 0x20;
-	sGainsExpTime.bRedGreenRatio = 0x40;
-	sGainsExpTime.bBlueGreenRatio = 0x40;
+	if (prev_GainExpTime.uwPreDigGainGR > 0 && prev_GainExpTime.uwPreDigGainR > 0 &&
+		prev_GainExpTime.uwPreDigGainB > 0 && prev_GainExpTime.uwExposureTime > 0){
+		sGainsExpTime.uwAnalogGainCodeGR = prev_GainExpTime.uwAnalogGainCodeGR;
+		sGainsExpTime.uwAnalogGainCodeR = prev_GainExpTime.uwAnalogGainCodeR;
+		sGainsExpTime.uwAnalogGainCodeB = prev_GainExpTime.uwAnalogGainCodeB;
+		sGainsExpTime.uwPreDigGainGR = prev_GainExpTime.uwPreDigGainGR;
+		sGainsExpTime.uwPreDigGainR = prev_GainExpTime.uwPreDigGainR;
+		sGainsExpTime.uwPreDigGainB = prev_GainExpTime.uwPreDigGainB;
+		sGainsExpTime.uwExposureTime = prev_GainExpTime.uwExposureTime;
+	}else{
+		sGainsExpTime.uwAnalogGainCodeGR = 0x20; 
+		sGainsExpTime.uwAnalogGainCodeR = 0x20;
+		sGainsExpTime.uwAnalogGainCodeB = 0x20;
+		sGainsExpTime.uwPreDigGainGR = 0x100;
+		sGainsExpTime.uwPreDigGainR = 0x100;
+		sGainsExpTime.uwPreDigGainB = 0x100;
+		sGainsExpTime.uwExposureTime = 0x20;
+	}
+
+	if (prev_GainExpTime.bRedGreenRatio > 0 && prev_GainExpTime.bBlueGreenRatio > 0){
+		sGainsExpTime.bRedGreenRatio = prev_GainExpTime.bRedGreenRatio;
+		sGainsExpTime.bBlueGreenRatio = prev_GainExpTime.bBlueGreenRatio;
+	}else {
+		sGainsExpTime.bRedGreenRatio = 0x40;
+		sGainsExpTime.bBlueGreenRatio = 0x40;
+	}
+	memset(&prev_GainExpTime, 0, sizeof(Yushan_GainsExpTime_t));
 
 	sDxoDppTuning.bTemporalSmoothing = 0x63; 
 	sDxoDppTuning.uwFlashPreflashRating = 0;
@@ -714,9 +744,9 @@ int Yushan_sensor_open_init(struct rawchip_sensor_init_data data)
     defined(CONFIG_MACH_DELUXE_J) ||\
     defined(CONFIG_MACH_DELUXE_R) ||\
     defined(CONFIG_MACH_IMPRESSION_J) ||\
-    defined(CONFIG_MACH_DUMMY) ||\
-    defined(CONFIG_MACH_DUMMY) ||\
-    defined(CONFIG_MACH_DUMMY)
+    defined(CONFIG_MACH_DELUXE_U) ||\
+    defined(CONFIG_MACH_DELUXE_UL) ||\
+    defined(CONFIG_MACH_DELUXE_UB1)
 		bDppMode =0; 
 #endif
 		bDopMode =0xd;
@@ -1197,6 +1227,21 @@ int Yushan_Update_AEC_AWB_Params(rawchip_update_aec_awb_params_t *update_aec_awb
 	bStatus = Yushan_Update_SensorParameters(&sGainsExpTime);
 
 	return (bStatus == SUCCESS) ? 0 : -1;
+}
+
+int Yushan_Set_AEC_AWB_Init_Setting(rawchip_update_aec_awb_params_t *update_aec_awb_params)
+{
+	prev_GainExpTime.uwAnalogGainCodeGR = update_aec_awb_params->aec_params.gain;
+	prev_GainExpTime.uwAnalogGainCodeR = update_aec_awb_params->aec_params.gain;
+	prev_GainExpTime.uwAnalogGainCodeB = update_aec_awb_params->aec_params.gain;
+	prev_GainExpTime.uwPreDigGainGR = update_aec_awb_params->aec_params.dig_gain;
+	prev_GainExpTime.uwPreDigGainR = update_aec_awb_params->aec_params.dig_gain;
+	prev_GainExpTime.uwPreDigGainB = update_aec_awb_params->aec_params.dig_gain;
+	prev_GainExpTime.uwExposureTime = update_aec_awb_params->aec_params.exp;
+	prev_GainExpTime.bRedGreenRatio = update_aec_awb_params->awb_params.rg_ratio;
+	prev_GainExpTime.bBlueGreenRatio = update_aec_awb_params->awb_params.bg_ratio;
+
+	return 0;
 }
 
 int Yushan_Update_AF_Params(rawchip_update_af_params_t *update_af_params)
