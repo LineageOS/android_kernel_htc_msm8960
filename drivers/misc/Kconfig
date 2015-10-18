@@ -715,6 +715,12 @@ config SENSORS_NFC_PN544
 	help
 	  PN544 NFC driver.
 
+config AMP_TPA6185
+        tristate "TI TPA6185 AMP Driver"
+        depends on I2C=y
+        help
+          TI TPA6185 AMP Driver implemented by HTC.
+
 config AMP_TFA9887
 	tristate "NXP TFA9887 Speaker AMP Driver"
 	depends on I2C=y
