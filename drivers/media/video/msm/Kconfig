@@ -479,3 +479,9 @@ config OV4688
 	---help---
 	ov 4MP Bayer Sensor
 
+ config AS0260
+       bool "Sensor as0260"
+       depends on MSM_CAMERA
+       default n
+       ---help---
+         Support for AS0260 sensor driver.
