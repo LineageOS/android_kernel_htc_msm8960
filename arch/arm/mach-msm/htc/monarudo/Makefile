@@ -1,0 +1,14 @@
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-regulator.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-gpiomux.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-storage.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-audio.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-pmic.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-keypad.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-camera.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-display.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-gpu.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-rfkill.o
+obj-$(CONFIG_MACH_MONARUDO) += board-monarudo-wifi.o
+CFLAGS_board-monarudo-display.o += -Idrivers/video
+CFLAGS_board-monarudo-audio.o += -Isound/soc/msm
