@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f287b81_481cdc69",
+        "filename": "drivers/media/video/msm/Kconfig",
+        "patchSetId": 7
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 6521
+      },
+      "writtenOn": "2015-10-19T03:48:07Z",
+      "side": 0,
+      "message": "nooo",
+      "revId": "851e0b6d91503a8698dc33c720578b6f7c6bc6e0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
