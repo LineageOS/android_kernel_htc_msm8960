@@ -43,10 +43,22 @@ static struct thermal_info {
 };
 
 enum thermal_freqs {
+#if defined(CONFIG_ARCH_APQ8064)
+	FREQ_HELL 	  = 810000,
+	FREQ_VERY_HOT = 1026000,
+	FREQ_HOT 	  = 1134000,
+	FREQ_WARM 	  = 1458000,
+#elif defined(CONFIG_ARCH_MSM8930)
+	FREQ_HELL 	  = 648000,
+	FREQ_VERY_HOT = 864000,
+	FREQ_HOT 	  = 972000,
+	FREQ_WARM 	  = 1134000,
+#else
 	FREQ_HELL 	  = 702000,
 	FREQ_VERY_HOT = 918000,
 	FREQ_HOT 	  = 1026000,
 	FREQ_WARM 	  = 1242000,
+#endif
 };
 
 enum threshold_levels {
