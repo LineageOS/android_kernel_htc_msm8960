@@ -543,15 +543,12 @@ static int sii9234_suspend(struct i2c_client *client, pm_message_t mesg)
 	return 0;
 }
 
-
-#if 0
 static int sii9234_resume(struct i2c_client *client)
 {
 	if (Status_Query() != POWER_STATE_D3)
 		SiiMhlTxDrvTmdsControl(true);
 	return 0;
 }
-#endif
 
 void sii9234_change_usb_owner(bool bMHL)
 {
