@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fcbff3d_05f60691",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-01-13T08:12:14Z",
+      "side": 1,
+      "message": "Single line commit titles only. Gerrit finds it weird if there isn\u0027t a newline after the commit title.",
+      "revId": "52267f026eacc49ea1a07bcd1a158d201e2e762d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
