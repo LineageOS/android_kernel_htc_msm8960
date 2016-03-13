@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfbec78f_2cf77bf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-03-13T19:27:52Z",
+      "side": 1,
+      "message": "Line length is too long. Also please follow the commit message format you see for other defconfig updates.",
+      "range": {
+        "startLine": 7,
+        "startChar": 71,
+        "endLine": 7,
+        "endChar": 73
+      },
+      "revId": "f00fbd2322eee7d2409054c33a3446fbb3638cd1",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
