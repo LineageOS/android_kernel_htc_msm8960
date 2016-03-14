@@ -639,6 +639,7 @@ static void r3gd20_report_values(struct r3gd20_data *gyr,
 						struct r3gd20_triple *data)
 {
 	struct input_dev *input = gyr->input_poll_dev->input;
+	struct ktime_t ts = ktime_get_boottime();
 
 #ifdef HTC_WQ
 	input = g_gyro->gyro_input_dev;
@@ -647,6 +648,10 @@ static void r3gd20_report_values(struct r3gd20_data *gyr,
 	input_report_abs(input, ABS_X, data->x);
 	input_report_abs(input, ABS_Y, data->y);
 	input_report_abs(input, ABS_Z, data->z);
+	input_event(input, EV_SYN, SYN_TIME_SEC,
+			ktime_to_timespec(ts).tv_sec);
+	input_event(input, EV_SYN, SYN_TIME_NSEC,
+			ktime_to_timespec(ts).tv_nsec);
 	input_sync(input);
 }
 
