@@ -327,6 +327,7 @@ static void AKECS_SetYPR(
 	struct akm8963_data *akm,
 	int32_t *rbuf)
 {
+	ktime_t ts = ktime_get_boottime();;
 	uint32_t ready;
 	AKM_DATA(&akm->i2c->dev, "AKM8963 %s: flag =0x%X", __func__,
 		rbuf[0]);
@@ -388,6 +389,10 @@ static void AKECS_SetYPR(
 		input_report_abs(akm->input, ABS_VOLUME, rbuf[21]);
 	}
 
+	input_event(akm->input, EV_SYN, SYN_TIME_SEC,
+			ktime_to_timespec(ts).tv_sec);
+	input_event(akm->input, EV_SYN, SYN_TIME_NSEC,
+			ktime_to_timespec(ts).tv_nsec);
 	input_sync(akm->input);
 }
 
