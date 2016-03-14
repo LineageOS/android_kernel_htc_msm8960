@@ -1583,6 +1583,7 @@ static int bma250_read_accel_xyz(struct i2c_client *client,
 static void bma250_work_func(struct work_struct *work)
 {
 	struct bma250_data *bma250 = gdata;
+	struct ktime_t ts = ktime_get_boottime();
 	static struct bma250acc acc;
 	unsigned long delay = msecs_to_jiffies(atomic_read(&bma250->delay));
 	s16 data_x = 0, data_y = 0, data_z = 0;
@@ -1604,6 +1605,10 @@ static void bma250_work_func(struct work_struct *work)
 	input_report_abs(bma250->input, ABS_X, data_x);
 	input_report_abs(bma250->input, ABS_Y, data_y);
 	input_report_abs(bma250->input, ABS_Z, data_z);
+	input_event(bma250->input, EV_SYN, SYN_TIME_SEC,
+			ktime_to_timespec(tv).tv_sec);
+	input_event(bma250->input, EVN_SYN, SYN_TIME_NSEC,
+			ktime_to_timespec(tv).tv_nsec);
 	input_sync(bma250->input);
 	mutex_lock(&bma250->value_mutex);
 	bma250->value = acc;
