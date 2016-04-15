@@ -74,7 +74,9 @@
   Include Files
   ------------------------------------------------------------------------*/
 //#include <wlan_qct_driver.h>
+#if !defined(CONFIG_ARCH_APQ8064)
 #include <linux/platform_device.h>
+#endif
 #include <wlan_hdd_includes.h>
 #include <vos_api.h>
 #include <vos_sched.h>
@@ -131,7 +133,11 @@ int wlan_hdd_ftm_start(hdd_context_t *pAdapter);
 #ifdef MODULE
 #define WLAN_MODULE_NAME  module_name(THIS_MODULE)
 #else
+#if !defined(CONFIG_ARCH_APQ8064)
 #define WLAN_MODULE_NAME  "prima_wlan"
+#else
+#define WLAN_MODULE_NAME  "wlan"
+#endif
 #endif
 
 #ifdef TIMER_MANAGER
@@ -6649,7 +6655,7 @@ static int __init hdd_module_init ( void)
 }
 #endif /* #ifdef MODULE */
 
-#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE) && !defined(CONFIG_ARCH_APQ8064)
 static int
 wcnss_ready_probe(struct platform_device *pdev)
 {
@@ -6667,7 +6673,7 @@ static struct platform_driver wcnss_ready = {
 
 static int __init hdd_module_init_first(void)
 {
-#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE) && !defined(CONFIG_ARCH_APQ8064)
    return platform_driver_register(&wcnss_ready);
 #else
    return hdd_module_init();
