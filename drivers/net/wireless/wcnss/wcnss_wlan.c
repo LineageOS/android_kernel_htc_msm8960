@@ -502,7 +502,7 @@ static void wcnss_smd_notify_event(void *data, unsigned int event)
 	}
 }
 
-#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE) && !defined(CONFIG_ARCH_APQ8064)
 static struct platform_device wcnss_ready = {
 	.name = "wcnss_ready",
 	.id = -1,
@@ -513,7 +513,7 @@ static void wcnss_post_bootup(struct work_struct *work)
 {
 	pr_info("%s: Cancel APPS vote for Iris & Riva\n", __func__);
 
-#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE) && !defined(CONFIG_ARCH_APQ8064)
 	platform_device_register(&wcnss_ready);
 #endif
 
