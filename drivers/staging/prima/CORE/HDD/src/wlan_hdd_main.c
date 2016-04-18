@@ -6649,7 +6649,7 @@ static int __init hdd_module_init ( void)
 }
 #endif /* #ifdef MODULE */
 
-#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE) && !defined(CONFIG_ARCH_APQ8064)
 static int
 wcnss_ready_probe(struct platform_device *pdev)
 {
@@ -6667,7 +6667,7 @@ static struct platform_driver wcnss_ready = {
 
 static int __init hdd_module_init_first(void)
 {
-#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE) && !defined(CONFIG_ARCH_APQ8064)
    return platform_driver_register(&wcnss_ready);
 #else
    return hdd_module_init();
