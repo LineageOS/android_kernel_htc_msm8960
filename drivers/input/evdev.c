@@ -109,7 +109,7 @@ static void evdev_event(struct input_handle *handle,
 	struct input_event event;
 	ktime_t time_mono, time_real;
 
-	time_mono = ktime_get();
+	time_mono = ktime_get_boottime();
 	time_real = ktime_sub(time_mono, ktime_get_monotonic_offset());
 
 	event.type = type;
