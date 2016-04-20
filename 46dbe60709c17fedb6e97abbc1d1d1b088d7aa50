@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_982fbcf5",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T19:27:29Z",
+      "side": 1,
+      "message": "Are clkid and clk_type interchangeable here?",
+      "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
