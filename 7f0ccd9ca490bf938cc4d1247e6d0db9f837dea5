@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5faad753_f8e5900b",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T18:11:22Z",
+      "side": 1,
+      "message": "I\u0027m not really hung up on it, just noting that there is a boolean type available.",
+      "parentUuid": "5faad753_3827a867",
+      "range": {
+        "startLine": 338,
+        "startChar": 7,
+        "endLine": 338,
+        "endChar": 10
+      },
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5faad753_b85398e2",
         "filename": "drivers/input/evdev.c",
         "patchSetId": 1
@@ -125,6 +149,24 @@
       "side": 1,
       "message": "any issues here?",
       "parentUuid": "5faad753_b85398e2",
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_98d7bc24",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T18:11:22Z",
+      "side": 1,
+      "message": "Should have a space between for and (. Just a minor formatting nitpick.",
+      "parentUuid": "5faad753_582ce446",
       "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
