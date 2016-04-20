@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_58a38450",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T20:30:02Z",
+      "side": 0,
+      "message": "clkid was changed to clk_type in the previous patch. The compile will break here due to an undefined symbol if only the previous patch is present.",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 14
+      },
+      "revId": "5722a5e769a5cf1c7cb647c1f20581ce240db0ac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
