@@ -173,6 +173,24 @@
     },
     {
       "key": {
+        "uuid": "5faad753_78a0c0a6",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 15216
+      },
+      "writtenOn": "2016-04-20T18:15:35Z",
+      "side": 1,
+      "message": "Damn emacs why are you using wrong style settings ....",
+      "parentUuid": "5faad753_98d7bc24",
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5faad753_d850d4d7",
         "filename": "drivers/input/evdev.c",
         "patchSetId": 1
