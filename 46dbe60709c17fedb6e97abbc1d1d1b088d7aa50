@@ -52,6 +52,24 @@
       "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_f854b056",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 15216
+      },
+      "writtenOn": "2016-04-20T20:16:33Z",
+      "side": 1,
+      "message": "Yes both patches are needed. The rationale behind this: The first patch introduces an EVIOCSCLOCKID\u003dCLOCK_BOOTTIME ioctl, so that userspace can request CLOCK_BOOTTIME as an time source for events. I\u0027ve backported this patch from a newer kernel since we need this timesource anyway. The second patch just adds the ability to force CLOCK_BOOTTME for certain input devices.",
+      "parentUuid": "5faad753_7861a039",
+      "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
