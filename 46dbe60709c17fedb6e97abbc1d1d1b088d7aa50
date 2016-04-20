@@ -70,6 +70,24 @@
       "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_d84bf4ad",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T20:18:57Z",
+      "side": 1,
+      "message": "I understand that, but I\u0027d still prefer not to introduce a backported patch that won\u0027t compile. The effect is the same if you have client-\u003eclk_type \u003d EV_CLK_MONO in the previous patch, then convert it to the if/else statement here in this patchset.",
+      "parentUuid": "5faad753_f854b056",
+      "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
