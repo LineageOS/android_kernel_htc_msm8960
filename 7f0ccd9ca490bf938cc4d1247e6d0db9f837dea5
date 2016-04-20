@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_780440c7",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T17:54:09Z",
+      "side": 1,
+      "message": "Maybe you can add an ifdef on the driver itself?",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_785f60e5",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T17:54:09Z",
+      "side": 1,
+      "message": "bool ?",
+      "range": {
+        "startLine": 338,
+        "startChar": 7,
+        "endLine": 338,
+        "endChar": 10
+      },
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_b85398e2",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T17:54:09Z",
+      "side": 1,
+      "message": "for (...)",
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_d850d4d7",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T17:54:09Z",
+      "side": 1,
+      "message": "if (...)",
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_18474c20",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T17:54:09Z",
+      "side": 1,
+      "message": "if (...)",
+      "revId": "7f0ccd9ca490bf938cc4d1247e6d0db9f837dea5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
