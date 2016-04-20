@@ -16,6 +16,24 @@
       "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_98181cd4",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 15216
+      },
+      "writtenOn": "2016-04-20T19:40:18Z",
+      "side": 1,
+      "message": "No, look at the previous patch by Aniroop Mathur, he added one level of indirection here.",
+      "parentUuid": "5faad753_982fbcf5",
+      "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
