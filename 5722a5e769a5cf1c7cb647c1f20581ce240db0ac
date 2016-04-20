@@ -22,6 +22,30 @@
       "revId": "5722a5e769a5cf1c7cb647c1f20581ce240db0ac",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_18ae6c2e",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 15216
+      },
+      "writtenOn": "2016-04-20T20:36:22Z",
+      "side": 0,
+      "message": "right, I forgot to change it into: client-\u003eclk_type \u003d EV_CLK_MONO",
+      "parentUuid": "5faad753_58a38450",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 14
+      },
+      "revId": "5722a5e769a5cf1c7cb647c1f20581ce240db0ac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
