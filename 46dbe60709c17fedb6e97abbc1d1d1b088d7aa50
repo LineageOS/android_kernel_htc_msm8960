@@ -34,6 +34,24 @@
       "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_7861a039",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-04-20T20:00:42Z",
+      "side": 1,
+      "message": "Oh, clkid became clk_type? Doesn\u0027t that mean both patches are required to compile then? It would be best client-\u003eclkid \u003d CLOCK_MONOTONIC was converted in the previous patch too.",
+      "parentUuid": "5faad753_98181cd4",
+      "revId": "46dbe60709c17fedb6e97abbc1d1d1b088d7aa50",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
