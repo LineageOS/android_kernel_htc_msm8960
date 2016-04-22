@@ -67,6 +67,9 @@ const char * const wants_boottime_dev_names[] = {
 	"proximity",
 	"lightsensor-level",
 #endif
+#ifdef CONFIG_SENSORS_R3GD20
+	"r3gd20_gyr",
+#endif
 #ifdef CONFIG_SENSORS_PANASONIC_GYRO
 	"ewtzmu2_gyroscope",
 #endif
