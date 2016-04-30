@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_b588671f",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-04-30T15:28:02Z",
+      "side": 1,
+      "message": "Could you instead just use ktime_get_real()?",
+      "revId": "743d7a57e3f3258947eaf37f77330f79128eb785",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_9583eb04",
+        "filename": "drivers/input/evdev.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-04-30T15:28:02Z",
+      "side": 1,
+      "message": "Could you instead just use ktime_get_boottime()?",
+      "revId": "743d7a57e3f3258947eaf37f77330f79128eb785",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
