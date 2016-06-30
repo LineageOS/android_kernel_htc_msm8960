@@ -472,6 +472,11 @@ int gpio_event_input_func(struct gpio_event_input_devs *input_devs,
 			}
 		}
 
+#ifdef CONFIG_MACH_HTC
+		if (di->setup_input_gpio)
+			di->setup_input_gpio();
+#endif
+
 		ret = gpio_event_input_request_irqs(ds);
 
 #ifdef CONFIG_HTC_WAKE_ON_VOL
