@@ -1,4 +1,4 @@
-/* arch/arm/mach-msm/board-ville-keypad.c
+/* arch/arm/mach-msm/board-fighter-keypad.c
  * Copyright (C) 2010 HTC Corporation.
  *
  * This software is licensed under the terms of the GNU General Public
@@ -20,40 +20,58 @@
 #include <asm/mach-types.h>
 #include <mach/board_htc.h>
 #include <mach/gpio.h>
-#include <mach/proc_comm.h>
-#include <linux/moduleparam.h>
 #include <linux/mfd/pm8xxx/pm8921.h>
 #include "board-fighter.h"
 
-static char *keycaps = "--qwerty";
 #undef MODULE_PARAM_PREFIX
 #define MODULE_PARAM_PREFIX "board_fighter."
 
-module_param_named(keycaps, keycaps, charp, 0);
-/* Direct Keys */
-
 static struct gpio_event_direct_entry fighter_keypad_map[] = {
 	{
-		.gpio = FIGHTER_VOL_DOWNz,
-		.code = KEY_VOLUMEDOWN,
+		.gpio = FIGHTER_GPIO_PWR_KEYz,
+		.code = KEY_POWER,
 	},
 	{
-		.gpio = FIGHTER_VOL_UPz,
+		.gpio = FIGHTER_GPIO_VOL_UPz,
 		.code = KEY_VOLUMEUP,
 	},
+	{
+		.gpio = FIGHTER_GPIO_VOL_DOWNz,
+		.code = KEY_VOLUMEDOWN,
+	},
 };
+
+static uint32_t matirx_inputs_gpio_table[] = {
+	GPIO_CFG(FIGHTER_GPIO_PWR_KEYz, 0, GPIO_CFG_INPUT, GPIO_CFG_PULL_UP,
+		 GPIO_CFG_2MA),
+	GPIO_CFG(FIGHTER_GPIO_VOL_UPz, 0, GPIO_CFG_INPUT, GPIO_CFG_PULL_UP,
+		 GPIO_CFG_2MA),
+	GPIO_CFG(FIGHTER_GPIO_VOL_DOWNz, 0, GPIO_CFG_INPUT, GPIO_CFG_PULL_UP,
+		 GPIO_CFG_2MA),
+};
+
+static void fighter_direct_inputs_gpio(void)
+{
+	int i = 0;
+
+	for (i = 0; i < ARRAY_SIZE(matirx_inputs_gpio_table); i++)
+		gpio_tlmm_config(matirx_inputs_gpio_table[i], GPIO_CFG_ENABLE);
+
+	return;
+}
 
 static struct gpio_event_input_info fighter_keypad_power_info = {
 	.info.func = gpio_event_input_func,
 	.flags = GPIOEDF_PRINT_KEYS,
 	.type = EV_KEY,
 #if BITS_PER_LONG != 64 && !defined(CONFIG_KTIME_SCALAR)
-	.debounce_time.tv.nsec = 5 * NSEC_PER_MSEC,
+	.debounce_time.tv.nsec = 20 * NSEC_PER_MSEC,
 # else
-	.debounce_time.tv64 = 5 * NSEC_PER_MSEC,
+	.debounce_time.tv64 = 20 * NSEC_PER_MSEC,
 # endif
 	.keymap = fighter_keypad_map,
 	.keymap_size = ARRAY_SIZE(fighter_keypad_map),
+	.setup_input_gpio = fighter_direct_inputs_gpio,
 };
 
 static struct gpio_event_info *fighter_keypad_info[] = {
