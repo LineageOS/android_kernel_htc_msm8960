@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_d5e2db2f",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-keypad.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-03T16:22:35Z",
+      "side": 1,
+      "message": "remove, else registers power button twice",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "d7988e5e0a9d1a6f65df13f3f34d1a1b79dc2b2b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_b5e5df3a",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-keypad.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-03T16:22:35Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "d7988e5e0a9d1a6f65df13f3f34d1a1b79dc2b2b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_15d95382",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-keypad.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-03T16:22:35Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "d7988e5e0a9d1a6f65df13f3f34d1a1b79dc2b2b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_f5db577a",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-keypad.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-03T16:22:35Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "d7988e5e0a9d1a6f65df13f3f34d1a1b79dc2b2b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
