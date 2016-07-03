@@ -73,6 +73,23 @@
       "revId": "d7988e5e0a9d1a6f65df13f3f34d1a1b79dc2b2b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_35400f08",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-03T17:20:36Z",
+      "side": 1,
+      "message": "the changes in here appear to be the crash reason. will instead reference board-8960-regulator.c for decent values.",
+      "revId": "d7988e5e0a9d1a6f65df13f3f34d1a1b79dc2b2b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
