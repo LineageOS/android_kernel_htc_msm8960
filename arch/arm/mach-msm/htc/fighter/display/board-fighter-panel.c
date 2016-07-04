@@ -172,7 +172,7 @@ static struct msm_bus_scale_pdata mdp_bus_scale_pdata = {
 #endif
 
 static struct msm_panel_common_pdata mdp_pdata = {
-	.gpio = FIGHTER_LCD_TE,
+	.gpio = FIGHTER_GPIO_LCD_TE,
 	.mdp_max_clk = 200000000,
 	.mdp_max_bw = 2000000000,
 	.mdp_bw_ab_factor = 115,
@@ -292,9 +292,9 @@ static int mipi_dsi_panel_power(int on)
 			return -EINVAL;
 		}
 
-		rc = gpio_request(FIGHTER_LCD_RSTz, "LCM_RST_N");
+		rc = gpio_request(FIGHTER_GPIO_LCD_RSTz, "LCM_RST_N");
 		if (rc) {
-			printk(KERN_ERR "%s:LCM gpio %d request failed, rc=%d\n", __func__, FIGHTER_LCD_RSTz, rc);
+			printk(KERN_ERR "%s:LCM gpio %d request failed, rc=%d\n", __func__, FIGHTER_GPIO_LCD_RSTz, rc);
 			return -EINVAL;
 		}
 
@@ -351,17 +351,17 @@ static int mipi_dsi_panel_power(int on)
 				hr_msleep(1);
 			else
 				hr_msleep(10);
-			gpio_set_value(FIGHTER_LCD_RSTz, 1);
+			gpio_set_value(FIGHTER_GPIO_LCD_RSTz, 1);
 			if (isOrise())
 				hr_msleep(10);
 			else
 				hr_msleep(5);
-			gpio_set_value(FIGHTER_LCD_RSTz, 0);
+			gpio_set_value(FIGHTER_GPIO_LCD_RSTz, 0);
 			if (isOrise())
 				hr_msleep(10);
 			else
 				hr_msleep(30);
-			gpio_set_value(FIGHTER_LCD_RSTz, 1);
+			gpio_set_value(FIGHTER_GPIO_LCD_RSTz, 1);
 		}
 		if (isOrise())
 			hr_msleep(10);
@@ -375,7 +375,7 @@ static int mipi_dsi_panel_power(int on)
 		if (!bPanelPowerOn) return 0;
 		if (isOrise())
 			hr_msleep(120);
-		gpio_set_value(FIGHTER_LCD_RSTz, 0);
+		gpio_set_value(FIGHTER_GPIO_LCD_RSTz, 0);
 		if (isOrise())
 			hr_msleep(120);
 		else
@@ -427,7 +427,7 @@ static char mipi_dsi_splash_is_enabled(void)
 }
 
 static struct mipi_dsi_platform_data mipi_dsi_pdata = {
-	.vsync_gpio = FIGHTER_LCD_TE,
+	.vsync_gpio = FIGHTER_GPIO_LCD_TE,
 	.dsi_power_save = mipi_dsi_panel_power,
 	.splash_is_enabled = mipi_dsi_splash_is_enabled,
 };
