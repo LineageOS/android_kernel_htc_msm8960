@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_f6f2739a",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-audio.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "I didn\u0027t realize fighter had a TPA amp.",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_36f9eb7f",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-camera.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "This isn\u0027t causing issues? Or is IMX105 unused?",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_f6d91322",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "This moved? o__0",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_16d70ff0",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "This is in a if 0 block",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_b605db7c",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "Wasn\u0027t there no OTG?",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_d60ad788",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "Another if 0 block",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_96045f7d",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "if 0",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_76ff6367",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "if 0",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_36d00bf8",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-storage.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "Is this actually set?",
+      "range": {
+        "startLine": 275,
+        "startChar": 7,
+        "endLine": 275,
+        "endChar": 34
+      },
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_56cd875b",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-storage.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-09T21:41:14Z",
+      "side": 1,
+      "message": "Is this set too?",
+      "range": {
+        "startLine": 304,
+        "startChar": 7,
+        "endLine": 304,
+        "endChar": 34
+      },
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
