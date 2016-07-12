@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_a86fb7c3",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-camera.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-12T11:19:20Z",
+      "side": 1,
+      "message": "add space before comment",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_36f9eb7f",
         "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-camera.c",
         "patchSetId": 9
@@ -387,6 +404,23 @@
         "endLine": 304,
         "endChar": 34
       },
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_087b6b8c",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1337,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-12T11:19:20Z",
+      "side": 1,
+      "message": "if system_rev \u003c 2, this will cause FIGHTER_PMGPIO_AUD_REMO_PRESz to init twice. it\u0027s one of those things that obviously isn\u0027t going to happen since there\u0027s undoubtedly no system_rev \u003d\u003d 1 devices out in the wild... but, it can\u0027t be unseen. will fix",
       "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
