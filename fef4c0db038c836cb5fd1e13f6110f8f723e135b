@@ -410,6 +410,23 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_48f08391",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-12T16:54:12Z",
+      "side": 1,
+      "message": "return, so no problem below",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_087b6b8c",
         "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
         "patchSetId": 9
@@ -421,6 +438,24 @@
       "writtenOn": "2016-07-12T11:19:20Z",
       "side": 1,
       "message": "if system_rev \u003c 2, this will cause FIGHTER_PMGPIO_AUD_REMO_PRESz to init twice. it\u0027s one of those things that obviously isn\u0027t going to happen since there\u0027s undoubtedly no system_rev \u003d\u003d 1 devices out in the wild... but, it can\u0027t be unseen. will fix",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_28f3c7a0",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1337,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-12T16:54:12Z",
+      "side": 1,
+      "message": "nevermind, see return above",
+      "parentUuid": "3fa7e38b_087b6b8c",
       "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
