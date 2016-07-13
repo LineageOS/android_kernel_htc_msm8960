@@ -27,6 +27,14 @@
 #define DEV_WARN(args...)	dev_warn(external_common_state->dev, args)
 #define DEV_ERR(args...)	dev_err(external_common_state->dev, args)
 
+#ifdef CONFIG_FB_MSM_TVOUT
+#define TVOUT_VFRMT_NTSC_M_720x480i		0
+#define TVOUT_VFRMT_NTSC_J_720x480i		1
+#define TVOUT_VFRMT_PAL_BDGHIN_720x576i		2
+#define TVOUT_VFRMT_PAL_M_720x480i		3
+#define TVOUT_VFRMT_PAL_N_720x480i		4
+#endif
+
 /* A lookup table for all the supported display modes by the HDMI
  * hardware and driver.  Use HDMI_SETUP_LUT in the module init to
  * setup the LUT with the supported modes. */
@@ -50,9 +58,11 @@ struct external_common_state_type {
 	boolean hpd_state;
 	struct kobject *uevent_kobj;
 	uint32 video_resolution;
+	boolean default_res_supported;
 	bool vcdb_support;
 	struct device *dev;
 	struct switch_dev sdev;
+	struct switch_dev audio_sdev;
 #ifdef CONFIG_FB_MSM_HDMI_3D
 	boolean format_3d;
 	void (*switch_3d)(boolean on);
@@ -97,7 +107,7 @@ const struct msm_hdmi_mode_timing_info *hdmi_mhl_get_supported_mode(
 	uint32 mode);
 void hdmi_common_init_panel_info(struct msm_panel_info *pinfo);
 
-ssize_t video_3d_format_2string(uint32 format, char *buf, int size);
+ssize_t video_3d_format_2string(uint32 format, char *buf);
 #endif
 
 int external_common_state_create(struct platform_device *pdev);
