@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_c2344a4d",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-audio.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-15T02:07:02Z",
+      "side": 1,
+      "message": "Ah, right. That\u0027s not uncommon I guess. Up to you if you want to keep the TPA stuff around.",
+      "parentUuid": "3fa7e38b_8838bbd3",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_a86fb7c3",
         "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-camera.c",
         "patchSetId": 9
@@ -89,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_e2394641",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-camera.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-15T02:07:02Z",
+      "side": 1,
+      "message": "Hm, we\u0027re only including s5k3 and s5k6 chromatix libraries. That leads me to believe the IMX105 is probably not a shipping sensor.",
+      "parentUuid": "3fa7e38b_283507db",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_f6d91322",
         "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
         "patchSetId": 9
@@ -124,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_823e5227",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-15T02:07:02Z",
+      "side": 1,
+      "message": "Derp.",
+      "parentUuid": "3fa7e38b_4832c3f3",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_16d70ff0",
         "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
         "patchSetId": 9
@@ -153,6 +207,24 @@
       "side": 1,
       "message": "purposely included for diffing",
       "parentUuid": "3fa7e38b_16d70ff0",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_a23b4e36",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-regulator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-15T02:07:02Z",
+      "side": 1,
+      "message": "Sure, no problem then.",
+      "parentUuid": "3fa7e38b_e84ccf77",
       "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
@@ -310,6 +382,24 @@
       "writtenOn": "2016-07-12T11:04:27Z",
       "side": 1,
       "message": "this was the reason i uploaded http://review.cyanogenmod.org/151320 for review. i\u0027m not entirely clear on what the MMC_CAP2_HC_ERASE_SZ flag does yet, but i\u0027m kind of curious if it has anything to do with the slow secure erase issue we see on m7 (doubtful, but i can be hopeful).",
+      "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_0214a29f",
+        "filename": "arch/arm/mach-msm/htc/fighter/board-fighter-storage.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-07-15T02:07:02Z",
+      "side": 1,
+      "message": "Well, the commentary associated with the flag sure suggest it might be related. It increases the block size of discards, supposedly.",
+      "parentUuid": "3fa7e38b_4847234d",
       "revId": "fef4c0db038c836cb5fd1e13f6110f8f723e135b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
