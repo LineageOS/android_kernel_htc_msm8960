@@ -209,6 +209,7 @@ static struct mmc_platform_data sdc1_data = {
 	.pin_data	= &mmc_slot_pin_data[SDCC1],
 	.vreg_data	= &mmc_slot_vreg_data[SDCC1],
 	.nonremovable	= 1,
+	.hc_erase_group_def = 1,
 	.uhs_caps	= MMC_CAP_1_8V_DDR | MMC_CAP_UHS_DDR50,
 	.mpm_sdiowakeup_int	= MSM_MPM_PIN_SDC1_DAT1,
 	.msm_bus_voting_data	= &sps_to_ddr_bus_voting_data,

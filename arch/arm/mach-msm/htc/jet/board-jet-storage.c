@@ -291,6 +291,7 @@ static struct mmc_platform_data msm8960_sdc1_data = {
 	.sup_clk_table	= sdc1_sup_clk_rates,
 	.sup_clk_cnt	= ARRAY_SIZE(sdc1_sup_clk_rates),
 	.nonremovable	= 1,
+	.hc_erase_group_def = 1,
 	.vreg_data	= &mmc_slot_vreg_data[SDCC1],
 	.pin_data	= &mmc_slot_pin_data[SDCC1],
 	.mpm_sdiowakeup_int = MSM_MPM_PIN_SDC1_DAT1,
