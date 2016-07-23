@@ -513,7 +513,7 @@ static ssize_t hdmi_msm_wta_cec_logical_addr(struct device *dev,
 }
 
 static ssize_t hdmi_msm_rda_cec_frame(struct device *dev,
-				 struct device_attribute *attr, char *buf)	
+				 struct device_attribute *attr, char *buf)
 {
 	mutex_lock(&hdmi_msm_state_mutex);
 	if (hdmi_msm_state->cec_queue_rd == hdmi_msm_state->cec_queue_wr
@@ -1175,6 +1175,7 @@ static void hdmi_edid_extract_speaker_allocation_data(const uint8 *in_buf)
 	external_common_state->sadb_size = len;
 }
 
+/*Video Capability Data Block*/
 static void hdmi_edid_extract_vcdb(const uint8 *in_buf)
 {
 	uint8 len;
@@ -1210,6 +1211,12 @@ static void hdmi_edid_extract_extended_data_blocks(const uint8 *in_buf)
 	/* A Tage code of 7 identifies extended data blocks */
 	uint8 const *etag = hdmi_edid_find_block(in_buf, start_offset, 7, &len);
 
+	if (etag == NULL) {
+		external_common_state->pt_scan_info = 0;
+		external_common_state->it_scan_info = 0;
+		external_common_state->ce_scan_info = 0;
+		DEV_INFO("EDID: No extended data block\n");
+	}
 	while (etag != NULL) {
 		/* The extended data block should at least be 2 bytes long */
 		if (len < 2) {
@@ -1305,6 +1312,12 @@ static void hdmi_edid_detail_desc(const uint8 *data_buf, uint32 *disp_mode)
 	if (disp_mode == NULL)
 		return;
 
+	/* See VESA Spec */
+	/* EDID_TIMING_DESC_UPPER_H_NIBBLE[0x4]: Relative Offset to the EDID
+	 *   detailed timing descriptors - Upper 4 bit for each H active/blank
+	 *   field */
+	/* EDID_TIMING_DESC_H_ACTIVE[0x2]: Relative Offset to the EDID detailed
+	 *   timing descriptors - H active */
 	active_h = ((((uint32)data_buf[0x4] >> 0x4) & 0xF) << 8)
 		| data_buf[0x2];
 
@@ -1722,6 +1735,12 @@ static void hdmi_edid_get_display_mode(const uint8 *data_buf,
 	} else if (!num_og_cea_blocks) {
 		/* Detailed timing descriptors */
 		uint32 desc_offset = 0;
+		/* Maximum 4 timing descriptor in block 0 - No CEA
+		 * extension in this case */
+		/* EDID_FIRST_TIMING_DESC[0x36] - 1st detailed timing
+		 *   descriptor */
+		/* EDID_DETAIL_TIMING_DESC_BLCK_SZ[0x12] - Each detailed timing
+		 *   descriptor has block size of 18 */
 #ifdef SHOW_TV_NAME
 		while (4 > i) {
 #else
