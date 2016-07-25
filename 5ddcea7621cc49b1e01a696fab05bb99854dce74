@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_8f4d0174",
+        "filename": "drivers/video/msm/sii9234/sii9234.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-25T04:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fa7e38b_cc80e78e",
+      "range": {
+        "startLine": 571,
+        "startChar": 2,
+        "endLine": 571,
+        "endChar": 14
+      },
+      "revId": "5ddcea7621cc49b1e01a696fab05bb99854dce74",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_0c77dfd6",
         "filename": "drivers/video/msm/sii9234/sii9234.c",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_af50fd0b",
+        "filename": "drivers/video/msm/sii9234/sii9234.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-25T04:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fa7e38b_0c77dfd6",
+      "range": {
+        "startLine": 732,
+        "startChar": 1,
+        "endLine": 732,
+        "endChar": 13
+      },
+      "revId": "5ddcea7621cc49b1e01a696fab05bb99854dce74",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_2c72dbe4",
         "filename": "drivers/video/msm/sii9234/sii9234.c",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2016-07-24T22:58:24Z",
       "side": 1,
       "message": "Do these need to be marked with the unused attribute?",
+      "range": {
+        "startLine": 948,
+        "startChar": 38,
+        "endLine": 948,
+        "endChar": 73
+      },
+      "revId": "5ddcea7621cc49b1e01a696fab05bb99854dce74",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_4f570904",
+        "filename": "drivers/video/msm/sii9234/sii9234.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2016-07-25T04:05:06Z",
+      "side": 1,
+      "message": "Done - (can you confirm if you find this acceptable? I defined __unused at the top of this file)",
+      "parentUuid": "3fa7e38b_2c72dbe4",
       "range": {
         "startLine": 948,
         "startChar": 38,
