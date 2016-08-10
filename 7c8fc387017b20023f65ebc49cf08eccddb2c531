@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_367764a3",
+        "filename": "drivers/gpu/msm/kgsl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-08-10T01:38:25Z",
+      "side": 0,
+      "message": "This part looks like a bad merge.",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 49
+      },
+      "revId": "7c8fc387017b20023f65ebc49cf08eccddb2c531",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
