@@ -5250,8 +5250,10 @@ static void swevent_hlist_put_cpu(struct perf_event *event, int cpu)
 
 	mutex_lock(&swhash->hlist_mutex);
 
-	if (!--swhash->hlist_refcount)
+	if (!--swhash->hlist_refcount) {
+		swhash->online = false;
 		swevent_hlist_release(swhash);
+	}
 
 	mutex_unlock(&swhash->hlist_mutex);
 }
