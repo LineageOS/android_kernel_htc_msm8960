@@ -2225,7 +2225,7 @@ static ssize_t ps_workaround_table_show(struct device *dev,
 {
 	struct cm3629_info *lpi = lp_info;
 	int i = 0;
-	char table_str[952] = "";
+	char table_str[936] = "";
 	char temp_str[64] = "";
 
 	sprintf(table_str, "mapping table size = %d\n", lpi->mapping_size);
