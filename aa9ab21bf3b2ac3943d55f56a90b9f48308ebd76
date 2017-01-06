@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_e6b51832",
+        "filename": "drivers/input/misc/cm3629.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-06T21:45:52Z",
+      "side": 1,
+      "message": "kzalloc will zero for you too",
+      "range": {
+        "startLine": 2231,
+        "startChar": 13,
+        "endLine": 2231,
+        "endChar": 20
+      },
+      "revId": "aa9ab21bf3b2ac3943d55f56a90b9f48308ebd76",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
