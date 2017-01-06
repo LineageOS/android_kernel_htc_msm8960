@@ -2224,9 +2224,15 @@ static ssize_t ps_workaround_table_show(struct device *dev,
 				  struct device_attribute *attr, char *buf)
 {
 	struct cm3629_info *lpi = lp_info;
-	int i = 0;
-	char table_str[952] = "";
+	int i = 0, count = 0;
+	char *table_str;
 	char temp_str[64] = "";
+
+	table_str = kmalloc(952, GFP_KERNEL);
+	if (!table_str) {
+		printk(KERN_ERR "%s: Could not allocate memory: -ENOMEM\n", __func__);
+		return sprintf(buf, "%s: Could not allocate memory: -ENOMEM\n", __func__);
+	}
 
 	sprintf(table_str, "mapping table size = %d\n", lpi->mapping_size);
 	printk(KERN_DEBUG "%s: table_str = %s\n", __func__, table_str);
@@ -2242,7 +2248,9 @@ static ssize_t ps_workaround_table_show(struct device *dev,
 			strcat(table_str, "\n");
 	}
 
-	return sprintf(buf, "%s\n", table_str);
+	count = sprintf(buf, "%s\n", table_str);
+	kfree(table_str);
+	return count;
 }
 static ssize_t ps_workaround_table_store(struct device *dev,
 				struct device_attribute *attr,
