@@ -796,6 +796,7 @@ static void cy8c_cs_late_resume(struct early_suspend *h)
 
 static const struct i2c_device_id cy8c_cs_id[] = {
 	{ CYPRESS_CS_NAME, 0 },
+	{}
 };
 
 static struct i2c_driver cy8c_cs_driver = {
