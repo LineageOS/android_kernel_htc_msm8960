@@ -401,13 +401,13 @@ static struct msm_gpiomux_config m7_gsbi_configs[] __initdata = {
 			[GPIOMUX_SUSPENDED] = &gpio_spi_config,
 		},
 	},
-#endif
 	{
 		.gpio      = 53,		/* NOR CS */
 		.settings = {
 			[GPIOMUX_SUSPENDED] = &gpio_spi_cs_config,
 		},
 	},
+#endif
 	{
 		.gpio      = 82,	/* GSBI7 UART2 TX */
 		.settings = {
