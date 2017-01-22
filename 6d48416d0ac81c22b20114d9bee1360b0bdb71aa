@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_1113bf5d",
+        "filename": "arch/arm/mach-msm/htc/m7/board-m7-gpiomux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-22T20:47:41Z",
+      "side": 1,
+      "message": "This is used in the extra item that is ifdef\u0027ed out.",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 48
+      },
+      "revId": "6d48416d0ac81c22b20114d9bee1360b0bdb71aa",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
