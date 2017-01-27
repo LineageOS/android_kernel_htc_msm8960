@@ -1539,20 +1539,6 @@ static struct snd_soc_dai_link msm_dai_common[] = {
 		.ignore_pmdown_time = 1, 
 	},
 	{
-		.name = "MSM8960 Media5",
-		.stream_name = "MultiMedia5",
-		.cpu_dai_name	= "MultiMedia5",
-		.platform_name	= "msm-multi-ch-pcm-dsp",
-		.dynamic = 1,
-		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
-							SND_SOC_DPCM_TRIGGER_POST},
-		.codec_dai_name = "snd-soc-dummy-dai",
-		.codec_name = "snd-soc-dummy",
-		.ignore_suspend = 1,
-		.ignore_pmdown_time = 1, 
-		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA5
-	},
-	{
 		.name = "MSM8960 Media6",
 		.stream_name = "MultiMedia6",
 		.cpu_dai_name	= "MultiMedia6",
