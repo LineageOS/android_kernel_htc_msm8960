@@ -140,6 +140,24 @@
     },
     {
       "key": {
+        "uuid": "9a437d4f_8fe8967d",
+        "filename": "arch/arm/configs/m7_defconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-28T21:47:30Z",
+      "side": 1,
+      "message": "Wait, not this.",
+      "parentUuid": "9a437d4f_efd722ec",
+      "revId": "4e708ef8996eb31d08e99f6a3b4ca814f97aeeb0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a437d4f_4f962e96",
         "filename": "arch/arm/configs/m7_defconfig",
         "patchSetId": 3

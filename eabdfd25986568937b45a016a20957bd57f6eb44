@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_6fed728b",
+        "filename": "arch/arm/configs/m7_defconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 2881,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-28T21:47:30Z",
+      "side": 0,
+      "message": "It\u0027s this",
+      "range": {
+        "startLine": 2881,
+        "startChar": 0,
+        "endLine": 2881,
+        "endChar": 26
+      },
+      "revId": "eabdfd25986568937b45a016a20957bd57f6eb44",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_4f02ae3f",
+        "filename": "arch/arm/configs/m7_defconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 2891,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-28T21:47:30Z",
+      "side": 0,
+      "message": "and this",
+      "range": {
+        "startLine": 2891,
+        "startChar": 0,
+        "endLine": 2891,
+        "endChar": 22
+      },
+      "revId": "eabdfd25986568937b45a016a20957bd57f6eb44",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
