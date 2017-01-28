@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "9a437d4f_af947a37",
+        "filename": "arch/arm/configs/m7_defconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-28T19:46:53Z",
+      "side": 1,
+      "message": "ultrasound is QC\u0027s ultrasonic pen/fingerprint sensor tech. I\u0027ve only ever seen it present on MTP/MDP devices.",
+      "parentUuid": "9a437d4f_af87da60",
+      "revId": "4e708ef8996eb31d08e99f6a3b4ca814f97aeeb0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a437d4f_8f7c1674",
         "filename": "arch/arm/configs/m7_defconfig",
         "patchSetId": 3
