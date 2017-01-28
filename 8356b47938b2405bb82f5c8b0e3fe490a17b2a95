@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_6f9e9258",
+        "filename": "arch/arm/configs/jet_defconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-01-28T19:46:23Z",
+      "side": 1,
+      "message": "Possibly this?",
+      "range": {
+        "startLine": 2876,
+        "startChar": 0,
+        "endLine": 2876,
+        "endChar": 18
+      },
+      "revId": "8356b47938b2405bb82f5c8b0e3fe490a17b2a95",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
