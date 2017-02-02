@@ -22,6 +22,30 @@
       "revId": "8356b47938b2405bb82f5c8b0e3fe490a17b2a95",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_20b1aae1",
+        "filename": "arch/arm/configs/jet_defconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 15889
+      },
+      "writtenOn": "2017-02-02T04:20:03Z",
+      "side": 1,
+      "message": "Unfortunately not. I disabled this and the kernel still does not boot (no logs either).",
+      "parentUuid": "9a437d4f_6f9e9258",
+      "range": {
+        "startLine": 2876,
+        "startChar": 0,
+        "endLine": 2876,
+        "endChar": 18
+      },
+      "revId": "8356b47938b2405bb82f5c8b0e3fe490a17b2a95",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
