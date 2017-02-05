@@ -365,6 +365,16 @@ static struct dsi_cmd_desc generic_display_on_cmds[] = {
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
 };
 
+static struct dsi_cmd_desc sharp_display_on_cmds[] = {
+	{DTYPE_DCS_WRITE1, 1, 0, 0, 120, sizeof(nop), nop},
+	{DTYPE_DCS_LWRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
+};
+
+static struct dsi_cmd_desc sony_display_on_cmds[] = {
+	{DTYPE_DCS_WRITE1, 1, 0, 0, 120, sizeof(nop), nop},
+	{DTYPE_DCS_LWRITE, 1, 0, 0, 0, sizeof(display_on), display_on},
+};
+
 static struct dsi_cmd_desc sharp_cmd_backlight_cmds[] = {
 	{DTYPE_DCS_LWRITE, 1, 0, 0, 0, sizeof(display_brightness), display_brightness},
 };
@@ -1128,8 +1138,8 @@ static void sharp_renesas_panel_init(void)
 		panel_on_cmds = m7_sharp_panel_on_cmds;
 		panel_on_cmds_count = ARRAY_SIZE(m7_sharp_panel_on_cmds);
 	}
-	display_on_cmds = generic_display_on_cmds;
-	display_on_cmds_count = ARRAY_SIZE(generic_display_on_cmds);
+	display_on_cmds = sharp_display_on_cmds;
+	display_on_cmds_count = ARRAY_SIZE(sharp_display_on_cmds);
 	display_off_cmds = sharp_display_off_cmds;
 	display_off_cmds_count = ARRAY_SIZE(sharp_display_off_cmds);
 	backlight_cmds = renesas_cmd_backlight_cmds;
@@ -1155,8 +1165,8 @@ static void sony_panel_init(void)
 {
 	panel_on_cmds = sony_panel_on_cmds;
 	panel_on_cmds_count = ARRAY_SIZE(sony_panel_on_cmds);
-	display_on_cmds = generic_display_on_cmds;
-	display_on_cmds_count = ARRAY_SIZE(generic_display_on_cmds);
+	display_on_cmds = sony_display_on_cmds;
+	display_on_cmds_count = ARRAY_SIZE(sony_display_on_cmds);
 	display_off_cmds = sony_display_off_cmds;
 	display_off_cmds_count = ARRAY_SIZE(sony_display_off_cmds);
 	backlight_cmds = renesas_cmd_backlight_cmds;
