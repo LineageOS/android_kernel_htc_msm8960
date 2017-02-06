@@ -76,6 +76,24 @@
       "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_18af6ae5",
+        "filename": "arch/arm/mach-msm/htc/m7/display/mipi_m7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-02-06T16:47:28Z",
+      "side": 1,
+      "message": "Ah, ok, thanks for checking, guess that suggestion can be ignored.",
+      "parentUuid": "7a288981_989b5ac9",
+      "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
