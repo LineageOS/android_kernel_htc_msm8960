@@ -40,6 +40,24 @@
       "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_b5b5ff32",
+        "filename": "arch/arm/mach-msm/htc/m7/display/mipi_m7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-02-06T07:21:03Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t remember either, I\u0027ll have to check it when I\u0027m at a computer again.",
+      "parentUuid": "7a288981_f5ab87d4",
+      "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
