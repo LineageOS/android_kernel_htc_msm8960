@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_35aa2fd5",
+        "filename": "arch/arm/mach-msm/htc/m7/display/mipi_m7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-02-06T07:15:51Z",
+      "side": 1,
+      "message": "I think you can directly add the 120 here as well?",
+      "range": {
+        "startLine": 370,
+        "startChar": 29,
+        "endLine": 370,
+        "endChar": 30
+      },
+      "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
