@@ -391,7 +391,6 @@ static struct dsi_cmd_desc sharp_renesas_panel_on_cmds[] = {
 
 static char interface_setting_0[2] = {0xB0, 0x04};
 static struct dsi_cmd_desc m7_sharp_panel_on_cmds[] = {
-	{DTYPE_DCS_WRITE1, 1, 0, 0, 120, sizeof(nop), nop},
 	{DTYPE_GEN_LWRITE, 1, 0, 0, 1, sizeof(interface_setting_0), interface_setting_0},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 1, sizeof(nop), nop},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 1, sizeof(nop), nop},
@@ -406,7 +405,6 @@ static struct dsi_cmd_desc m7_sharp_panel_on_cmds[] = {
 };
 
 static struct dsi_cmd_desc sharp_panel_on_cmds[] = {
-	{DTYPE_DCS_WRITE1, 1, 0, 0, 120, sizeof(nop), nop},
 	{DTYPE_GEN_LWRITE, 1, 0, 0, 0, sizeof(interface_setting_0), interface_setting_0},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(nop), nop},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(nop), nop},
@@ -421,7 +419,6 @@ static struct dsi_cmd_desc sharp_panel_on_cmds[] = {
 };
 
 static struct dsi_cmd_desc sony_panel_on_cmds[] = {
-	{DTYPE_DCS_WRITE1, 1, 0, 0, 120, sizeof(nop), nop},
 	{DTYPE_GEN_LWRITE, 1, 0, 0, 0, sizeof(interface_setting_0), interface_setting_0},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(nop), nop},
 	{DTYPE_DCS_WRITE1, 1, 0, 0, 0, sizeof(nop), nop},
