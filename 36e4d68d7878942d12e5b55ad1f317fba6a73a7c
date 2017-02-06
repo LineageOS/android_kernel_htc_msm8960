@@ -58,6 +58,24 @@
       "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_989b5ac9",
+        "filename": "arch/arm/mach-msm/htc/m7/display/mipi_m7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-06T16:36:43Z",
+      "side": 1,
+      "message": "It does look like the wait occurs after the commands have been sent: https://github.com/LineageOS/android_kernel_htc_msm8960/blob/cm-14.1/drivers/video/msm/mipi_dsi_host.c#L1191",
+      "parentUuid": "7a288981_b5b5ff32",
+      "revId": "36e4d68d7878942d12e5b55ad1f317fba6a73a7c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
