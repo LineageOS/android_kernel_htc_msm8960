@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2585a7_c7058215",
+        "filename": "arch/arm/configs/jet_defconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-11T23:08:05Z",
+      "side": 0,
+      "message": "Worth checking to see if responsible for jet non-boot issue.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "6ee385a88d397d14b0522b4429b38f83aa0e6f3d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2585a7_220e7435",
+        "filename": "arch/arm/configs/jet_defconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-11T23:08:05Z",
+      "side": 0,
+      "message": "Worth checking to see if responsible for jet non-boot issue.",
+      "revId": "6ee385a88d397d14b0522b4429b38f83aa0e6f3d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2585a7_0213785d",
+        "filename": "arch/arm/configs/jet_defconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-11T23:08:05Z",
+      "side": 0,
+      "message": "Unsure why this was disabled. It looks like a useful optimization.",
+      "revId": "6ee385a88d397d14b0522b4429b38f83aa0e6f3d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
