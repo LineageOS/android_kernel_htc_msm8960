@@ -92,7 +92,9 @@ static enum power_supply_property htc_battery_properties[] = {
 	POWER_SUPPLY_PROP_PRESENT,
 	POWER_SUPPLY_PROP_TECHNOLOGY,
 	POWER_SUPPLY_PROP_CAPACITY,
-	POWER_SUPPLY_PROP_OVERLOAD,
+	POWER_SUPPLY_PROP_CURRENT_NOW,
+	POWER_SUPPLY_PROP_CHARGE_FULL,
+	POWER_SUPPLY_PROP_OVERLOAD
 };
 
 static enum power_supply_property htc_power_properties[] = {
@@ -701,7 +703,28 @@ static int htc_battery_get_property(struct power_supply *psy,
 		mutex_unlock(&battery_core_info.info_lock);
 		break;
 	case POWER_SUPPLY_PROP_OVERLOAD:
+		mutex_lock(&battery_core_info.info_lock);
 		val->intval = battery_core_info.rep.overload;
+		mutex_unlock(&battery_core_info.info_lock);
+		break;
+	case POWER_SUPPLY_PROP_CURRENT_NOW:
+		if (unlikely(!battery_core_info.func.func_get_batt_rt_attr))
+			return -EINVAL;
+			mutex_lock(&battery_core_info.info_lock);
+		if (unlikely(battery_core_info.func.func_get_batt_rt_attr(HTC_BATT_RT_CURRENT, &val->intval))) {
+			mutex_unlock(&battery_core_info.info_lock);
+			return -EINVAL;
+		}
+		mutex_unlock(&battery_core_info.info_lock);
+		if (unlikely(val->intval<0))
+			val->intval = 0;
+		break;
+	case POWER_SUPPLY_PROP_CHARGE_FULL:
+		mutex_lock(&battery_core_info.info_lock);
+		val->intval = battery_core_info.rep.full_bat;
+		mutex_unlock(&battery_core_info.info_lock);
+		if (!val->intval)
+			return -EINVAL;
 		break;
 	default:
 		return -EINVAL;
