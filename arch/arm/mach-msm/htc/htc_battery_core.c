@@ -93,6 +93,8 @@ static enum power_supply_property htc_battery_properties[] = {
 	POWER_SUPPLY_PROP_TECHNOLOGY,
 	POWER_SUPPLY_PROP_CAPACITY,
 	POWER_SUPPLY_PROP_OVERLOAD,
+	POWER_SUPPLY_PROP_CURRENT_NOW,
+	POWER_SUPPLY_PROP_CHARGE_FULL
 };
 
 static enum power_supply_property htc_power_properties[] = {
@@ -702,6 +704,22 @@ static int htc_battery_get_property(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_OVERLOAD:
 		val->intval = battery_core_info.rep.overload;
+		break;
+	case POWER_SUPPLY_PROP_CURRENT_NOW:
+		{
+			int current_now = 0;
+			if (unlikely(!battery_core_info.func.func_get_batt_rt_attr))
+				return -EINVAL;
+			battery_core_info.func.func_get_batt_rt_attr(HTC_BATT_RT_CURRENT, &current_now);
+			if (unlikely(current_now<0))
+				current_now = 0;
+			val->intval = current_now;
+		}
+		break;
+	case POWER_SUPPLY_PROP_CHARGE_FULL:
+		val->intval = battery_core_info.rep.full_bat;
+		if (!val->intval)
+			return -EINVAL;
 		break;
 	default:
 		return -EINVAL;
