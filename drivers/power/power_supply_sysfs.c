@@ -101,7 +101,7 @@ static ssize_t power_supply_show_property(struct device *dev,
 		return sprintf(buf, "%s\n", type_text[value.intval]);
 	else if (off == POWER_SUPPLY_PROP_SCOPE)
 		return sprintf(buf, "%s\n", scope_text[value.intval]);
-	else if (off >= POWER_SUPPLY_PROP_MODEL_NAME)
+	else if (off >= POWER_SUPPLY_PROP_MODEL_NAME && off <= POWER_SUPPLY_PROP_SERIAL_NUMBER)
 		return sprintf(buf, "%s\n", value.strval);
 
 	return sprintf(buf, "%d\n", value.intval);
@@ -178,6 +178,9 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(model_name),
 	POWER_SUPPLY_ATTR(manufacturer),
 	POWER_SUPPLY_ATTR(serial_number),
+#ifdef CONFIG_HTC_BATT_8960
+	POWER_SUPPLY_ATTR(overload),
+#endif
 };
 
 static struct attribute *
