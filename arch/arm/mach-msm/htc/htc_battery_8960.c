@@ -1024,7 +1024,9 @@ static void htc_batt_get_battery_ui_soc(int *soc_ui)
 
 static int htc_battery_get_rt_attr(enum htc_batt_rt_attr attr, int *val)
 {
-	int ret = 0;
+	int ret = -EINVAL;
+	if (unlikely(!htc_batt_info.igauge))
+		return ret;
 	switch (attr) {
 	case HTC_BATT_RT_VOLTAGE:
 		if (htc_batt_info.igauge->get_battery_voltage)
@@ -1222,6 +1224,7 @@ static int htc_batt_get_battery_info(struct battery_info_reply *htc_batt_update)
 	htc_batt_update->pj_full = htc_batt_info.rep.pj_full;
 	htc_batt_update->pj_level= htc_batt_info.rep.pj_level;
 	htc_batt_update->pj_level_pre= htc_batt_info.rep.pj_level_pre;
+	htc_batt_update->cc_uah= htc_batt_info.rep.cc_uah;
 	return 0;
 }
 
@@ -1441,7 +1444,10 @@ static void batt_update_info_from_gauge(void)
 	}
 
 	
-	
+	if (htc_batt_info.igauge->get_battery_cc)
+		htc_batt_info.igauge->get_battery_cc(
+				&htc_batt_info.rep.cc_uah);
+
 	if (htc_batt_info.igauge->get_battery_voltage)
 		htc_batt_info.igauge->get_battery_voltage(
 				&htc_batt_info.rep.batt_vol);
