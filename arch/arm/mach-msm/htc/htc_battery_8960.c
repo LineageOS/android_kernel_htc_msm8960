@@ -1024,7 +1024,9 @@ static void htc_batt_get_battery_ui_soc(int *soc_ui)
 
 static int htc_battery_get_rt_attr(enum htc_batt_rt_attr attr, int *val)
 {
-	int ret = 0;
+	int ret = -EINVAL;
+        if (!htc_batt_info.igauge)
+                return ret;
 	switch (attr) {
 	case HTC_BATT_RT_VOLTAGE:
 		if (htc_batt_info.igauge->get_battery_voltage)
