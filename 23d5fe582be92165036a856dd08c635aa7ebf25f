@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_18775c04",
+        "filename": "arch/arm/mach-msm/htc/htc_battery_core.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-24T05:49:09Z",
+      "side": 1,
+      "message": "remove one indentation",
+      "revId": "23d5fe582be92165036a856dd08c635aa7ebf25f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
