@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_89c41993",
+        "filename": "arch/arm/mach-msm/htc/htc_battery_core.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-02-25T20:01:28Z",
+      "side": 1,
+      "message": "space this out",
+      "range": {
+        "startLine": 719,
+        "startChar": 26,
+        "endLine": 719,
+        "endChar": 27
+      },
+      "revId": "8e8d3b08f639fada4f7126080bf28ae52a585d37",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa5d592f_69c1e57f",
+        "filename": "arch/arm/mach-msm/htc/htc_battery_core.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-02-25T20:01:28Z",
+      "side": 1,
+      "message": "Is 0 a valid value here? (I don\u0027t remember what PROP_CHARGE_FULL corresponds to)",
+      "range": {
+        "startLine": 726,
+        "startChar": 7,
+        "endLine": 726,
+        "endChar": 18
+      },
+      "revId": "8e8d3b08f639fada4f7126080bf28ae52a585d37",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
