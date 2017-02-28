@@ -164,7 +164,6 @@ int kgsl_add_fence_event(struct kgsl_device *device,
 		ret = -EFAULT;
 		goto fail_copy_fd;
 	}
-	sync_fence_install(fence, priv.fence_fd);
 
 	/*
 	 * Hold the context ref-count for the event - it will get released in
@@ -174,6 +173,8 @@ int kgsl_add_fence_event(struct kgsl_device *device,
 			kgsl_fence_event_cb, event, owner);
 	if (ret)
 		goto fail_event;
+
+	sync_fence_install(fence, priv.fence_fd);
 
 	return 0;
 
