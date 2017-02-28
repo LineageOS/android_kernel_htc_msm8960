@@ -45,6 +45,30 @@
       "revId": "8e8d3b08f639fada4f7126080bf28ae52a585d37",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa5d592f_fb30f757",
+        "filename": "arch/arm/mach-msm/htc/htc_battery_core.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 16826
+      },
+      "writtenOn": "2017-02-28T17:47:38Z",
+      "side": 1,
+      "message": "my test ended up in bootloop w/o this condition\nit is a full charged battery capacity",
+      "parentUuid": "fa5d592f_69c1e57f",
+      "range": {
+        "startLine": 726,
+        "startChar": 7,
+        "endLine": 726,
+        "endChar": 18
+      },
+      "revId": "8e8d3b08f639fada4f7126080bf28ae52a585d37",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
