@@ -25,7 +25,7 @@
 #include <linux/rtc.h>
 #include <linux/workqueue.h>
 #include <mach/htc_battery_core.h>
-#include <linux/android_alarm.h>
+#include <linux/alarmtimer.h>
 #include <mach/board_htc.h>
 
 
@@ -886,7 +886,6 @@ static ssize_t htc_battery_charger_ctrl_timer(struct device *dev,
 	int rc;
 	unsigned long time_out = 0;
 	ktime_t interval;
-	ktime_t next_alarm;
 
 	rc = strict_strtoul(buf, 10, &time_out);
 	if (rc)
@@ -902,9 +901,7 @@ static ssize_t htc_battery_charger_ctrl_timer(struct device *dev,
 			return rc;
 		}
 		interval = ktime_set(time_out, 0);
-		next_alarm = ktime_add(alarm_get_elapsed_realtime(), interval);
-		alarm_start_range(&batt_charger_ctrl_alarm,
-					next_alarm, next_alarm);
+		alarm_start_relative(&batt_charger_ctrl_alarm, interval);
 		charger_ctrl_stat = STOP_CHARGER;
 	} else if (time_out == 0) {
 		rc = battery_core_info.func.func_charger_control(
@@ -933,11 +930,12 @@ static void batt_charger_ctrl_func(struct work_struct *work)
 	charger_ctrl_stat = (unsigned int)ENABLE_CHARGER;
 }
 
-static void batt_charger_ctrl_alarm_handler(struct alarm *alarm)
+static enum alarmtimer_restart batt_charger_ctrl_alarm_handler(struct alarm *alarm, ktime_t now)
 {
 	BATT_LOG("charger control alarm is timeout.");
 
 	queue_work(batt_charger_ctrl_wq, &batt_charger_ctrl_work);
+	return ALARMTIMER_NORESTART;
 }
 
 int htc_battery_core_update_changed(void)
@@ -1202,7 +1200,7 @@ int htc_battery_core_register(struct device *dev,
 	charger_ctrl_stat = ENABLE_CHARGER;
 	INIT_WORK(&batt_charger_ctrl_work, batt_charger_ctrl_func);
 	alarm_init(&batt_charger_ctrl_alarm,
-			ANDROID_ALARM_ELAPSED_REALTIME_WAKEUP,
+			ALARM_BOOTTIME,
 			batt_charger_ctrl_alarm_handler);
 	batt_charger_ctrl_wq =
 			create_singlethread_workqueue("charger_ctrl_timer");
