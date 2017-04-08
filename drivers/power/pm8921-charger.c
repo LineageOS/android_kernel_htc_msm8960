@@ -2075,6 +2075,22 @@ int pm8921_is_dc_chg_plugged_in(void)
 }
 EXPORT_SYMBOL(pm8921_is_dc_chg_plugged_in);
 
+int pm8921_is_pwr_src_plugged_in(void)
+{
+	int usb_in, dc_in;
+
+	usb_in = pm8921_is_usb_chg_plugged_in();
+	dc_in = pm8921_is_dc_chg_plugged_in();
+	pr_info("%s: usb_in=%d, dc_in=%d\n", __func__, usb_in, dc_in);
+	if (usb_in ^ dc_in)
+		return 1;
+	else if (usb_in & dc_in)
+		pr_warn("%s: Abnormal interrupt due to usb_in & dc_in"
+				" is existed together\n", __func__);
+	return 0;
+}
+EXPORT_SYMBOL(pm8921_is_pwr_src_plugged_in);
+
 int pm8921_is_battery_present(void)
 {
 	if (!the_chip) {

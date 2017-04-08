@@ -92,7 +92,9 @@ static enum power_supply_property htc_battery_properties[] = {
 	POWER_SUPPLY_PROP_PRESENT,
 	POWER_SUPPLY_PROP_TECHNOLOGY,
 	POWER_SUPPLY_PROP_CAPACITY,
+#ifdef CONFIG_HTC_BATT_8960
 	POWER_SUPPLY_PROP_OVERLOAD,
+#endif
 };
 
 static enum power_supply_property htc_power_properties[] = {
@@ -129,6 +131,7 @@ static struct power_supply htc_power_supplies[] = {
 		.num_properties = ARRAY_SIZE(htc_power_properties),
 		.get_property = htc_power_get_property,
 	},
+#ifdef CONFIG_HTC_BATT_8960
 	{
 		.name = "wireless",
 		.type = POWER_SUPPLY_TYPE_WIRELESS,
@@ -138,6 +141,7 @@ static struct power_supply htc_power_supplies[] = {
 		.num_properties = ARRAY_SIZE(htc_power_properties),
 		.get_property = htc_power_get_property,
 	},
+#endif
 };
 
 static BLOCKING_NOTIFIER_HEAD(wireless_charger_notifier_list);
@@ -190,7 +194,9 @@ static int htc_battery_get_charging_status(void)
 	case CHARGER_USB:
 	case CHARGER_AC:
 	case CHARGER_9V_AC:
+#ifdef CONFIG_HTC_BATT_8960
 	case CHARGER_WIRELESS:
+#endif
 	case CHARGER_MHL_AC:
 	case CHARGER_DETECTING:
 	case CHARGER_UNKNOWN_USB:
@@ -700,9 +706,11 @@ static int htc_battery_get_property(struct power_supply *psy,
 #endif
 		mutex_unlock(&battery_core_info.info_lock);
 		break;
+#ifdef CONFIG_HTC_BATT_8960
 	case POWER_SUPPLY_PROP_OVERLOAD:
 		val->intval = battery_core_info.rep.overload;
 		break;
+#endif
 	default:
 		return -EINVAL;
 	}
@@ -743,8 +751,11 @@ static int htc_power_get_property(struct power_supply *psy,
 				val->intval = 1;
 			else
 				val->intval = 0;
-		} else if (psy->type == POWER_SUPPLY_TYPE_WIRELESS)
+		}
+#ifdef CONFIG_HTC_BATT_8960
+		else if (psy->type == POWER_SUPPLY_TYPE_WIRELESS)
 			val->intval = (charger ==  CHARGER_WIRELESS ? 1 : 0);
+#endif
 		else
 			val->intval = 0;
 		break;
@@ -815,15 +826,15 @@ static ssize_t htc_battery_show_property(struct device *dev,
 				battery_core_info.rep.pj_src);
 		break;
 	case PJ_STATUS:
+#ifdef CONFIG_HTC_BATT_8960
 		if (battery_core_info.rep.pj_src) {
-			
 			if (battery_core_info.rep.pj_full)	{
 				if ((battery_core_info.rep.pj_level - battery_core_info.rep.pj_level_pre) >= 19)
 					BATT_LOG("level diff over 19, level:%d, pre_level:%d\n",
 						battery_core_info.rep.pj_level, battery_core_info.rep.pj_level_pre);
 				else
 					i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n", HTC_UI_PJ_FULL);
-			} else { 
+			} else {
 				if (battery_core_info.rep.pj_chg_status == 2 || battery_core_info.rep.charging_enabled)
 					i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n", HTC_UI_PJ_CHG);
 				else
@@ -832,6 +843,7 @@ static ssize_t htc_battery_show_property(struct device *dev,
 		} else {
 			i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n", HTC_UI_PJ_NOT_CHG);
 		}
+#endif
 		break;
 	case PJ_LEVEL:
 		i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n",
@@ -985,10 +997,11 @@ int htc_battery_core_update_changed(void)
 		if (CHARGER_MHL_AC == battery_core_info.rep.charging_source ||
 			CHARGER_MHL_AC == new_batt_info_rep.charging_source)
 			is_send_ac_uevent = 1;
+#ifdef CONFIG_HTC_BATT_8960
 		if (CHARGER_WIRELESS == battery_core_info.rep.charging_source ||
 			CHARGER_WIRELESS == new_batt_info_rep.charging_source)
 			is_send_wireless_charger_uevent = 1;
-
+#endif
 	}
 	if ((!is_send_batt_uevent) &&
 		((battery_core_info.rep.level != new_batt_info_rep.level) ||
