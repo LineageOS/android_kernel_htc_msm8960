@@ -1864,6 +1864,49 @@ static struct i2c_board_info __initdata msm_i2c_sensor_gsbi12_info[] = {
 	},
 };
 
+static DEFINE_MUTEX(pl_sensor_lock);
+static struct regulator *pl_reg_l16;
+static int capella_pl_sensor_lpm_power(uint8_t enable)
+{
+	int rc = 0;
+
+	mutex_lock(&pl_sensor_lock);
+
+	if (pl_reg_l16 == NULL) {
+		pl_reg_l16 = regulator_get(NULL, "8921_l16");
+		if (IS_ERR(pl_reg_l16)) {
+			pr_err("[PS][cm3629] %s: Unable to get '8921_l16' \n", __func__);
+			mutex_unlock(&pl_sensor_lock);
+			return -ENODEV;
+		}
+	}
+	if (enable) {
+		rc = regulator_set_optimum_mode(pl_reg_l16, 100);
+		if (rc < 0)
+			pr_err("[PS][cm3629] %s: enter lmp,set_optimum_mode l16 failed, rc=%d\n", __func__, rc);
+		rc = regulator_enable(pl_reg_l16);
+		if (rc) {
+			pr_err("'%s' regulator enable failed, rc=%d\n",
+				"pl_reg_l16", rc);
+			mutex_unlock(&pl_sensor_lock);
+			return rc;
+		}
+	} else {
+		rc = regulator_set_optimum_mode(pl_reg_l16, 100000);
+		if (rc < 0)
+			pr_err("[PS][cm3629] %s: leave lmp,set_optimum_mode l16 failed, rc=%d\n", __func__, rc);
+		rc = regulator_enable(pl_reg_l16);
+		if (rc) {
+			pr_err("'%s' regulator enable failed, rc=%d\n",
+				"pl_reg_l16", rc);
+			mutex_unlock(&pl_sensor_lock);
+			return rc;
+		}
+	}
+	mutex_unlock(&pl_sensor_lock);
+	return rc;
+}
+
 static struct cm3629_platform_data cm36282_TMO_EN1_pdata = {
 	.model = CAPELLA_CM36282,
 	.ps_select = CM3629_PS1_ONLY,
@@ -1898,6 +1941,7 @@ static struct cm3629_platform_data cm36282_TMO_pdata = {
 	.levels = { 8, 10, 12, 19, 283, 3094, 5313, 7847, 10383, 65535},
 	.golden_adc = 3857,
 	.power = NULL,
+	.lpm_power = capella_pl_sensor_lpm_power,
 	.cm3629_slave_address = 0xC0>>1,
 	.ps1_thd_set = 0x05,
 	.ps1_thd_no_cal = 0xF1,
@@ -1952,6 +1996,7 @@ static struct cm3629_platform_data cm36282_XD_pdata = {
 	.levels = { 8, 10, 17, 134, 257, 2827, 4779, 6989, 9198, 65535},
 	.golden_adc = 3490,
 	.power = NULL,
+	.lpm_power = capella_pl_sensor_lpm_power,
 	.cm3629_slave_address = 0xC0>>1,
 	.ps1_thd_set = 0x05,
 	.ps1_thd_no_cal = 0xF1,
@@ -1979,6 +2024,7 @@ static struct cm3629_platform_data cm36282_pdata = {
 	.levels = { 8, 10, 33, 259, 516, 4881, 8411, 13023, 23251, 65535},
 	.golden_adc = 5573,
 	.power = NULL,
+	.lpm_power = capella_pl_sensor_lpm_power,
 	.cm3629_slave_address = 0xC0>>1,
 	.ps1_thd_set = 0x05,
 	.ps1_thd_no_cal = 0xF1,
