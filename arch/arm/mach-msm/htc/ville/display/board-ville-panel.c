@@ -359,13 +359,13 @@ static int mipi_dsi_panel_power(int on)
 
 	if (on) {
 		printk(KERN_INFO "%s: on\n", __func__);
-		rc = regulator_set_optimum_mode(v_lcm, 100000);
+		rc = regulator_set_optimum_mode(v_lcm, 6900);
 		if (rc < 0) {
 			printk(KERN_ERR "set_optimum_mode %s failed, rc=%d\n", lcm_str, rc);
 			return -EINVAL;
 		}
 
-		rc = regulator_set_optimum_mode(v_dsivdd, 100000);
+		rc = regulator_set_optimum_mode(v_dsivdd, 38500);
 		if (rc < 0) {
 			printk(KERN_ERR "set_optimum_mode %s failed, rc=%d\n", dsivdd_str, rc);
 			return -EINVAL;

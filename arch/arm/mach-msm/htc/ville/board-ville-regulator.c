@@ -283,7 +283,7 @@ VREG_CONSUMERS(EXT_OTG_SW) = {
 #define PM8XXX_LDO(_id, _name, _always_on, _pull_down, _min_uV, _max_uV, \
 		_enable_time, _supply_regulator, _system_uA, _reg_id) \
 	PM8XXX_VREG_INIT(_id, _name, _min_uV, _max_uV, REGULATOR_MODE_NORMAL \
-		| REGULATOR_MODE_IDLE, REGULATOR_CHANGE_VOLTAGE | \
+		| REGULATOR_MODE_IDLE, REGULATOR_CHANGE_VOLTAGE | REGULATOR_CHANGE_CURRENT | \
 		REGULATOR_CHANGE_STATUS | REGULATOR_CHANGE_MODE | \
 		REGULATOR_CHANGE_DRMS, 0, _pull_down, _always_on, \
 		_supply_regulator, _system_uA, _enable_time, _reg_id)
