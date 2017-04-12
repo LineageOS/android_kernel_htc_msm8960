@@ -522,12 +522,13 @@ static void pm8xxx_led_set(struct led_classdev *led_cdev, enum led_brightness br
 	LED_INFO("%s ---\n", __func__);
 }
 
-static void led_alarm_handler(struct alarm *alarm)
+static enum alarmtimer_restart led_alarm_handler(struct alarm *alarm, ktime_t now)
 {
 	struct pm8xxx_led_data *ldata;
 
 	ldata = container_of(alarm, struct pm8xxx_led_data, led_alarm);
 	queue_work(g_led_work_queue, &ldata->led_work);
+	return ALARMTIMER_NORESTART;
 }
 
 static void led_blink_do_work(struct work_struct *work)
@@ -598,7 +599,6 @@ static ssize_t pm8xxx_led_off_timer_store(struct device *dev,
 	int min, sec;
 	uint16_t off_timer;
 	ktime_t interval;
-	ktime_t next_alarm;
 
 	min = -1;
 	sec = -1;
@@ -618,8 +618,7 @@ static ssize_t pm8xxx_led_off_timer_store(struct device *dev,
 	cancel_work_sync(&ldata->led_work);
 	if (off_timer) {
 		interval = ktime_set(off_timer, 0);
-		next_alarm = ktime_add(alarm_get_elapsed_realtime(), interval);
-		alarm_start_range(&ldata->led_alarm, next_alarm, next_alarm);
+		alarm_start_relative(&ldata->led_alarm, interval);
 	}
 	return count;
 }
@@ -870,7 +869,7 @@ static int __devinit pm8xxx_led_probe(struct platform_device *pdev)
 				LED_ERR("%s: Failed to create %d attr off timer\n", __func__, i);
 				goto err_register_attr_off_timer;
 			}
-			alarm_init(&led[i].led_alarm, ANDROID_ALARM_ELAPSED_REALTIME_WAKEUP, led_alarm_handler);
+			alarm_init(&led[i].led_alarm, ALARM_BOOTTIME, led_alarm_handler);
 			INIT_WORK(&led[i].led_work, led_work_func); 
 		}
 

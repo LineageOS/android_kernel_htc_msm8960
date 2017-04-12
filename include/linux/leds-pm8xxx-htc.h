@@ -16,7 +16,7 @@
 
 #define PM8XXX_LEDS_DEV_NAME	"pm8xxx-led"
 
-#include <linux/android_alarm.h>
+#include <linux/alarmtimer.h>
 #include <linux/leds.h>
 
 enum pm8xxx_blink_type {

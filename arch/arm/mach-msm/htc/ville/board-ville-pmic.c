@@ -2,9 +2,11 @@
 #include <linux/ioport.h>
 #include <linux/platform_device.h>
 #include <linux/bootmem.h>
-#include <linux/mfd/pm8xxx/pm8921.h>
-#include <linux/leds.h>
 #include <linux/leds-pm8xxx-htc.h>
+#ifndef CONFIG_HTC_BATT_8960
+#include <linux/mfd/pm8xxx/pm8921-bms.h>
+#endif
+#include <linux/mfd/pm8xxx/pm8921.h>
 #include <linux/mfd/pm8xxx/pm8xxx-adc.h>
 #include <asm/mach-types.h>
 #include <asm/mach/mmc.h>
@@ -182,7 +184,7 @@ static struct pm8xxx_rtc_platform_data pm8xxx_rtc_pdata __devinitdata = {
 
 static struct pm8xxx_pwrkey_platform_data pm8xxx_pwrkey_pdata = {
 	.pull_up		= 1,
-	.kpd_trigger_delay_us	= 15625,
+	.kpd_trigger_delay_us	= 4*15625,
 	.wakeup			= 1,
 };
 
@@ -193,6 +195,11 @@ static int pm8921_therm_mitigation[] = {
 	225,
 };
 
+static struct pm8xxx_misc_platform_data pm8xxx_misc_pdata = {
+	.priority		= 0,
+};
+
+#ifdef CONFIG_HTC_BATT_8960
 static struct pm8921_charger_platform_data pm8921_chg_pdata __devinitdata = {
 	.safety_time		= 510,
 	.update_time		= 60000,
@@ -215,10 +222,6 @@ static struct pm8921_charger_platform_data pm8921_chg_pdata __devinitdata = {
 	.hot_thr = PM_SMBC_BATT_TEMP_HOT_THR__LOW,
 };
 
-static struct pm8xxx_misc_platform_data pm8xxx_misc_pdata = {
-	.priority		= 0,
-};
-
 static struct pm8921_bms_platform_data pm8921_bms_pdata __devinitdata = {
 	.r_sense		= 10,
 	.i_test			= 0, /* ori=2500 */
@@ -226,7 +229,59 @@ static struct pm8921_bms_platform_data pm8921_bms_pdata __devinitdata = {
 	//	.calib_delay_ms		= 600000,
 	.max_voltage_uv		= 4200 * 1000,
 };
+#else
 
+//original values
+#define MAX_VOLTAGE_MV		4200
+#define CHG_TERM_MA		50
+#define MAX_BATT_CHG_I_MA	1025
+#define WARM_BATT_CHG_I_MA	400
+#define VBATDET_DELTA_MV	50
+static struct pm8921_charger_platform_data pm8921_chg_pdata __devinitdata = {
+	//.safety_time		= 510,
+	.update_time		= 60000,
+	.max_voltage		= MAX_VOLTAGE_MV,
+	.min_voltage		= 3200,
+	.resume_voltage_delta	= VBATDET_DELTA_MV,
+	.resume_charge_percent	= 99,
+	.term_current		= CHG_TERM_MA,
+	.cool_temp		= 0,
+	.warm_temp		= 48,
+	.temp_check_period	= 1,
+	.max_bat_chg_current	= MAX_BATT_CHG_I_MA,
+	.cool_bat_chg_current	= 350,
+	.warm_bat_chg_current	= MAX_BATT_CHG_I_MA,
+	.cool_bat_voltage	= 4100,
+	.warm_bat_voltage	= 4100,
+	//.mbat_in_gpio		= VILLE_GPIO_MBAT_IN,
+	.thermal_mitigation	= pm8921_therm_mitigation,
+	.thermal_levels		= ARRAY_SIZE(pm8921_therm_mitigation),
+	.cold_thr = PM_SMBC_BATT_TEMP_COLD_THR__HIGH,
+	.hot_thr = PM_SMBC_BATT_TEMP_HOT_THR__LOW,
+};
+
+static struct pm8921_bms_platform_data pm8921_bms_pdata __devinitdata = {
+	.r_sense_uohm			= 10 * 1000,
+	.i_test				= 0, /* ori=2500 */
+	.v_cutoff			= 3200,
+	.max_voltage_uv			= MAX_VOLTAGE_MV * 1000,
+	.rconn_mohm			= 18,
+	.shutdown_soc_valid_limit	= 20,
+	.adjust_soc_low_threshold	= 25,
+	.chg_term_ua			= CHG_TERM_MA * 1000,
+	.normal_voltage_calc_ms		= 20000,
+	.low_voltage_calc_ms		= 1000,
+	.alarm_low_mv			= 3400,
+	.alarm_high_mv			= 4000,
+	.high_ocv_correction_limit_uv	= 50,
+	.low_ocv_correction_limit_uv	= 100,
+	.hold_soc_est			= 3,
+	.enable_fcc_learning		= 1,
+	.min_fcc_learning_soc		= 20,
+	.min_fcc_ocv_pc			= 30,
+	.min_fcc_learning_samples	= 5,
+};
+#endif
 static int __init check_dq_setup(char *str)
 {
 	if (!strcmp(str, "PASS")) {
@@ -275,7 +330,6 @@ static void amber_gpio_config(bool enable)
 	else
 		pm8xxx_gpio_config(amber_gpios[1].gpio, &amber_gpios[1].config);
 }
-
 
 static struct pm8xxx_led_configure pm8921_led_info[] = {
 	[0] = {

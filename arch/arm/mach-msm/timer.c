@@ -24,11 +24,11 @@
 #include <linux/io.h>
 #include <linux/percpu.h>
 #include <linux/mm.h>
+#include <linux/sched_clock.h>
 
 #include <asm/localtimer.h>
 #include <asm/mach/time.h>
 #include <asm/hardware/gic.h>
-#include <asm/sched_clock.h>
 #include <asm/smp_plat.h>
 #include <asm/user_accessible_timer.h>
 #include <mach/msm_iomap.h>
@@ -933,7 +933,7 @@ int __init msm_timer_init_time_sync(void (*timeout)(void))
 
 #endif
 
-static u32 notrace msm_read_sched_clock(void)
+static u64 notrace msm_read_sched_clock(void)
 {
 	struct msm_clock *clock = &msm_clocks[msm_global_timer];
 	struct clocksource *cs = &clock->clocksource;
@@ -952,7 +952,7 @@ static void __init msm_sched_clock_init(void)
 {
 	struct msm_clock *clock = &msm_clocks[msm_global_timer];
 
-	setup_sched_clock(msm_read_sched_clock, 32 - clock->shift, clock->freq);
+	sched_clock_register(msm_read_sched_clock, 32 - clock->shift, clock->freq);
 }
 
 #ifdef CONFIG_LOCAL_TIMERS
