@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa82b9bf_33233707",
+        "filename": "drivers/power/power_supply_sysfs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-05-29T21:57:21Z",
+      "side": 1,
+      "message": "Couldn\u0027t we just explicitly list out the overload prop case instead?",
+      "revId": "be301ee8e32579efc6886e863f5318b87d8e9bcf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
