@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa82b9bf_f31cefc3",
+        "filename": "arch/arm/mach-msm/htc/htc_battery_8960.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-05-29T22:00:42Z",
+      "side": 1,
+      "message": "space before \u0027\u003d\u0027, we shouldn\u0027t follow HTC\u0027s bad example on the lines above.",
+      "range": {
+        "startLine": 1227,
+        "startChar": 24,
+        "endLine": 1227,
+        "endChar": 25
+      },
+      "revId": "42b2f3ec6bfa1bb07910f39f585ae5674745ba3c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa82b9bf_9379e3fe",
+        "filename": "arch/arm/mach-msm/htc/htc_battery_core.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-05-29T22:00:42Z",
+      "side": 1,
+      "message": "line length",
+      "range": {
+        "startLine": 716,
+        "startChar": 81,
+        "endLine": 716,
+        "endChar": 98
+      },
+      "revId": "42b2f3ec6bfa1bb07910f39f585ae5674745ba3c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
