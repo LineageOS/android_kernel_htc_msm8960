@@ -16,6 +16,24 @@
       "revId": "be301ee8e32579efc6886e863f5318b87d8e9bcf",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa82b9bf_6e7314b2",
+        "filename": "drivers/power/power_supply_sysfs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 16826
+      },
+      "writtenOn": "2017-05-30T02:23:19Z",
+      "side": 1,
+      "message": "you mean just change \u003c\u003d to !\u003d ?\nor else this will end up with too cases with same value.intval return, for overload and for default at the end",
+      "parentUuid": "fa82b9bf_33233707",
+      "revId": "be301ee8e32579efc6886e863f5318b87d8e9bcf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
