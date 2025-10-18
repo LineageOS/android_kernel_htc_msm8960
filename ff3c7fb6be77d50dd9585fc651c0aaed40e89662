@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee76a212_a7d06920",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 36092
+      },
+      "writtenOn": "2025-10-18T06:33:00Z",
+      "side": 1,
+      "message": "Diosesvida",
+      "revId": "ff3c7fb6be77d50dd9585fc651c0aaed40e89662",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
